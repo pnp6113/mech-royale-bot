@@ -1,0 +1,7 @@
+# Official mechfight starter Dockerfile (Python), with the base image pinned to an exact patch
+# release because finalists are rebuilt. Build from the repo root: docker build -t mech-bot .
+# The match runs it with no network, a read-only root (writable /tmp), 1 CPU, 512 MB, and the map at /arena.
+FROM python:3.13.18-slim
+WORKDIR /bot
+COPY . .
+ENTRYPOINT ["python3", "-u", "/bot/example_bot.py"]
