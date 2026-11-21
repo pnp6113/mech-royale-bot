@@ -720,6 +720,7 @@ class Match:
                     self._laser_shot(me, w, ws)
 
     def _laser_shot(self, me, w, ws):
+        me.shots["laser"] = me.shots.get("laser", 0) + 1
         frac = min(1.0, w.charge / ws["charge"])
         dmg = ws["damage"] * (ws["min_frac"] + (1 - ws["min_frac"]) * frac) * me.dmg_mult()
         w.charge = 0.0
@@ -920,7 +921,9 @@ class Match:
             if tt > self.t - 10:
                 lastw[wpn] = lastw.get(wpn, 0) + amt
         cause = max(lastw, key=lastw.get) if (lastw and not us.alive) else ("alive" if us.alive else "?")
-        return {"cause": cause, "t_weapon": us.t_weapon, "cubes_first_hit": us.first_hit_cubes,
+        return {"laser_shots": us.shots.get("laser", 0), "laser_hits": us.hits.get("laser", 0),
+                "had_laser": int(any(w and w.kind == "laser" for w in us.weapons) or us.shots.get("laser", 0) > 0),
+                "cause": cause, "t_weapon": us.t_weapon, "cubes_first_hit": us.first_hit_cubes,
                 "laser_dmg": round(by_w.get("laser", 0)),
                 "dmg_by": by_w, "attackers15": len(set(last)), "gun_acc": round(us.hits.get("gun", 0) / max(1, us.shots.get("gun", 0)), 2),
                 "dealt": {k: v for k, v in us.hits.items()},

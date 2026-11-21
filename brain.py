@@ -31,6 +31,10 @@ TUNE = {
     "strafe": 0.9,          # sideways weight while fighting
     "npc_hp_min": 0.6,      # hunt NPC drones only above this HP fraction
     "engage_r": 100.0,      # start a fight with a visible enemy only inside this range (attackers always); v6 260
+    "laser_first": False,   # value laser above lightning when picking up; weapon rush detours further for it
+    "laser_engage_r": 0.0,  # while holding a laser, start fights out to this range (0 = engage_r)
+    "laser_aim": False,     # while charging, aim at the target's predicted position at release time
+    "laser_lethal": False,  # release a partial charge early when it already kills the target (visible HP)
     "drop_gun": True,       # with gun + laser/lightning, swap the gun for the other one (laser + lightning loadout)
     "upgrade_damage": 0.0,  # bonus to weapon damage/rate upgrades (0 = v6 ranking)
     "jink": False,           # F1: reverse strafe every 0.25-0.55 s when an enemy >55 m aims at us
@@ -45,6 +49,13 @@ TUNE = {
 
 # preference for loot weapons (higher is better); the gun is the spawn weapon
 WEAPON_VALUE = {"lightning": 3.0, "laser": 2.6, "mortar": 1.2, "gun": 1.0}
+
+
+def wv(kind):
+    """Pickup value; laser-first ranks the 280 m hitscan laser above lightning."""
+    if kind == "laser" and TUNE.get("laser_first"):
+        return 3.3
+    return WEAPON_VALUE.get(kind, 0.0)
 
 UPGRADE_VALUE = {
     "plating": 10.0, "armor": 9.6, "nanites": 7.5, "gyros": 4.5, "servos": 6.0, "capacitor": 5.0,
@@ -286,11 +297,14 @@ class Bot:
                 self.retreating = False
             else:
                 retreat = True
+        eng_r = TUNE["engage_r"]
+        if "laser" in kinds and TUNE["laser_engage_r"] > eng_r:
+            eng_r = TUNE["laser_engage_r"]  # hitscan: range costs little
         if zone_urgent:
             mode = "zone"
         elif retreat:
             mode = "retreat"
-        elif tgt is not None and ((tgt[2] and (tgt[1] < TUNE["engage_r"] or tgt[0]["id"] in self.attackers))
+        elif tgt is not None and ((tgt[2] and (tgt[1] < eng_r or tgt[0]["id"] in self.attackers))
                                   or tgt[1] < 90):
             mode = "fight"
         else:
@@ -349,6 +363,8 @@ class Bot:
             for pid, (kind, ppos, pt) in self.pickup_mem.items():
                 if kind in want_kinds and kind not in kinds:
                     d = math.hypot(ppos[0] - px, ppos[1] - py)
+                    if kind == "laser" and TUNE.get("laser_first"):
+                        d *= 0.7  # laser-first: worth a longer detour
                     if d < bd and abs(ppos[2] - pz) < 4.0:
                         best_p, bd = ppos, d
             if best_p is not None:
@@ -728,12 +744,12 @@ class Bot:
         def inside(x, y):
             return math.hypot(x - nc[0], y - nc[1]) < lim or t + 25 < ss
 
-        slot_vals = [WEAPON_VALUE.get(k, 0.0) if k else 0.0 for k in kinds]
+        slot_vals = [wv(k) if k else 0.0 for k in kinds]
         # weapon pickups
         for pid, (kind, ppos, pt) in self.pickup_mem.items():
             if kind in kinds or (TUNE["no_mortar"] and kind == "mortar"):
                 continue
-            v = WEAPON_VALUE.get(kind, 0.0)
+            v = wv(kind)
             gain = v - min(slot_vals[1] if len(slot_vals) > 1 else 0.0, 99)
             if kinds[1] is not None and gain <= 0.3:
                 continue
@@ -878,14 +894,30 @@ class Bot:
                 full = float(ls.get("charge", 0.75))
                 lrange = float(ls.get("range", 280))
                 if tvis and dist3 < lrange and (tgt is not None or charge > 0):
-                    if charge > 0 and charge >= full - 0.12:
+                    # where the target will be when the beam goes: the rest of the charge + one decision
+                    t_rel = max(0.0, full - charge) + 0.1
+                    pred_rel = [target_pt[0] + target_vel[0] * t_rel, target_pt[1] + target_vel[1] * t_rel,
+                                target_pt[2] + target_vel[2] * min(t_rel, 0.3)]
+                    if TUNE["laser_aim"] and (charge > 0 or gun_i < 0 or dist3 > 60.0):
+                        aim = self.aim_at(muzzle, pred_rel)  # be aligned when the charge completes
+                    lethal = False
+                    if TUNE["laser_lethal"] and tgt is not None and charge >= float(ls.get("min_charge", 0.15)):
+                        mf_ = float(ls.get("min_frac", 0.35))
+                        dmg = float(ls.get("damage", 315)) * (mf_ + (1 - mf_) * min(1.0, charge / max(full, 1e-3)))
+                        dmg *= 1.0 + float(self.cubes_cfg.get("damage_per_cube", 0.04)) * min(
+                            float(me.get("cubes", 0) or 0), float(self.cubes_cfg.get("stat_cap", 10)))
+                        if "mortar" in (tgt[0].get("weapons") or []):
+                            dmg *= 1.0 + float(ls.get("cookoff", 0.6))
+                        ehp = tgt[0].get("hp")
+                        lethal = ehp is not None and dmg >= float(ehp) * 1.05
+                    if charge > 0 and (charge >= full - 0.12 or lethal):
                         # predict 0.1 s ahead (the action applies next tick)
                         pred = [target_pt[0] + target_vel[0] * 0.1, target_pt[1] + target_vel[1] * 0.1,
                                 target_pt[2] + target_vel[2] * 0.1]
                         aim = self.aim_at(muzzle, pred)
                         err = self.miss(aim_now, self.aim_at(muzzle, target_pt), dist3)
                         fire[laser_i] = not (err < target_r * 0.8)  # release (False) when on target
-                        if charge < full - 0.02:
+                        if charge < full - 0.02 and not lethal:
                             fire[laser_i] = True
                     elif float(lw.get("cooldown", 0) or 0) <= 0.1:
                         fire[laser_i] = True  # charge
@@ -1062,7 +1094,7 @@ class Bot:
                 w = weapons[i] if i < len(weapons) else None
                 if w and w.get("kind") == "laser" and float(w.get("charge", 0) or 0) > 0:
                     continue
-                options.append((WEAPON_VALUE.get(k, 0.0), i, k))
+                options.append((wv(k), i, k))
             if not options:
                 continue
             non_gun = [o for o in options if o[2] != "gun"]
@@ -1075,7 +1107,7 @@ class Bot:
                         return p["id"], gi  # laser + lightning loadout: the gun goes
             pool.sort()
             worst_v, worst_i, _worst_k = pool[0]
-            if WEAPON_VALUE.get(kind, 0.0) > worst_v + 0.3:
+            if wv(kind) > worst_v + 0.3:
                 return p["id"], worst_i
         return None
 

@@ -69,6 +69,8 @@ def main():
     if a.v:
         for r in res:
             print(json.dumps({k: v for k, v in r.items() if k != "first_error"}))
+    print(f"laser: matches {sum(r.get('had_laser', 0) for r in res)}/{len(res)}  releases {sum(r.get('laser_shots', 0) for r in res)}"
+          f"  hits {sum(r.get('laser_hits', 0) for r in res)}")
     errs = [r for r in res if r.get("first_error")]
     if errs:
         print("FIRST ERROR:\n", errs[0]["first_error"])

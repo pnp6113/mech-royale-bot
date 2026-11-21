@@ -633,6 +633,67 @@ def no_gun_still_fights_with_lightning():
     assert a["fire"][1], a
 
 
+def _laser(charge):
+    return {"kind": "laser", "cooldown": 0, "charge": charge,
+            "stats": {"damage": 315, "charge": 0.75, "min_charge": 0.15, "min_frac": 0.35, "hold_s": 2,
+                      "cooldown": 1.65, "range": 280}}
+
+
+@case
+def laser_partial_charge_released_when_lethal():
+    from brain import TUNE
+    saved = dict(TUNE)
+    try:
+        TUNE["laser_lethal"] = True
+        b = fresh_bot()
+        e = enemy(5, 150, 0, hp=100)
+        o = obs(mechs=[e])
+        o["self"]["weapons"][1] = _laser(0.3)  # 315*(0.35+0.65*0.4) = 192 > 100 HP
+        o["self"]["aim"] = [0.0, b.aim_at([OX, OY, OZ + 7], [e["pos"][0], e["pos"][1], e["pos"][2] + 4.5])[1]]
+        a = run(b, o)
+        assert a["fire"][1] is False, a  # released
+        TUNE["laser_lethal"] = False
+        b2 = fresh_bot()
+        a2 = run(b2, o)
+        assert a2["fire"][1] is True, a2  # keeps charging toward full
+    finally:
+        TUNE.clear(); TUNE.update(saved)
+
+
+@case
+def laser_not_released_early_on_healthy_target():
+    from brain import TUNE
+    saved = dict(TUNE)
+    try:
+        TUNE["laser_lethal"] = True
+        b = fresh_bot()
+        e = enemy(5, 150, 0, hp=1400)
+        o = obs(mechs=[e])
+        o["self"]["weapons"][1] = _laser(0.3)
+        o["self"]["aim"] = [0.0, 0.0]
+        a = run(b, o)
+        assert a["fire"][1] is True, a
+    finally:
+        TUNE.clear(); TUNE.update(saved)
+
+
+@case
+def laser_holder_engages_at_long_range():
+    from brain import TUNE
+    saved = dict(TUNE)
+    try:
+        TUNE["laser_engage_r"] = 220.0
+        b = fresh_bot()
+        e = enemy(5, 180, 0)
+        o = obs(mechs=[e])
+        o["self"]["weapons"][1] = _laser(0.0)
+        run(b, o)
+        if MAP.los([OX, OY, OZ + 7], [e["pos"][0], e["pos"][1], e["pos"][2] + 4.5]):
+            assert b.mode == "fight", b.mode
+    finally:
+        TUNE.clear(); TUNE.update(saved)
+
+
 if __name__ == "__main__":
     bad = 0
     for name, status, msg in RESULTS:
