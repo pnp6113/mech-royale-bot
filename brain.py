@@ -31,11 +31,11 @@ TUNE = {
     "strafe": 0.9,          # sideways weight while fighting
     "npc_hp_min": 0.6,      # hunt NPC drones only above this HP fraction
     "engage_r": 100.0,      # start a fight with a visible enemy only inside this range (attackers always); v6 260
-    "laser_first": False,   # value laser above lightning when picking up; weapon rush detours further for it
-    "laser_engage_r": 0.0,  # while holding a laser, start fights out to this range (0 = engage_r)
-    "laser_aim": False,     # while charging, aim at the target's predicted position at release time
-    "laser_lethal": False,  # release a partial charge early when it already kills the target (visible HP)
-    "drop_gun": True,       # with gun + laser/lightning, swap the gun for the other one (laser + lightning loadout)
+    "laser_first": True,    # value laser above lightning when picking up; weapon rush detours further for it
+    "laser_engage_r": 220.0,  # while holding a laser, start fights out to this range (0 = engage_r)
+    "laser_aim": True,      # while charging, aim at the target's predicted position at release time
+    "laser_lethal": True,   # release a partial charge early when it already kills the target (visible HP)
+    "drop_gun": False,       # with gun + laser/lightning, swap the gun for the other one (laser + lightning loadout)
     "upgrade_damage": 0.0,  # bonus to weapon damage/rate upgrades (0 = v6 ranking)
     "jink": False,           # F1: reverse strafe every 0.25-0.55 s when an enemy >55 m aims at us
     "gun_max_moving": 0.0,   # F2: don't shoot the gun at movers beyond this range (0 = off; Ethan: 120)
