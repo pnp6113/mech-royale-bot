@@ -34,8 +34,8 @@ TUNE = {
     "upgrade_damage": 0.0,  # bonus to weapon damage/rate upgrades (0 = v6 ranking)
     "jink": False,           # F1: reverse strafe every 0.25-0.55 s when an enemy >55 m aims at us
     "gun_max_moving": 0.0,   # F2: don't shoot the gun at movers beyond this range (0 = off; Ethan: 120)
-    "no_mortar": False,      # F3: never take a mortar (laser cook-off +60%, lowest DPS)
-    "face_threats": False,   # F4: idle torso faces remembered enemies (20 s); turn to rear attackers
+    "no_mortar": True,       # F3: never take a mortar (laser cook-off +60%, lowest DPS)
+    "face_threats": True,    # F4: idle torso faces remembered enemies (20 s); turn to rear attackers
     "laser_cover": False,    # F5: charging laser aimed at us -> step to cover within ~14 m
     "smart_targets": True,  # target bonuses: charging lasers in lightning range, mortar carriers vs laser, low HP
     "cover": True,          # retreat to a spot that breaks line of fire (regen needs 5 s without damage)
