@@ -11,6 +11,7 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | Practice board top (Sat 02:30 ET) | 5.60 | track page, 180 teams |
 | Top-32 cutoff / top-16 / top (Sat 03:00 ET) | 4.98 / 5.21 / 5.75 | track page, 184 teams; we were 95th at 3.77 |
 | Top-32 cutoff / top-16 / top (Sat 03:41 ET) | 5.04 / 5.27 / 5.96 | 193 teams; we are 86th at 4.04 |
+| Top-32 cutoff / top-16 / top (Sat 04:00 ET) | 5.06 / 5.31 / 5.96 | 198 teams; we are 78th at 4.19 |
 
 ## Submissions
 
@@ -23,8 +24,8 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | v3 | 26b1d5a | Sat 02:59 | BB-5344E3D3 | **3.79** | – | v2 + smart targets, cover retreat, regen hold | neutral (+0.02), matches sim |
 | v4 | 1735122 | Sat 03:37 | BB-2D26F728 | **4.04** | 86/193 | v3 + weapon rush (with slot 2 empty, grab seen lightning/laser ≤80 m even mid-fight) | **better (+0.25)**: new best |
 | v4c | fb13d48 | Sat 03:41 | BB-157F165B | 4.00 | – | v4 + Codex CombatController (integ/combat) | neutral (−0.04), matches sim: not merged |
-| v5 | 1f3ff13 | Sat 03:54 | BB-49370AB7 | pending | – | v4 + Cursor QA fixes (dodge sign, crossfire, swap, lightning nearest, mortar pitch, slopes, planner 2.5 ms) | – |
-| v6 | 417f6eb | (queued 03:59) | – | – | – | v5 + retreat hysteresis: retreat <65% HP, stay back until 90% (sim 3.03 vs 2.74) | – |
+| v5 | 1f3ff13 | Sat 03:54 | BB-49370AB7 | **4.19** | 78/198 | v4 + Cursor QA fixes (dodge sign, crossfire, swap, lightning nearest, mortar pitch, slopes, planner 2.5 ms) | **better (+0.15)**: new best |
+| v6 | 417f6eb | Sat 04:00 | BB-B869F61E | pending | – | v5 + retreat hysteresis: retreat <65% HP, stay back until 90% (sim 3.03 vs 2.74) | – |
 
 ## Local gates every submitted commit must clear
 
@@ -50,3 +51,11 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | Ethan F1-F5 each vs base (v4 code, house lead 1.45x) | 96 | base 2.73 | jink 2.50, gun≤120 2.59, no_mortar 2.73, face 2.78, laser_cover 2.70, all 2.36 | none above noise (SE≈0.26) |
 | retreat_hp 0.5 / 0.65 (v4 code) | 96 | 2.73 / 2.88 | base 2.73 | 0.65: longer survival (82 s vs 70 s) |
 | retreat hysteresis (v4f code, F3/F4 off) | 96 | 65%/90%: **3.03**; 50%/85%: 2.74 | base 2.74 | strongest sim signal so far → v6 |
+
+## Practice/FFA classifier validation (sim, mode.py) — NOT wired into the bot
+
+| Rule | Squad matches: false FFA calls | FFA matches: detected | Verdict |
+| --- | --- | --- | --- |
+| >=3 unexplained deaths before 200 s | 1/48 | 40/48 (median 17 s) | fails 0-false-positive gate |
+| >=3 before 60 s or >=6 before 150 s | 1/96 | 87/96 (median 17 s) | fails 0-false-positive gate |
+Unexplained deaths also happen in squad play (NPC drones, zone). Not used; v6's retreat/heal policy is the finals policy.
