@@ -31,7 +31,8 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | v8 | 7a5737c | Sat 04:42 | BB-7EEB6537 | **4.29** | – | v7 + face_threats + no_mortar (sim 3.04 vs 2.76 on v7 base) | +0.04: new best |
 | v9 | 544d924 | Sat 04:55 | BB-6744393F | 4.06 | – | v8 + upgrade_damage 4 (sim 3.17 vs 3.04) | **worse (−0.23)**: rejected; keep plating/armor order |
 | v9r | 45ce606 | Sat 05:01 | BB-885F8DDA | 4.23 | 79/214 | v8 + retreat 75%/95% (sim 3.16 vs 3.04) | −0.06 vs v8: retreat 65/90 stays |
-| v10 | 8a6381b | (queued 05:39) | – | – | – | v8 + drop_gun: laser + lightning loadout | – |
+| v10 | 8a6381b | not submitted | – | – | – | v8 + drop_gun: laser + lightning loadout | superseded by v11 (drop_gun lost to gun-kept in sim: 4.01 vs 4.75) |
+| v11 | 933713c | Sat 09:03 | BB-8B52F20D | **4.48** | 85/243 | v8 + original laser-first package: laser pickup priority, engage to 220 m with a laser, release-time aim, lethal partial release; gun kept | **better (+0.19)**: new best, FINAL ENTRY |
 
 ## Local gates every submitted commit must clear
 
@@ -79,3 +80,6 @@ Watch page (`watch.joinbuilders.org/show`) airs exhibitions/lobby/final, not pra
 | drop_gun confirm (v9 base, seeds 200-295) | 96 | **3.91** | 3.20 | strong on v9 base |
 | drop_gun on v8 base (seeds 400-495) | 96 | 3.46 | 3.38 | weak (+0.08): interaction with upgrade choice? real A/B decides |
 | v10 survival distribution (seeds 600-695) | 96 | 44% die < 60 s (≈1.3 kills); reach 120 s: 31% (mean 5.8 pts); 200 s: 7% (10.1); 300 s: 0 | – | opening survival is the lever |
+| laser package, 4 arms (seeds 1000-1095) | 96 | v8-equiv 3.64; aim+lethal 3.86; **full 4.75**; full+drop_gun 4.01 | – | laser releases 266 → 790 |
+| laser package confirm (seeds 1200-1295) | 96 | **4.03** | 3.07 | +0.96; releases 715 vs 256 |
+| laser package, modeled FFA (seeds 1400-1431) | 32 | 13.16 | 12.75 | no FFA regression |
