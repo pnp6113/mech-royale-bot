@@ -606,6 +606,33 @@ def retreat_goal_breaks_line_of_fire():
     assert not MAP.los((e["pos"][0], e["pos"][1], e["pos"][2] + 7), (cov[0], cov[1], z)), cov
 
 
+@case
+def drop_gun_for_laser_lightning_loadout():
+    from brain import TUNE
+    if not TUNE.get("drop_gun"):
+        return
+    b = fresh_bot()
+    o = obs(pickups=[{"id": 8101, "kind": "laser", "pos": [OX + 1.2, OY, OZ]}])
+    o["self"]["weapons"][1] = {"kind": "lightning", "cooldown": 0,
+                               "stats": {"damage": 60, "cooldown": 0.25, "range": 45, "cone_deg": 30, "chain": 2,
+                                         "chain_range": 14, "energy": 3}}
+    a = run(b, o)
+    assert a.get("take") == 8101 and a.get("drop") == 0, a
+
+
+@case
+def no_gun_still_fights_with_lightning():
+    b = fresh_bot()
+    e = enemy(5, 25, 0)
+    o = obs(mechs=[e])
+    lw = {"kind": "lightning", "cooldown": 0,
+          "stats": {"damage": 60, "cooldown": 0.25, "range": 45, "cone_deg": 30, "chain": 2, "chain_range": 14,
+                    "energy": 3}}
+    o["self"]["weapons"] = [None, lw]
+    a = run(b, o)
+    assert a["fire"][1], a
+
+
 if __name__ == "__main__":
     bad = 0
     for name, status, msg in RESULTS:

@@ -31,7 +31,8 @@ TUNE = {
     "strafe": 0.9,          # sideways weight while fighting
     "npc_hp_min": 0.6,      # hunt NPC drones only above this HP fraction
     "engage_r": 100.0,      # start a fight with a visible enemy only inside this range (attackers always); v6 260
-    "upgrade_damage": 4.0,  # bonus to weapon damage/rate upgrades (0 = v6 ranking)
+    "drop_gun": True,       # with gun + laser/lightning, swap the gun for the other one (laser + lightning loadout)
+    "upgrade_damage": 0.0,  # bonus to weapon damage/rate upgrades (0 = v6 ranking)
     "jink": False,           # F1: reverse strafe every 0.25-0.55 s when an enemy >55 m aims at us
     "gun_max_moving": 0.0,   # F2: don't shoot the gun at movers beyond this range (0 = off; Ethan: 120)
     "no_mortar": True,       # F3: never take a mortar (laser cook-off +60%, lowest DPS)
@@ -338,10 +339,15 @@ class Bot:
             dirx, diry = self.fight_move(tgt, kinds, weapons, px, py, hp_frac, ec, er, t, t0)
         # weapon rush: an empty second slot is the biggest power gap; grab a good weapon even mid-fight
         rush_r = TUNE["weapon_rush_r"]
-        if rush_r > 0 and mode in ("fight", "loot") and len(kinds) > 1 and kinds[1] is None:
+        want_kinds = ("lightning", "laser")
+        if TUNE["drop_gun"] and "gun" in kinds and None not in kinds:
+            held = [k for k in kinds if k in want_kinds]
+            want_kinds = tuple(k for k in ("lightning", "laser") if k not in held) if held else ()
+        if rush_r > 0 and mode in ("fight", "loot") and len(kinds) > 1 and (kinds[1] is None or
+                                                                           (TUNE["drop_gun"] and want_kinds)):
             best_p, bd = None, rush_r
             for pid, (kind, ppos, pt) in self.pickup_mem.items():
-                if kind in ("lightning", "laser") and kind not in kinds:
+                if kind in want_kinds and kind not in kinds:
                     d = math.hypot(ppos[0] - px, ppos[1] - py)
                     if d < bd and abs(ppos[2] - pz) < 4.0:
                         best_p, bd = ppos, d
@@ -1061,6 +1067,12 @@ class Bot:
                 continue
             non_gun = [o for o in options if o[2] != "gun"]
             pool = non_gun if non_gun else options
+            if TUNE["drop_gun"] and kind in ("laser", "lightning") and "gun" in kinds:
+                other = [k for k in kinds if k not in (None, "gun")]
+                if other and other[0] in ("laser", "lightning") and other[0] != kind:
+                    gi = kinds.index("gun")
+                    if any(o[1] == gi for o in options):
+                        return p["id"], gi  # laser + lightning loadout: the gun goes
             pool.sort()
             worst_v, worst_i, _worst_k = pool[0]
             if WEAPON_VALUE.get(kind, 0.0) > worst_v + 0.3:
