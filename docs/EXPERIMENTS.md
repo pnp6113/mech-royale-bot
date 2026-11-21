@@ -25,7 +25,9 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | v4 | 1735122 | Sat 03:37 | BB-2D26F728 | **4.04** | 86/193 | v3 + weapon rush (with slot 2 empty, grab seen lightning/laser ≤80 m even mid-fight) | **better (+0.25)**: new best |
 | v4c | fb13d48 | Sat 03:41 | BB-157F165B | 4.00 | – | v4 + Codex CombatController (integ/combat) | neutral (−0.04), matches sim: not merged |
 | v5 | 1f3ff13 | Sat 03:54 | BB-49370AB7 | **4.19** | 78/198 | v4 + Cursor QA fixes (dodge sign, crossfire, swap, lightning nearest, mortar pitch, slopes, planner 2.5 ms) | **better (+0.15)**: new best |
-| v6 | 417f6eb | Sat 04:00 | BB-B869F61E | pending | – | v5 + retreat hysteresis: retreat <65% HP, stay back until 90% (sim 3.03 vs 2.74) | – |
+| v6 | 417f6eb | Sat 04:00 | BB-B869F61E | **4.21** | – | v5 + retreat hysteresis: retreat <65% HP, stay back until 90% (sim 3.03 vs 2.74) | neutral (+0.02) |
+| v7 | 5cdab49 | Sat 04:39 | BB-0B89A341 | **4.25** | – | v6 + engage_r 100: start fights only inside 100 m, always answer attackers (sim 3.20/3.22 vs 2.77) | +0.04: new best (sim overestimated) |
+| v8 | 7a5737c | Sat 04:42 | BB-7EEB6537 | pending | – | v7 + face_threats + no_mortar (sim 3.04 vs 2.76 on v7 base) | – |
 
 ## Local gates every submitted commit must clear
 
@@ -59,3 +61,13 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | >=3 unexplained deaths before 200 s | 1/48 | 40/48 (median 17 s) | fails 0-false-positive gate |
 | >=3 before 60 s or >=6 before 150 s | 1/96 | 87/96 (median 17 s) | fails 0-false-positive gate |
 Unexplained deaths also happen in squad play (NPC drones, zone). Not used; v6's retreat/heal policy is the finals policy.
+
+## Reviews of other agents' branches
+
+| Branch | What | Evidence | Decision |
+| --- | --- | --- | --- |
+| feat/combat-codex (ed12f8a) | full combat controller | real v4c 4.00 vs v4 4.04; sim no gain; 3x latency | not merged |
+| qa/cursor (674685d) | correctness fixes | real v5 4.19 vs v4 4.04 | merged (v5) |
+| feat/cover-combat (d9b1731) | opt-in cover peeking for gun fights, based on v6 | its own sim: 2.73 vs 2.77, active on 215/32,677 decisions | deferred: low activity, unproven; noted sim bug (bullet can hit a mech before the wall check on the same step) |
+
+Watch page (`watch.joinbuilders.org/show`) airs exhibitions/lobby/final, not practice runs: no per-match diagnostics for us.
