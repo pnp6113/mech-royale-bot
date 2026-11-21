@@ -22,21 +22,21 @@ TAU = 2 * math.pi
 # Strategy knobs: one place to change per experiment (see docs/EXPERIMENTS.md)
 TUNE = {
     "retreat_hp": 0.32,     # retreat below this HP fraction (0 disables); v1b tested 0 -> 3.33 vs 3.42
-    "cube_grab_r": 25.0,
-    "weapon_rush_r": 80.0,
+    "cube_grab_r": 25.0,    # grab cubes within this radius in any non-zone mode (0 disables)
+    "weapon_rush_r": 80.0,  # with slot 2 empty, go for a seen lightning/laser within this radius even mid-fight
     "gun_want": 55.0,       # preferred fight distance with gun only (m)
     "laser_want": 110.0,    # preferred fight distance with a laser (m)
     "lightning_want": 0.62, # preferred distance as a fraction of lightning range
     "strafe": 0.9,          # sideways weight while fighting
-    "npc_hp_min": 0.6,
+    "npc_hp_min": 0.6,      # hunt NPC drones only above this HP fraction
     "jink": False,           # F1: reverse strafe every 0.25-0.55 s when an enemy >55 m aims at us
     "gun_max_moving": 0.0,   # F2: don't shoot the gun at movers beyond this range (0 = off; Ethan: 120)
-    "no_mortar": False,      # F3: never take a mortar (laser cook-off +60%, lowest DPS)
-    "face_threats": False,   # F4: idle torso faces remembered enemies (20 s); turn to rear attackers
-    "laser_cover": False,    # F5: charging laser aimed at us -> step to cover within ~14 m      # hunt NPC drones only above this HP fraction  # with slot 2 empty, go for a seen lightning/laser within this radius even mid-fight
+    "no_mortar": True,       # F3: never take a mortar (laser cook-off +60%, lowest DPS)
+    "face_threats": True,    # F4: idle torso faces remembered enemies (20 s); turn to rear attackers
+    "laser_cover": False,    # F5: charging laser aimed at us -> step to cover within ~14 m
     "smart_targets": True,  # target bonuses: charging lasers in lightning range, mortar carriers vs laser, low HP
     "cover": True,          # retreat to a spot that breaks line of fire (regen needs 5 s without damage)
-    "regen_hold": 0.75,     # below this HP fraction with no enemies: stop shooting loot and hold still (0 = off)    # grab cubes within this radius in any non-zone mode (0 disables; v1 had none)
+    "regen_hold": 0.75,     # below this HP fraction with no enemies: stop shooting loot and hold still (0 = off)
 }
 
 # preference for loot weapons (higher is better); the gun is the spawn weapon
