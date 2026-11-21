@@ -10,6 +10,8 @@ import random
 import time
 
 import mechfight as mf
+from cover_engagement import CoverEngagement
+from cover_geometry import CoverSearch
 
 try:
     import geom
@@ -32,6 +34,7 @@ TUNE = {
     "npc_hp_min": 0.6,      # hunt NPC drones only above this HP fraction
     "smart_targets": True,  # target bonuses: charging lasers in lightning range, mortar carriers vs laser, low HP
     "cover": True,          # retreat to a spot that breaks line of fire (regen needs 5 s without damage)
+    "cover_peek": False,    # experimental cover positioning for gun engagements
     "regen_hold": 0.75,     # below this HP fraction with no enemies: stop shooting loot and hold still (0 = off)
 }
 
@@ -118,6 +121,10 @@ class Bot:
         self.loot_track = None  # (id, since_t, hp_at_since)
         self.cover_cache = None
         self.retreating = False
+        self.cover_engagement = (
+            CoverEngagement(CoverSearch(self.map, cfg), cfg) if TUNE["cover_peek"] and self.map is not None else None
+        )
+        self.cover_phase = None
         # the static map is large and permanent: keep the cyclic GC from rescanning it every tick
         import gc
         gc.collect()
@@ -321,37 +328,50 @@ class Bot:
         dirx = diry = 0.0
         if goal is not None:
             dirx, diry = self.steer_to(goal, px, py, t0)
-        if mode == "fight" and tgt is not None:
-            dirx, diry = self.fight_move(tgt, kinds, weapons, px, py, hp_frac, ec, er, t, t0)
         # weapon rush: an empty second slot is the biggest power gap; grab a good weapon even mid-fight
         rush_r = TUNE["weapon_rush_r"]
+        best_p = None
         if rush_r > 0 and mode in ("fight", "loot") and len(kinds) > 1 and kinds[1] is None:
-            best_p, bd = None, rush_r
+            bd = rush_r
             for pid, (kind, ppos, pt) in self.pickup_mem.items():
                 if kind in ("lightning", "laser") and kind not in kinds:
                     d = math.hypot(ppos[0] - px, ppos[1] - py)
                     if d < bd and abs(ppos[2] - pz) < 4.0:
                         best_p, bd = ppos, d
-            if best_p is not None:
-                wx, wy = self.steer_to((best_p[0], best_p[1]), px, py, t0)
-                if mode == "fight":
-                    dirx, diry = dirx * 0.35 + wx * 1.3, diry * 0.35 + wy * 1.3
-                else:
-                    dirx, diry = wx, wy
         # grab nearby power cubes (kills drop victim cubes + 2): +HP, +damage, upgrade offers
         grab_r = TUNE["cube_grab_r"]
+        near_c = None
         if grab_r > 0 and mode != "zone":
-            near_c, nd = None, grab_r
+            nd = grab_r
             for c in obs.get("cubes") or []:
                 d = math.hypot(c["pos"][0] - px, c["pos"][1] - py)
                 if d < nd and abs(c["pos"][2] - pz) < 4.0:
                     near_c, nd = c, d
-            if near_c is not None:
-                cx, cy, _ = norm2(near_c["pos"][0] - px, near_c["pos"][1] - py)
-                if mode == "fight":
-                    dirx, diry = dirx * 0.6 + cx * 1.2, diry * 0.6 + cy * 1.2
-                else:
-                    dirx, diry = cx, cy
+
+        cover_order = None
+        if self.cover_engagement is not None:
+            cover_order = self.cover_engagement.decide(
+                obs, tgt[0] if tgt is not None else None, threats=enemies,
+                eligible=(mode == "fight" and best_p is None and near_c is None and d_eff <= er - 14
+                          and t >= self.stuck_until and self.hop_req is None),
+            )
+        self.cover_phase = cover_order.phase if cover_order is not None else None
+        if cover_order is not None:
+            dirx, diry = cover_order.move
+        elif mode == "fight" and tgt is not None:
+            dirx, diry = self.fight_move(tgt, kinds, weapons, px, py, hp_frac, ec, er, t, t0)
+        if best_p is not None:
+            wx, wy = self.steer_to((best_p[0], best_p[1]), px, py, t0)
+            if mode == "fight":
+                dirx, diry = dirx * 0.35 + wx * 1.3, diry * 0.35 + wy * 1.3
+            else:
+                dirx, diry = wx, wy
+        if near_c is not None:
+            cx, cy, _ = norm2(near_c["pos"][0] - px, near_c["pos"][1] - py)
+            if mode == "fight":
+                dirx, diry = dirx * 0.6 + cx * 1.2, diry * 0.6 + cy * 1.2
+            else:
+                dirx, diry = cx, cy
         # stay inside the effective circle while fighting / looting
         if mode in ("fight", "loot", "retreat") and d_eff > er - 12:
             ix, iy, _ = norm2(ec[0] - px, ec[1] - py)
@@ -359,12 +379,16 @@ class Bot:
 
         # ---- dodging
         dodge_x, dodge_y, laser_threat = self.dodge(obs, me, mycenter, px, py, pz, vx, vy, scale)
-        if dodge_x or dodge_y:
+        dodging = bool(dodge_x or dodge_y)
+        if dodging:
             dirx, diry = dirx * 0.5 + dodge_x * 1.6, diry * 0.5 + dodge_y * 1.6
 
         mx, my, ml = norm2(dirx, diry)
         hopping = self.hop_req is not None and t - self.hop_req[1] < 0.35
-        if ml > 0 and not hopping:
+        cover_moving = cover_order is not None and not dodging
+        if cover_moving:
+            mx, my = dirx, diry  # Local path was checked to the endpoint and includes braking.
+        elif ml > 0 and not hopping:
             mx, my = self.avoid_walls(mx, my, px, py)
 
         # ---- stuck handling
@@ -376,7 +400,7 @@ class Bot:
             if not hopping:
                 mx, my = self.avoid_walls(mx, my, px, py)
             jump = bool(me.get("grounded"))
-        elif ml > 0 and len(self.pos_hist) >= 10 and t - self.pos_hist[0][0] >= 1.4:
+        elif not cover_moving and ml > 0 and len(self.pos_hist) >= 10 and t - self.pos_hist[0][0] >= 1.4:
             moved = math.hypot(px - self.pos_hist[0][1], py - self.pos_hist[0][2])
             if moved < 2.0 and not self.charging(weapons):
                 ang = math.atan2(my, mx) + self.rng.choice((-1, 1)) * self.rng.uniform(1.2, 2.2)
@@ -411,6 +435,15 @@ class Bot:
         # ---- aim and fire
         aim, fire = self.aim_and_fire(obs, me, weapons, kinds, tgt, loot_target, muzzle, eye, px, py, pz,
                                       mx, my, energy, mode, npcs, t)
+        if cover_order is not None and "gun" in kinds:
+            gun_slot = kinds.index("gun")
+            if not cover_order.gun_clear:
+                fire[gun_slot] = False
+            elif fire[gun_slot]:
+                target, _, _, center = tgt
+                speed = self.wstats(weapons[gun_slot], "gun").get("speed", 252.0)
+                lead = self.intercept(muzzle, center, target.get("vel") or (0.0, 0.0, 0.0), speed)
+                fire[gun_slot] = self.los(muzzle, lead)
 
         act["move"] = [round(move[0], 4), round(move[1], 4)]
         act["boost"] = bool(boost)
@@ -428,6 +461,8 @@ class Bot:
                 fighting = bool(tgt and tgt[2] and tgt[1] < 150 and ammo > 0)
                 if w.get("reload", 0) == 0 and ammo <= 3 and not fighting:
                     act["reload"] = True
+        if cover_order is not None and cover_order.reload and not dodging:
+            act["reload"] = True
 
         # ---- pickups / swaps
         take = self.pick_up(obs, me, weapons, kinds, px, py, pz)
