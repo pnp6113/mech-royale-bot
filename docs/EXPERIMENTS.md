@@ -27,7 +27,9 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | v5 | 1f3ff13 | Sat 03:54 | BB-49370AB7 | **4.19** | 78/198 | v4 + Cursor QA fixes (dodge sign, crossfire, swap, lightning nearest, mortar pitch, slopes, planner 2.5 ms) | **better (+0.15)**: new best |
 | v6 | 417f6eb | Sat 04:00 | BB-B869F61E | **4.21** | – | v5 + retreat hysteresis: retreat <65% HP, stay back until 90% (sim 3.03 vs 2.74) | neutral (+0.02) |
 | v7 | 5cdab49 | Sat 04:39 | BB-0B89A341 | **4.25** | – | v6 + engage_r 100: start fights only inside 100 m, always answer attackers (sim 3.20/3.22 vs 2.77) | +0.04: new best (sim overestimated) |
-| v8 | 7a5737c | Sat 04:42 | BB-7EEB6537 | pending | – | v7 + face_threats + no_mortar (sim 3.04 vs 2.76 on v7 base) | – |
+| v8 | 7a5737c | Sat 04:42 | BB-7EEB6537 | **4.29** | – | v7 + face_threats + no_mortar (sim 3.04 vs 2.76 on v7 base) | +0.04: new best |
+| v9 | 544d924 | Sat 04:55 | BB-6744393F | pending | – | v8 + upgrade_damage 4 (sim 3.17 vs 3.04) | – |
+| v9r | 45ce606 | (queued 05:00) | – | – | – | v8 + retreat 75%/95% (sim 3.16 vs 3.04) | – |
 
 ## Local gates every submitted commit must clear
 
