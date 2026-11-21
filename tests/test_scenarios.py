@@ -8,11 +8,13 @@ import json
 import math
 import os
 import sys
+import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "kit", "check"))
 import check  # noqa: E402
+import nav  # noqa: E402
 from brain import Bot, wrap  # noqa: E402
 
 MSGS = [json.loads(l) for l in gzip.open(os.path.join(ROOT, "kit", "check", "stream.jsonl.gz"), "rt")]
@@ -243,6 +245,338 @@ def late_game_final_circle():
          "shrink_start": 400, "shrink_end": 420, "dps": 260}
     a = run(b, obs(zone=z, t=405.0, alive=2))
     assert a["move"][0] > 0.5, a
+
+
+def _oriented_cliff():
+    """Adjacent free nav cells with a rise a mech cannot walk up."""
+    nnx = MAP.nnx
+    for k, blocked in enumerate(MAP.blocked):
+        if blocked:
+            continue
+        j, i = divmod(k, nnx)
+        if i + 1 >= MAP.nnx:
+            continue
+        k2 = k + 1
+        if MAP.blocked[k2]:
+            continue
+        rise = MAP.nground[k2] - MAP.nground[k]
+        if abs(rise) > 15.0:
+            low, high = (k, k2) if rise > 0 else (k2, k)
+            return MAP.ncenter(low), MAP.ncenter(high)
+    raise RuntimeError("no cliff pair on this map")
+
+
+def _wall_face():
+    """A free nav cell whose east neighbour is solid."""
+    nnx = MAP.nnx
+    for j in range(2, MAP.nny - 2):
+        for i in range(2, MAP.nnx - 2):
+            k = j * nnx + i
+            if MAP.blocked[k] or not MAP.blocked[k + 1]:
+                continue
+            return MAP.ncenter(k), MAP.ncenter(k + 1)
+    raise RuntimeError("no wall face on this map")
+
+
+LOW_CELL, HIGH_CELL = _oriented_cliff()
+FREE_CELL, WALL_CELL = _wall_face()
+
+
+@case
+def multiple_attackers_prefers_the_one_shooting_us():
+    b = fresh_bot()
+    shooter = enemy(7, 70, 0)
+    bystander = enemy(8, 45, 20)
+    o = obs(mechs=[bystander, shooter], events=[
+        {"type": "damaged", "amount": 45, "weapon": "gun", "bearing": 0.0, "by": 7}])
+    a = run(b, o)
+    shooter_yaw = 0.0
+    other_yaw = math.atan2(20.0, 45.0)
+    assert abs(wrap(a["aim"][0] - shooter_yaw)) < abs(wrap(a["aim"][0] - other_yaw)), a["aim"]
+
+
+@case
+def dodges_away_from_bullet_passing_north():
+    # Bullet passes 1.5 m north of us. Stepping north walks into it.
+    b = fresh_bot()
+    p = {"id": 11, "kind": "gun", "pos": [OX + 40, OY + 1.5, OZ + 4.5], "vel": [-252, 0, 0]}
+    a = run(b, obs(projectiles=[p]))
+    assert a["move"][1] < -0.3, a["move"]
+
+
+@case
+def opposing_gunfire_does_not_cancel():
+    b = fresh_bot()
+    north = {"id": 12, "kind": "gun", "pos": [OX + 30, OY + 1.6, OZ + 4.5], "vel": [-252, 0, 0]}
+    south = {"id": 13, "kind": "gun", "pos": [OX + 30, OY - 1.6, OZ + 4.5], "vel": [-252, 0, 0]}
+    a = run(b, obs(projectiles=[north, south]))
+    assert abs(a["move"][1]) > 0.4, a["move"]
+
+
+@case
+def charging_laser_behind_a_building_does_not_burn_boost():
+    b = fresh_bot()
+    e = enemy(6, 80, 0, aim=[math.pi, 0.0], charging=True, weapons=["gun", "laser"])
+    real = MAP.los
+    MAP.los = lambda *a, **k: False
+    try:
+        a = run(b, obs(mechs=[e], self={"energy": 40}))
+    finally:
+        MAP.los = real
+    assert a["boost"] is False, a
+
+
+@case
+def low_energy_still_runs_into_the_zone():
+    b = fresh_bot()
+    z = {"center": [OX - 300, OY], "radius": 200, "next_center": [OX - 300, OY], "next_radius": 120,
+         "shrink_start": 5, "shrink_end": 40, "dps": 60}
+    a = run(b, obs(zone=z, self={"in_zone": False, "energy": 4, "hp": 250}))
+    assert a["move"][0] < -0.4 and a["boost"] is False, a
+
+
+@case
+def straight_line_does_not_climb_a_cliff():
+    b = fresh_bot()
+    lx, ly = LOW_CELL
+    dx, dy = b.steer_to(HIGH_CELL, lx, ly, time.perf_counter())
+    heading = math.hypot(dx, dy)
+    if heading < 1e-6:
+        return
+    ux, uy = dx / heading, dy / heading
+    k0 = MAP.ncell(lx, ly)
+    k1 = MAP.ncell(lx + ux * 3.0, ly + uy * 3.0)
+    rise = MAP.nground[k1] - MAP.nground[k0]
+    assert rise <= MAP.max_rise + 0.2, (round(dx, 3), round(dy, 3), round(rise, 2), LOW_CELL, HIGH_CELL)
+
+
+@case
+def close_goal_does_not_walk_into_a_wall():
+    b = fresh_bot()
+    fx, fy = FREE_CELL
+    dx, dy = b.steer_to(WALL_CELL, fx, fy, time.perf_counter())
+    nx, ny = fx + dx * 3.0, fy + dy * 3.0
+    assert not MAP.is_blocked(nx, ny), (round(dx, 3), round(dy, 3), FREE_CELL, WALL_CELL)
+
+
+@case
+def stuck_recovery_does_not_push_into_the_wall():
+    b = fresh_bot()
+    fx, fy = FREE_CELL
+    bx, by = WALL_CELL
+    d = math.hypot(bx - fx, by - fy) or 1.0
+    b.stuck_dir = ((bx - fx) / d, (by - fy) / d)
+    b.stuck_until = 1e9
+    z = MAP.ground(fx, fy)
+    a = run(b, obs(self={"pos": [fx, fy, z]}))
+    nx, ny = fx + a["move"][0] * 3.0, fy + a["move"][1] * 3.0
+    assert not MAP.is_blocked(nx, ny), (a["move"], FREE_CELL, WALL_CELL)
+
+
+@case
+def swaps_the_weaker_weapon_and_keeps_the_gun():
+    b = fresh_bot()
+    o = obs(pickups=[{"id": 8099, "kind": "lightning", "pos": [OX + 1.2, OY, OZ]}])
+    o["self"]["weapons"][1] = {"kind": "mortar", "cooldown": 0,
+                               "stats": {"speed": 72, "gravity": 22, "damage": 200, "splash_radius": 7}}
+    a = run(b, o)
+    assert a.get("take") == 8099, a
+    assert a.get("drop") == 1, a
+
+
+@case
+def unknown_upgrade_still_picks_a_legal_index():
+    b = fresh_bot()
+    offer = {"id": 9, "expires": 30, "choices": [
+        {"id": "not_a_real_upgrade", "name": "", "desc": ""},
+        {"id": "armor", "name": "", "desc": ""}]}
+    a = run(b, obs(offer=offer))
+    assert a.get("pick") == 1, a
+
+
+@case
+def long_match_does_not_grow_memory():
+    b = fresh_bot()
+    for i in range(400):
+        e = enemy(2000 + (i % 80), 40, (i % 5) - 2)
+        run(b, obs(tick=2000 + i, t=50.0 + i * 0.5, mechs=[e],
+                   events=[{"type": "damaged", "amount": 5, "weapon": "gun", "bearing": 0.2, "by": e["id"]}]))
+    assert len(b.enemy_mem) < 60, len(b.enemy_mem)
+    assert len(b.hurt_log) < 30, len(b.hurt_log)
+    assert len(b.pos_hist) < 40, len(b.pos_hist)
+
+
+@case
+def low_ammo_reloads_when_nothing_is_fighting_us():
+    b = fresh_bot()
+    o = obs()
+    o["self"]["weapons"][0]["ammo"] = 1
+    a = run(b, o)
+    assert a.get("reload") is True, a
+
+
+@case
+def reload_already_running_is_not_repeated():
+    b = fresh_bot()
+    o = obs()
+    o["self"]["weapons"][0]["ammo"] = 0
+    o["self"]["weapons"][0]["reload"] = 1.4
+    a = run(b, o)
+    assert not a.get("reload"), a
+    assert a["fire"][0] is False, a
+
+
+@case
+def missing_optional_fields_do_not_crash():
+    b = fresh_bot()
+    e = enemy(5, 50, 5)
+    for key in ("hp", "max_hp", "cubes", "charging", "weapons"):
+        e.pop(key, None)
+    o = obs(mechs=[e], events=[{"type": "damaged", "amount": 20, "weapon": "zone", "bearing": None, "by": None}])
+    o["self"]["weapons"][0].pop("ammo", None)
+    o["self"]["stats"] = {}
+    o["drops"] = [{"id": 20001, "pos": [OX - 30, OY, OZ], "radius": 8, "lands_in": 4,
+                   "capture_s": 4, "progress": 0, "holder": None}]
+    o["offer"] = None
+    run(b, o)
+
+
+@case
+def final_circle_with_no_energy_still_moves_in():
+    b = fresh_bot()
+    z = {"center": [OX + 20, OY], "radius": 25, "next_center": [OX + 20, OY], "next_radius": 0,
+         "shrink_start": 400, "shrink_end": 420, "dps": 260}
+    a = run(b, obs(zone=z, t=410.0, alive=2, self={"energy": 0, "hp": 400}))
+    assert a["move"][0] > 0.4 and a["boost"] is False, a
+
+
+@case
+def protocol_has_no_practice_or_finals_flag():
+    # Same observation plus an unknown field must not change the decision.
+    # hello has no match-mode field; classification would be a guess.
+    b1, b2 = fresh_bot(), fresh_bot()
+    e = enemy(5, 55, 0)
+    o1 = obs(mechs=[e], tick=77, t=30.0)
+    o2 = obs(mechs=[e], tick=77, t=30.0)
+    o2["match_mode"] = "finals"
+    a1, a2 = b1.act(o1), b2.act(o2)
+    assert a1["move"] == a2["move"] and a1["fire"] == a2["fire"] and a1["aim"] == a2["aim"], (a1, a2)
+    assert not any(hasattr(b1, name) for name in ("practice", "is_final", "match_mode"))
+
+
+@case
+def lightning_does_not_waste_the_shot_on_a_closer_crate():
+    b = fresh_bot()
+    e = enemy(5, 36, 0)
+    crate = {"id": 1100, "pos": [OX + 12, OY, OZ], "hp": 300}
+    lw = {"kind": "lightning", "cooldown": 0,
+          "stats": {"damage": 60, "cooldown": 0.25, "range": 45, "cone_deg": 30, "chain": 2,
+                    "chain_range": 14, "energy": 3}}
+    o = obs(mechs=[e], crates=[crate])
+    o["self"]["weapons"][1] = lw
+    o["self"]["aim"] = [0.0, 0.0]
+    a = run(b, o)
+    assert a["fire"][1] is False, a
+
+
+@case
+def mortar_does_not_commit_to_an_unreachable_pitch():
+    b = fresh_bot()
+    e = enemy(5, 40, 0)
+    o = obs(mechs=[e])
+    o["self"]["weapons"][1] = {"kind": "mortar", "cooldown": 0,
+                               "stats": {"speed": 72, "gravity": 22, "damage": 200, "splash_radius": 7}}
+    sol = b.mortar_solution([OX, OY, OZ + 7], e, o["self"]["weapons"][1]["stats"], high=True)
+    assert sol is not None and sol[1] > 1.3, sol
+    real = MAP.los
+    MAP.los = lambda *a, **k: False
+    try:
+        a = run(b, o)
+    finally:
+        MAP.los = real
+    assert a["fire"][1] is False, a
+    assert a["aim"][1] < 0.5, a["aim"]
+
+
+@case
+def intercept_leads_a_rising_target():
+    lead = Bot.intercept([0.0, 0.0, 0.0], [200.0, 0.0, 5.0], (0.0, 0.0, 10.0), 252.0)
+    assert lead[2] > 12.0, lead
+
+
+@case
+def planner_drops_a_stale_path_when_the_goal_jumps():
+    pl = nav.Planner(MAP)
+    pl.start(OX, OY, OX + 48, OY)
+    assert pl.step(1.0)
+    assert pl.path and pl.path_goal is not None
+    pl.start(OX, OY, OX, OY + 80)
+    assert pl.path == [], (len(pl.path), pl.path_goal, pl.req_goal)
+
+
+@case
+def hidden_pickup_stays_in_memory():
+    b = fresh_bot()
+    pk = {"id": 8123, "kind": "laser", "pos": [OX + 15, OY, OZ]}
+    run(b, obs(pickups=[pk]))
+    assert 8123 in b.pickup_mem
+    real = MAP.los
+    MAP.los = lambda *a, **k: False
+    try:
+        run(b, obs())
+        assert 8123 in b.pickup_mem
+    finally:
+        MAP.los = real
+
+
+@case
+def short_ledge_does_not_start_a_jet_from_across_the_street():
+    b = fresh_bot()
+    b.t = 10.0
+    b.plan_t = 10.0
+    goal = (OX + 22.0, OY)
+    b.planner.path = [(OX + 22.0, OY, OZ + 3.5)]
+    b.planner.path_goal = goal
+    b.planner.active = False
+    real = MAP.walk_clear
+    MAP.walk_clear = lambda *a, **k: False
+    try:
+        b.steer_to(goal, OX, OY, time.perf_counter())
+        assert b.hop_req is None, b.hop_req
+    finally:
+        MAP.walk_clear = real
+        b.planner.path, b.planner.active, b.planner.path_goal = [], False, None
+
+
+@case
+def short_projectile_vector_does_not_crash():
+    b = fresh_bot()
+    run(b, obs(projectiles=[{"id": 1, "kind": "gun", "pos": [OX + 20, OY, OZ + 4], "vel": [-20, 0]}]))
+
+
+@case
+def planned_paths_do_not_cross_blocked_cells():
+    pl = nav.Planner(MAP)
+    spots = []
+    for j in range(8, MAP.nny - 8, 24):
+        for i in range(8, MAP.nnx - 8, 28):
+            k = j * MAP.nnx + i
+            if not MAP.blocked[k]:
+                spots.append(MAP.ncenter(k))
+            if len(spots) >= 8:
+                break
+        if len(spots) >= 8:
+            break
+    checked = 0
+    for a, c in zip(spots, spots[1:]):
+        pl.start(a[0], a[1], c[0], c[1])
+        pl.step(0.25)
+        if not pl.path:
+            continue
+        checked += 1
+        for x, y, _hop in pl.path:
+            assert not MAP.is_blocked(x, y), (x, y)
+    assert checked >= 3, checked
 
 
 if __name__ == "__main__":

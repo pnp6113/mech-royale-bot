@@ -177,9 +177,19 @@ class Bot:
         for p in obs.get("pickups") or []:
             self.pickup_mem[p["id"]] = (p.get("kind"), p["pos"], t)
         seen_ids = {p["id"] for p in obs.get("pickups") or []}
+        eye_z = pz + float((me.get("stats") or {}).get("eye_height", 8.0))
         for k in list(self.pickup_mem):
             kind, ppos, pt = self.pickup_mem[k]
-            if k not in seen_ids and (math.hypot(ppos[0] - px, ppos[1] - py) < 30 or t - pt > 90):
+            if k in seen_ids:
+                continue
+            # Forgotten after 90 s, or immediately if it is inside proximity range and we
+            # still have line of sight (it would be in this observation if it were still there).
+            # A pickup behind a wall stays in memory so we can path around to it.
+            gone = t - pt > 90.0
+            if not gone and math.hypot(ppos[0] - px, ppos[1] - py) < 30.0:
+                pz_p = ppos[2] if len(ppos) > 2 else pz
+                gone = self.los([px, py, eye_z], [ppos[0], ppos[1], pz_p + 0.5])
+            if gone:
                 del self.pickup_mem[k]
 
         # ---- zone
@@ -309,6 +319,8 @@ class Bot:
         jump = False
         if t < self.stuck_until:
             mx, my = self.stuck_dir
+            if not hopping:
+                mx, my = self.avoid_walls(mx, my, px, py)
             jump = bool(me.get("grounded"))
         elif ml > 0 and len(self.pos_hist) >= 10 and t - self.pos_hist[0][0] >= 1.4:
             moved = math.hypot(px - self.pos_hist[0][1], py - self.pos_hist[0][2])
@@ -356,7 +368,11 @@ class Bot:
         w0 = weapons[0] if weapons else None
         for w in weapons:
             if w and w.get("kind") == "gun":
-                if w.get("reload", 0) == 0 and w.get("ammo", 99) <= 3 and not (tgt and tgt[2] and tgt[1] < 150):
+                ammo = w.get("ammo", 99)
+                # An empty mag cannot shoot. Reload even if a target is still visible.
+                # With rounds left, finish the burst before starting the 2.4 s reload.
+                fighting = bool(tgt and tgt[2] and tgt[1] < 150 and ammo > 0)
+                if w.get("reload", 0) == 0 and ammo <= 3 and not fighting:
                     act["reload"] = True
 
         # ---- pickups / swaps
@@ -383,11 +399,12 @@ class Bot:
         pl = self.planner
         # direct if clear and short
         dist = math.hypot(gx - px, gy - py)
-        if dist < 6.0:
+        # A goal a few metres away can still sit on a wall or above a cliff.
+        # Only skip the planner when the straight walk is actually legal.
+        if dist < 60.0 and self.map.walk_clear(px, py, gx, gy):
             x, y, _ = norm2(gx - px, gy - py)
-            return x * dist / 6.0, y * dist / 6.0
-        if dist < 60 and self.map.walk_clear(px, py, gx, gy):
-            x, y, _ = norm2(gx - px, gy - py)
+            if dist < 6.0:
+                return x * dist / 6.0, y * dist / 6.0
             return x, y
         replan = (pl.path_goal is None or math.hypot(pl.path_goal[0] - gx, pl.path_goal[1] - gy) > 12.0
                   or self.t - self.plan_t > 5.0 or not pl.path)
@@ -395,16 +412,46 @@ class Bot:
             pl.start(px, py, gx, gy)
             self.plan_t = self.t
         if pl.active:
-            budget = 0.008 - (time.perf_counter() - t0)
-            if budget > 0.002:
+            # Leave most of the 50 ms tick for dodging. A search continues next decision.
+            budget = 0.0025 - (time.perf_counter() - t0)
+            if budget > 0.0008:
                 pl.step(budget)
         wp = pl.lookahead(px, py) if pl.path else None
         if wp is None:
-            wp = goal
+            x, y, _ = norm2(gx - px, gy - py)
+            if (x or y) and self.map.walk_clear(px, py, px + x * 4.0, py + y * 4.0):
+                return x, y
+            return 0.0, 0.0
         x, y, d = norm2(wp[0] - px, wp[1] - py)
-        if len(wp) > 2 and wp[2] is not None and d < 26.0:
-            self.hop_req = (float(wp[2]), self.t)  # jump + jet until our feet clear this height
+        if len(wp) > 2 and wp[2] is not None:
+            climb = float(wp[2]) - self.ground(px, py, 0.0)
+            # ~10 m/s of jet, so the runway scales with the wall. A 4 m ledge
+            # does not justify boosting from 26 m out.
+            runway = min(24.0, max(0.0, climb) * 1.25 + 3.0)
+            gap = self._gap_to_block(px, py, wp[0], wp[1])
+            if gap is None:
+                gap = d
+            if climb > 0.8 and gap < runway:
+                self.hop_req = (float(wp[2]), self.t)
         return x, y
+
+    def _gap_to_block(self, px, py, gx, gy):
+        """Distance along the segment to the first blocked nav cell, or None."""
+        m = self.map
+        if m is None:
+            return None
+        d = math.hypot(gx - px, gy - py)
+        if d < 1e-6:
+            return None
+        n = int(d / 2.0) + 1
+        k0 = m.ncell(px, py)
+        for s in range(1, n + 1):
+            x = px + (gx - px) * s / n
+            y = py + (gy - py) * s / n
+            k = m.ncell(x, y)
+            if k != k0 and m.blocked[k]:
+                return d * s / n
+        return None
 
     def avoid_walls(self, mx, my, px, py):
         m = self.map
@@ -414,9 +461,13 @@ class Bot:
 
         def free(a):
             ca, sa = math.cos(a), math.sin(a)
+            here = m.ncell(px, py)
+            gz = m.nground[here]
             for d in (3.0, 6.0):
                 k = m.ncell(px + ca * d, py + sa * d)
-                if m.blocked[k] and k != m.ncell(px, py):
+                if k != here and m.blocked[k]:
+                    return False
+                if m.nground[k] - gz > m.max_rise:
                     return False
             return True
 
@@ -458,13 +509,15 @@ class Bot:
     def dodge(self, obs, me, mycenter, px, py, pz, vx, vy, scale):
         rad = 2.5 * scale
         dx = dy = 0.0
+        best_w = 0.0
+        best_dx = best_dy = 0.0
         laser_threat = False
         g = float(self.weapons_cfg.get("mortar", {}).get("gravity", 22.0))
         splash = float(self.weapons_cfg.get("mortar", {}).get("splash_radius", 7.0))
         for p in obs.get("projectiles") or []:
             kind = p.get("kind")
             ppos, pvel = p.get("pos"), p.get("vel")
-            if not ppos or not pvel:
+            if not ppos or not pvel or len(ppos) < 3 or len(pvel) < 3:
                 continue
             if kind == "mortar":
                 # predict landing
@@ -490,6 +543,8 @@ class Bot:
                     w = 1.5 * (1.0 - dd / (splash + rad + 3.0))
                     dx += ax * w
                     dy += ay * w
+                    if w > best_w:
+                        best_w, best_dx, best_dy = w, ax * w, ay * w
                 continue
             rx, ry, rz = ppos[0] - mycenter[0], ppos[1] - mycenter[1], ppos[2] - mycenter[2]
             wx, wy, wz = pvel[0] - vx, pvel[1] - vy, pvel[2]
@@ -505,9 +560,17 @@ class Bot:
                 ox, oy, ol = norm2(cx, cy)
                 if ol < 0.3:
                     ox, oy, _ = norm2(-wy, wx)
+                else:
+                    # (cx, cy) is where the bullet will be relative to us. Step away from it.
+                    ox, oy = -ox, -oy
                 w = (1.0 - ts / 1.2) * (1.0 - miss / (rad + 2.0) * 0.5)
                 dx += ox * w
                 dy += oy * w
+                if w > best_w:
+                    best_w, best_dx, best_dy = w, ox * w, oy * w
+        # Equal threats on opposite sides sum to zero and leave us standing in the middle.
+        if best_w > 0.2 and math.hypot(dx, dy) < best_w * 0.45:
+            dx, dy = best_dx, best_dy
         # charging lasers aimed at us
         for e in obs.get("mechs") or []:
             if e.get("kind") != "mech" or not e.get("charging"):
@@ -519,6 +582,9 @@ class Bot:
             ay = (e.get("aim") or [0, 0])[0]
             bearing = math.atan2(py - ey, px - ex)
             if abs(wrap(bearing - ay)) < 0.12 + 8.0 / max(d, 10):
+                ez = e["pos"][2] if len(e.get("pos") or []) > 2 else pz
+                if not self.los([ex, ey, ez + 7.0], mycenter):
+                    continue
                 laser_threat = True
                 ox, oy = -math.sin(bearing), math.cos(bearing)
                 # dodge to the side we're already moving to
@@ -709,9 +775,12 @@ class Bot:
                 if 22.0 < dh < 230.0 and float(mw.get("cooldown", 0) or 0) <= 0.1 and (not tvis or gun_i < 0 or dh > 90):
                     sol = self.mortar_solution(muzzle, tgt[0], ms, high=not tvis)
                     if sol is not None and (gun_i < 0 or not tvis or (weapons[gun_i] or {}).get("reload", 0) > 0):
-                        aim = sol
-                        if self.miss(aim_now, sol, dh) < 4.0:
-                            fire[mortar_i] = True
+                        pitched = max(min_p, min(max_p, sol[1]))
+                        # Clamping the pitch changes the arc. That shell falls short, so keep the gun aim.
+                        if abs(pitched - sol[1]) < 0.04:
+                            aim = [sol[0], pitched]
+                            if self.miss(aim_now, aim, dh) < 4.0:
+                                fire[mortar_i] = True
             aim = [aim[0], max(min_p, min(max_p, aim[1]))]
             # gun
             if gun_i >= 0 and tvis:
@@ -728,23 +797,36 @@ class Bot:
                 cone = math.radians(float(ls.get("cone_deg", 30))) * 0.5
                 cost = float(ls.get("energy", 3))
                 if float(lw.get("cooldown", 0) or 0) <= 0.1 and energy >= cost + (8 if mode == "retreat" else 2):
+                    # The arc hits the nearest mech, NPC, or crate in the cone, not the one we aimed at.
+                    nearest = None
                     for cand in (obs.get("mechs") or []):
-                        cp = cand["pos"]
+                        cp = cand.get("pos")
+                        if not cp or len(cp) < 3:
+                            continue
+                        dd = math.hypot(cp[0] - px, cp[1] - py)
+                        if dd > rng or dd < 1e-3:
+                            continue
+                        b = math.atan2(cp[1] - py, cp[0] - px)
+                        if abs(wrap(b - aim_now[0])) < cone and self.los(muzzle, [cp[0], cp[1], cp[2] + 3.0]):
+                            if nearest is None or dd < nearest[0]:
+                                nearest = (dd, cand.get("kind") or "mech")
+                    for c in obs.get("crates") or []:
+                        cp = c.get("pos")
+                        if not cp or len(cp) < 2:
+                            continue
                         dd = math.hypot(cp[0] - px, cp[1] - py)
                         if dd > rng:
                             continue
                         b = math.atan2(cp[1] - py, cp[0] - px)
-                        if abs(wrap(b - aim_now[0])) < cone and self.los(muzzle, [cp[0], cp[1], cp[2] + 3.0]):
+                        cz = cp[2] if len(cp) > 2 else pz
+                        if abs(wrap(b - aim_now[0])) < cone and self.los(muzzle, [cp[0], cp[1], cz + 1.0]):
+                            if nearest is None or dd < nearest[0]:
+                                nearest = (dd, "crate")
+                    if nearest is not None:
+                        if nearest[1] in ("mech", "npc"):
                             fire[light_i] = True
-                            break
-                    if not fire[light_i]:
-                        for c in obs.get("crates") or []:
-                            cp = c["pos"]
-                            dd = math.hypot(cp[0] - px, cp[1] - py)
-                            b = math.atan2(cp[1] - py, cp[0] - px)
-                            if dd < rng and abs(wrap(b - aim_now[0])) < cone and energy > 40 and tgt is None:
-                                fire[light_i] = True
-                                break
+                        elif nearest[1] == "crate" and energy > 40 and tgt is None:
+                            fire[light_i] = True
         if aim is None:
             # nobody to shoot: face the latest attacker / loud noise, else scan around the move direction
             yaw = None
@@ -803,7 +885,7 @@ class Bot:
         if tt is None or tt > 3.0:
             tt = math.sqrt(c) / speed
         tt += 0.05  # half a decision of latency
-        return [pt[0] + vx * tt, pt[1] + vy * tt, pt[2] + vz * min(tt, 0.5)]
+        return [pt[0] + vx * tt, pt[1] + vy * tt, pt[2] + vz * tt]
 
     def mortar_solution(self, muzzle, e, ms, high=False):
         v = float(ms.get("speed", 72))
@@ -836,14 +918,22 @@ class Bot:
                 continue
             if None in kinds:
                 return p["id"], None
-            # both full: swap out the weakest non-charging slot if the new one is better
-            vals = [(WEAPON_VALUE.get(k, 0), i) for i, k in enumerate(kinds)]
-            vals.sort()
-            worst_v, worst_i = vals[0]
-            w = weapons[worst_i]
-            if w and w.get("kind") == "laser" and float(w.get("charge", 0) or 0) > 0:
+            # Gun is the weakest value, so "drop the worst slot" used to refuse every
+            # swap while the gun was equipped and never replace the other weapon.
+            # Keep the gun when another slot can go. Never drop a laser that is charging.
+            options = []
+            for i, k in enumerate(kinds):
+                w = weapons[i] if i < len(weapons) else None
+                if w and w.get("kind") == "laser" and float(w.get("charge", 0) or 0) > 0:
+                    continue
+                options.append((WEAPON_VALUE.get(k, 0.0), i, k))
+            if not options:
                 continue
-            if WEAPON_VALUE.get(kind, 0) > worst_v + 0.3 and kinds[worst_i] != "gun":
+            non_gun = [o for o in options if o[2] != "gun"]
+            pool = non_gun if non_gun else options
+            pool.sort()
+            worst_v, worst_i, _worst_k = pool[0]
+            if WEAPON_VALUE.get(kind, 0.0) > worst_v + 0.3:
                 return p["id"], worst_i
         return None
 
