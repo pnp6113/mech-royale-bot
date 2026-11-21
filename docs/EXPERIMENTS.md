@@ -9,6 +9,7 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | --- | --- | --- |
 | Starter example bot (baseline) | 1.15 | track page |
 | Practice board top (Sat 02:30 ET) | 5.60 | track page, 180 teams |
+| Top-32 cutoff / top-16 / top (Sat 03:00 ET) | 4.98 / 5.21 / 5.75 | track page, 184 teams; we were 95th at 3.77 |
 
 ## Submissions
 
