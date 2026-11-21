@@ -223,16 +223,28 @@ class MapModel:
         return k
 
     def walk_clear(self, x0: float, y0: float, x1: float, y1: float) -> bool:
-        """Straight walk between two points crosses no blocked nav cell (start cell ignored)."""
+        """Straight walk: no blocked nav cell, and no uphill steeper than the mech can walk.
+
+        The start cell is ignored for the wall test (we may already be clipping a corner).
+        Slope uses the same rise limit as A* (`max_rise` per nav cell, uphill only).
+        """
         d = math.hypot(x1 - x0, y1 - y0)
         n = int(d / 2.0) + 1
         k0 = self.ncell(x0, y0)
+        prev = k0
+        prev_z = self.nground[prev]
+        limit = self.max_rise * 1.05
         for s in range(1, n + 1):
             x = x0 + (x1 - x0) * s / n
             y = y0 + (y1 - y0) * s / n
             k = self.ncell(x, y)
             if k != k0 and self.blocked[k]:
                 return False
+            if k != prev:
+                if self.nground[k] - prev_z > limit:
+                    return False
+                prev = k
+                prev_z = self.nground[k]
         return True
 
     def los(self, a, b, step: float = 2.0) -> bool:

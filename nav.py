@@ -30,6 +30,11 @@ class Planner:
 
     def start(self, sx: float, sy: float, gx: float, gy: float, extra_cost=None) -> None:
         m = self.m
+        old = self.path_goal
+        if old is None or math.hypot(old[0] - gx, old[1] - gy) > 12.0:
+            # A new search must not keep steering along the path to the goal we just left.
+            self.path = []
+            self.path_goal = None
         self.gen += 1
         gen = self.gen
         s = m.nearest_free(m.ncell(sx, sy), 6)
@@ -69,7 +74,7 @@ class Planner:
         n_since = 0
         while op:
             n_since += 1
-            if n_since >= 64:
+            if n_since >= 16:
                 n_since = 0
                 if time.perf_counter() > t_end:
                     return False
