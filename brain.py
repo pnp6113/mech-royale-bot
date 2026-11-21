@@ -19,6 +19,11 @@ except Exception:  # pragma: no cover - map code is optional, the bot still runs
 
 TAU = 2 * math.pi
 
+# Strategy knobs: one place to change per experiment (see docs/EXPERIMENTS.md)
+TUNE = {
+    "retreat_hp": 0.0,      # v1: 0.32. Retreat below this HP fraction (0 disables)
+}
+
 # preference for loot weapons (higher is better); the gun is the spawn weapon
 WEAPON_VALUE = {"lightning": 3.0, "laser": 2.6, "mortar": 1.2, "gun": 1.0}
 
@@ -221,7 +226,7 @@ class Bot:
         n_close = sum(1 for e, d, vis, _ in threats if d < 120)
 
         # ---- mode
-        retreat = hp_frac < 0.32 and threats and (tgt is None or float(tgt[0].get("hp") or 1400) > hp * 0.9)
+        retreat = hp_frac < TUNE["retreat_hp"] and threats and (tgt is None or float(tgt[0].get("hp") or 1400) > hp * 0.9)
         if zone_urgent:
             mode = "zone"
         elif retreat:

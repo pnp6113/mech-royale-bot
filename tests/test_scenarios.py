@@ -207,6 +207,9 @@ def lightning_fires_in_cone():
 
 @case
 def low_hp_retreats_away():
+    from brain import TUNE
+    if TUNE["retreat_hp"] <= 0.25:
+        return  # retreat disabled in this variant
     b = fresh_bot()
     e = enemy(5, 40, 0)
     a = run(b, obs(mechs=[e], self={"hp": 300}))
