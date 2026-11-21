@@ -23,6 +23,10 @@ class Planner:
         self.path = []  # list of (x, y) waypoints, start -> goal
         self.path_goal = None
         self.extra_cost = None  # optional callable k -> cost added per cell
+        self.hop_top = array.array("f", [0.0]) * n  # landing cells reached by a jump/jet hop: wall top to clear
+        self.hop_gen = array.array("i", [0]) * n
+        self.hop_max = 22.0   # max height (m) above our ground we accept to jet over
+        self.hop_cost = 45.0  # extra path cost of a hop (energy, time, exposure)
 
     def start(self, sx: float, sy: float, gx: float, gy: float, extra_cost=None) -> None:
         m = self.m
@@ -55,7 +59,7 @@ class Planner:
             return False
         m = self.m
         nnx, nny = m.nnx, m.nny
-        blocked, gnd, max_rise = m.blocked, m.nground, m.max_rise
+        blocked, gnd, max_rise, ntop = m.blocked, m.nground, m.max_rise, m.ntop
         g, came, stamp, closed, gen = self.g, self.came, self.stamp, self.closed, self.gen
         cs = m.ncs
         goal = self.goal_k
@@ -91,20 +95,56 @@ class Planner:
                 if I2 < 0 or J2 < 0 or I2 >= nnx or J2 >= nny:
                     continue
                 k2 = J2 * nnx + I2
-                if blocked[k2] or closed[k2] == gen:
-                    continue
-                if dI and dJ and (blocked[J * nnx + I2] or blocked[J2 * nnx + I]):
+                hop = 0.0
+                is_hop = False
+                if blocked[k2] or (dI and dJ and (blocked[J * nnx + I2] or blocked[J2 * nnx + I])):
+                    if dI and dJ:
+                        continue
+                    # try to jet over a short wall: first free cell within 5 cells straight ahead
+                    mt = gz
+                    k3 = -1
+                    for s_ in range(1, 6):
+                        I3, J3 = I + dI * s_, J + dJ * s_
+                        if I3 < 1 or J3 < 1 or I3 >= nnx - 1 or J3 >= nny - 1:
+                            break
+                        kk = J3 * nnx + I3
+                        if blocked[kk]:
+                            tp = ntop[kk]
+                            if tp > mt:
+                                mt = tp
+                            if gnd[kk] > mt:
+                                mt = gnd[kk]
+                            continue
+                        k3 = kk
+                        c = float(s_)
+                        break
+                    if k3 < 0 or mt - gz > self.hop_max or gnd[k3] - gz > self.hop_max:
+                        continue
+                    k2 = k3
+                    hop = mt
+                    is_hop = True
+                if closed[k2] == gen:
                     continue
                 rise = gnd[k2] - gz
-                if rise > max_rise * c:
-                    continue
+                if rise > max_rise * c and not is_hop:
+                    if rise > self.hop_max:
+                        continue
+                    hop = gnd[k2]
+                    is_hop = True
                 ng = gk_ + c * cs + (rise * 0.5 if rise > 0 else 0.0)
+                if is_hop:
+                    ng += self.hop_cost + max(0.0, hop - gz)
                 if extra is not None:
                     ng += extra(k2)
                 if stamp[k2] != gen or ng < g[k2]:
                     stamp[k2] = gen
                     g[k2] = ng
                     came[k2] = k
+                    if is_hop:
+                        self.hop_gen[k2] = gen
+                        self.hop_top[k2] = hop
+                    elif self.hop_gen[k2] == gen:
+                        self.hop_gen[k2] = 0
                     heapq.heappush(op, (ng + self._h(k2), ng, k2))
         self._finish(self.best_k)
         return True
@@ -118,9 +158,12 @@ class Planner:
                 break
             k = self.came[k]
         cells.reverse()
-        pts = [m.ncenter(c) for c in cells]
+        pts = []
+        for c in cells:
+            x, y = m.ncenter(c)
+            pts.append((x, y, float(self.hop_top[c]) if self.hop_gen[c] == self.gen else None))
         if cells and cells[-1] == self.goal_k and not m.is_blocked(*self.req_goal):
-            pts.append(self.req_goal)
+            pts.append((self.req_goal[0], self.req_goal[1], None))
         self.path = pts
         self.path_goal = self.req_goal
         self.active = False
@@ -140,8 +183,12 @@ class Planner:
         if best_i:
             del p[:best_i]
         target = p[0]
+        if target[2] is None and len(p) > 1 and p[1][2] is not None:
+            return p[1]  # next step is a hop: head for the landing
         for i in range(1, min(len(p), 14)):
             q = p[i]
+            if q[2] is not None:
+                break
             if (q[0] - x) ** 2 + (q[1] - y) ** 2 > max_d * max_d:
                 break
             if m.walk_clear(x, y, q[0], q[1]):

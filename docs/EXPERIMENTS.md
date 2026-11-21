@@ -15,7 +15,8 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | Ver | Commit | Submitted (ET) | Receipt | Score | Rank | Change / hypothesis | Verdict |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | v0 | edc5127 | not submitted | – | (1.15 = baseline) | – | official starter, rollback tag `v0-starter` | – |
-| v1 | 3bc58dc | Sat 02:36 | BB-00BC9ADE | pending | – | first utility bot: zone safety, dodging, gun lead, laser/lightning/mortar, loot, upgrades, A* nav | – |
+| v1 | 3bc58dc | Sat 02:36 | BB-00BC9ADE | **3.42** | 113/183 | first utility bot: zone safety, dodging, gun lead, laser/lightning/mortar, loot, upgrades, A* nav | +2.27 over baseline |
+| v1b | b650ef4 | Sat 02:40 | BB-AE58C7E7 | 3.33 | – | v1 with low-HP retreat disabled (`retreat_hp` 0.32 → 0) | inconclusive (−0.09): retreat isn't the lever; restored 0.32 |
 
 ## Local gates every submitted commit must clear
 

@@ -79,21 +79,28 @@ class MapModel:
         nn = self.nnx * self.nny
         self.blocked = bytearray(nn)
         self.nground = array.array("f", [0.0]) * nn
-        offs = [(-2, -1), (-2, 0), (-1, -2), (-1, -1), (-1, 0), (-1, 1), (0, -2), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0)]
+        # highest wall top near each nav cell (for jump/jet hops over walls); -inf where none
+        self.ntop = array.array("f", [NO_SOLID]) * nn
         offs = [(a, b) for a in (-2, -1, 0, 1) for b in (-2, -1, 0, 1) if not (a in (-2, 1) and b in (-2, 1))]
         for J in range(self.nny):
             for I in range(self.nnx):
                 k = J * self.nnx + I
                 ci, cj = 2 * I + 1, 2 * J + 1  # 2 m cell index right above-right of the centre
                 bl = 0
+                mt = NO_SOLID
                 for di, dj in offs:
                     i2, j2 = ci + di, cj + dj
-                    if 0 <= i2 < self.nx and 0 <= j2 < self.ny and self.wall2[j2 * self.nx + i2]:
-                        bl = 1
-                        break
+                    if 0 <= i2 < self.nx and 0 <= j2 < self.ny:
+                        k2 = j2 * self.nx + i2
+                        if self.wall2[k2]:
+                            bl = 1
+                            if self.top[k2] > mt:
+                                mt = self.top[k2]
+                self.ntop[k] = mt
                 # the map edge is a wall
                 if I == 0 or J == 0 or I == self.nnx - 1 or J == self.nny - 1:
                     bl = 1
+                    self.ntop[k] = 1e9
                 self.blocked[k] = bl
                 x, y = self.ncenter(k)
                 self.nground[k] = self.ground(x, y)

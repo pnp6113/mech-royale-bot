@@ -21,7 +21,8 @@ TAU = 2 * math.pi
 
 # Strategy knobs: one place to change per experiment (see docs/EXPERIMENTS.md)
 TUNE = {
-    "retreat_hp": 0.0,      # v1: 0.32. Retreat below this HP fraction (0 disables)
+    "retreat_hp": 0.32,     # retreat below this HP fraction (0 disables); v1b tested 0 -> 3.33 vs 3.42
+    "cube_grab_r": 25.0,    # grab cubes within this radius in any non-zone mode (0 disables; v1 had none)
 }
 
 # preference for loot weapons (higher is better); the gun is the spawn weapon
@@ -102,6 +103,13 @@ class Bot:
         self.mode = "start"
         self.prev_cmd_aim = None
         self.laser_hold = False
+        self.hop_req = None  # (height, t) set by steer_to when the next waypoint is a hop landing
+        self.loot_black = {}  # id -> t until which we ignore it
+        self.loot_track = None  # (id, since_t, hp_at_since)
+        # the static map is large and permanent: keep the cyclic GC from rescanning it every tick
+        import gc
+        gc.collect()
+        gc.freeze()
 
     # ------------------------------------------------------------------ helpers
     def wstats(self, w, kind):
@@ -266,6 +274,20 @@ class Bot:
             dirx, diry = self.steer_to(goal, px, py, t0)
         if mode == "fight" and tgt is not None:
             dirx, diry = self.fight_move(tgt, kinds, weapons, px, py, hp_frac, ec, er, t, t0)
+        # grab nearby power cubes (kills drop victim cubes + 2): +HP, +damage, upgrade offers
+        grab_r = TUNE["cube_grab_r"]
+        if grab_r > 0 and mode != "zone":
+            near_c, nd = None, grab_r
+            for c in obs.get("cubes") or []:
+                d = math.hypot(c["pos"][0] - px, c["pos"][1] - py)
+                if d < nd and abs(c["pos"][2] - pz) < 4.0:
+                    near_c, nd = c, d
+            if near_c is not None:
+                cx, cy, _ = norm2(near_c["pos"][0] - px, near_c["pos"][1] - py)
+                if mode == "fight":
+                    dirx, diry = dirx * 0.6 + cx * 1.2, diry * 0.6 + cy * 1.2
+                else:
+                    dirx, diry = cx, cy
         # stay inside the effective circle while fighting / looting
         if mode in ("fight", "loot", "retreat") and d_eff > er - 12:
             ix, iy, _ = norm2(ec[0] - px, ec[1] - py)
@@ -277,7 +299,8 @@ class Bot:
             dirx, diry = dirx * 0.5 + dodge_x * 1.6, diry * 0.5 + dodge_y * 1.6
 
         mx, my, ml = norm2(dirx, diry)
-        if ml > 0:
+        hopping = self.hop_req is not None and t - self.hop_req[1] < 0.35
+        if ml > 0 and not hopping:
             mx, my = self.avoid_walls(mx, my, px, py)
 
         # ---- stuck handling
@@ -310,6 +333,14 @@ class Bot:
             boost = True
         if jump and energy > 20:
             boost = True  # jet over the obstacle
+        # planned hop over a wall / cliff: jump, then jet while our feet are below the top
+        hr = self.hop_req
+        if hr is not None and t - hr[1] < 0.35:
+            if pz < hr[0] + 1.5 and energy > 3:
+                boost = True
+                if me.get("grounded"):
+                    jump = True
+        self.hop_req = None if (hr is None or t - hr[1] >= 0.35) else hr
 
         # ---- aim and fire
         aim, fire = self.aim_and_fire(obs, me, weapons, kinds, tgt, loot_target, muzzle, eye, px, py, pz,
@@ -364,13 +395,15 @@ class Bot:
             pl.start(px, py, gx, gy)
             self.plan_t = self.t
         if pl.active:
-            budget = 0.012 - (time.perf_counter() - t0)
+            budget = 0.008 - (time.perf_counter() - t0)
             if budget > 0.002:
                 pl.step(budget)
         wp = pl.lookahead(px, py) if pl.path else None
         if wp is None:
             wp = goal
-        x, y, _ = norm2(wp[0] - px, wp[1] - py)
+        x, y, d = norm2(wp[0] - px, wp[1] - py)
+        if len(wp) > 2 and wp[2] is not None and d < 26.0:
+            self.hop_req = (float(wp[2]), self.t)  # jump + jet until our feet clear this height
         return x, y
 
     def avoid_walls(self, mx, my, px, py):
@@ -544,33 +577,48 @@ class Bot:
                 best, best_goal, best_tgt = score, (dpos[0], dpos[1]), None
         # crates (shoot them) and NPC drones (only when healthy)
         muzzle = [px, py, pz + 7.0]
+        bl = self.loot_black
         for c in obs.get("crates") or []:
             cp = c["pos"]
+            if bl.get(c["id"], -1) > t:
+                continue
             d = math.hypot(cp[0] - px, cp[1] - py)
             if d < 140 and inside(cp[0], cp[1]):
                 score = 3.5 / (d + 30.0)
                 if score > best:
-                    stand = self.stand_off(cp, px, py, d, 30.0)
+                    stand = self.stand_off(cp, px, py, d, 30.0, [cp[0], cp[1], cp[2] + 1.2], muzzle)
                     best, best_goal, best_tgt = score, stand, ("crate", c)
         if hp_frac > 0.6:
             for n in obs.get("mechs") or []:
-                if n.get("kind") != "npc":
+                if n.get("kind") != "npc" or bl.get(n["id"], -1) > t:
                     continue
                 npos = n["pos"]
                 d = math.hypot(npos[0] - px, npos[1] - py)
                 if d < 150 and inside(npos[0], npos[1]):
                     score = 4.5 / (d + 30.0) * (0.5 + 0.5 * (350.0 / max(50.0, float(n.get("hp") or 350))))
                     if score > best:
-                        stand = self.stand_off(npos, px, py, d, 55.0)
+                        stand = self.stand_off(npos, px, py, d, 55.0, [npos[0], npos[1], npos[2] + 1.75], muzzle)
                         best, best_goal, best_tgt = score, stand, ("npc", n)
+        # give up on a shoot-target that isn't getting damaged (no line of fire, unreachable, ...)
+        if best_tgt is not None:
+            oid = best_tgt[1]["id"]
+            hpv = float(best_tgt[1].get("hp") or 0)
+            lt = self.loot_track
+            if lt is None or lt[0] != oid or hpv < lt[2] - 1:
+                self.loot_track = (oid, t, hpv)
+            elif t - lt[1] > 10.0:
+                bl[oid] = t + 60.0
+                self.loot_track = None
         if best_goal is None:
             # roam: hold a spot inside the next circle; drift toward its centre late in the match
             return (safe_pt if need > -10 or nr < 120 else None), None
         return best_goal, best_tgt
 
-    def stand_off(self, tp, px, py, d, want):
+    def stand_off(self, tp, px, py, d, want, tc=None, muzzle=None):
         if d <= want:
-            return (px, py)
+            if tc is None or self.los(muzzle, tc):
+                return (px, py)
+            return (tp[0], tp[1])  # no line of fire from here: close in
         ux, uy, _ = norm2(px - tp[0], py - tp[1])
         return (tp[0] + ux * want * 0.8, tp[1] + uy * want * 0.8)
 
