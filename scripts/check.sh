@@ -7,7 +7,7 @@ cd "$(dirname "$0")/.."
 PY=${PY:-python3}
 mode=${1:-both}
 if [[ $mode == local || $mode == both ]]; then
-  $PY kit/check/check.py -- $PY -u example_bot.py
+  $PY kit/check/check.py -- $PY -u main.py
 fi
 if [[ $mode == docker || $mode == both ]]; then
   docker build -t mech-bot .

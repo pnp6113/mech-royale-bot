@@ -6,7 +6,7 @@ param([ValidateSet('local','docker','both')][string]$Mode = 'both')
 # error under ErrorActionPreference=Stop, so that is deliberately not set here.
 Set-Location (Join-Path $PSScriptRoot '..')
 if ($Mode -in 'local','both') {
-  python kit/check/check.py -- python -u example_bot.py
+  python kit/check/check.py -- python -u main.py
   if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
 if ($Mode -in 'docker','both') {

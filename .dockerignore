@@ -7,3 +7,6 @@ docs/
 LICENSE
 __pycache__/
 *.pyc
+tests/
+tools/
+docs/
