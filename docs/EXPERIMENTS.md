@@ -22,7 +22,9 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | v2 | e0be091 | Sat 02:53 | BB-3E2C5FC8 | **3.77** | 95/184 | A* hop edges + jump/jet over walls (sim showed zone deaths trapped in the stadium pocket), cube grabbing, loot standoff fix | **better (+0.35)** |
 | v3 | 26b1d5a | Sat 02:59 | BB-5344E3D3 | **3.79** | – | v2 + smart targets, cover retreat, regen hold | neutral (+0.02), matches sim |
 | v4 | 1735122 | Sat 03:37 | BB-2D26F728 | **4.04** | 86/193 | v3 + weapon rush (with slot 2 empty, grab seen lightning/laser ≤80 m even mid-fight) | **better (+0.25)**: new best |
-| v4c | fb13d48 | Sat 03:41 | BB-157F165B | pending | – | v4 + Codex CombatController (integ/combat) | – |
+| v4c | fb13d48 | Sat 03:41 | BB-157F165B | 4.00 | – | v4 + Codex CombatController (integ/combat) | neutral (−0.04), matches sim: not merged |
+| v5 | 1f3ff13 | Sat 03:54 | BB-49370AB7 | pending | – | v4 + Cursor QA fixes (dodge sign, crossfire, swap, lightning nearest, mortar pitch, slopes, planner 2.5 ms) | – |
+| v6 | 417f6eb | (queued 03:59) | – | – | – | v5 + retreat hysteresis: retreat <65% HP, stay back until 90% (sim 3.03 vs 2.74) | – |
 
 ## Local gates every submitted commit must clear
 
@@ -47,3 +49,4 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | Codex combat on vs off (v4 base) | 48 | 2.62 | 2.73 | no gain; zone dmg 28 vs 0 |
 | Ethan F1-F5 each vs base (v4 code, house lead 1.45x) | 96 | base 2.73 | jink 2.50, gun≤120 2.59, no_mortar 2.73, face 2.78, laser_cover 2.70, all 2.36 | none above noise (SE≈0.26) |
 | retreat_hp 0.5 / 0.65 (v4 code) | 96 | 2.73 / 2.88 | base 2.73 | 0.65: longer survival (82 s vs 70 s) |
+| retreat hysteresis (v4f code, F3/F4 off) | 96 | 65%/90%: **3.03**; 50%/85%: 2.74 | base 2.74 | strongest sim signal so far → v6 |
