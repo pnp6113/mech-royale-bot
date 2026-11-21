@@ -66,8 +66,15 @@ class HouseBot:
         us = next((x for x in obs["mechs"] if x["kind"] == "mech" and getattr(m.mechs[x["id"]], "is_us", False)), None)
         if us is not None and t - self.me.seen_t.get(us["id"], -99) < 0.15:
             self.sq.known = (t, us["pos"], us["vel"], us["id"])
-        hunting = self.me.id in self.sq.hunters()
-        known = self.sq.known if (self.sq.known and t - self.sq.known[0] < 8) else None
+        if getattr(m, "ffa", False):
+            # free-for-all (finals-like): each bot fights the nearest mech it sees, nobody is special
+            vis = [x for x in obs["mechs"] if x["kind"] == "mech" and t - self.me.seen_t.get(x["id"], -99) < 0.15]
+            vis.sort(key=lambda x: math.hypot(x["pos"][0] - px, x["pos"][1] - py))
+            known = (t, vis[0]["pos"], vis[0]["vel"], vis[0]["id"]) if vis else None
+            hunting = known is not None and math.hypot(known[1][0] - px, known[1][1] - py) < 150
+        else:
+            hunting = self.me.id in self.sq.hunters()
+            known = self.sq.known if (self.sq.known and t - self.sq.known[0] < 8) else None
         act = {"fire": [False, False]}
         if obs.get("offer"):
             act["pick"] = 0
@@ -100,7 +107,7 @@ class HouseBot:
             # aim
             aimp = list(c)
             if self.lead:
-                tt = d / 252.0
+                tt = d / 252.0 * 1.45  # measured house-bot lead factor 1.3-1.6x (Ethan, public replay)
                 aimp = [c[0] + tgt[2][0] * tt, c[1] + tgt[2][1] * tt, c[2]]
             yaw = math.atan2(aimp[1] - py, aimp[0] - px) + math.radians(self.rng.gauss(0, self.noise))
             pit = math.atan2(aimp[2] - muz[2], max(1.0, math.hypot(aimp[0] - px, aimp[1] - py))) \
