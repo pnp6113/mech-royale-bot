@@ -12,6 +12,7 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | Top-32 cutoff / top-16 / top (Sat 03:00 ET) | 4.98 / 5.21 / 5.75 | track page, 184 teams; we were 95th at 3.77 |
 | Top-32 cutoff / top-16 / top (Sat 03:41 ET) | 5.04 / 5.27 / 5.96 | 193 teams; we are 86th at 4.04 |
 | Top-32 cutoff / top-16 / top (Sat 04:00 ET) | 5.06 / 5.31 / 5.96 | 198 teams; we are 78th at 4.19 |
+| Top-32 cutoff / top-16 / top (Sat 05:14 ET) | 5.17 / 5.44 / 5.96 | 214 teams; we are 79th at 4.29 (v8) |
 
 ## Submissions
 
@@ -29,7 +30,8 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | v7 | 5cdab49 | Sat 04:39 | BB-0B89A341 | **4.25** | – | v6 + engage_r 100: start fights only inside 100 m, always answer attackers (sim 3.20/3.22 vs 2.77) | +0.04: new best (sim overestimated) |
 | v8 | 7a5737c | Sat 04:42 | BB-7EEB6537 | **4.29** | – | v7 + face_threats + no_mortar (sim 3.04 vs 2.76 on v7 base) | +0.04: new best |
 | v9 | 544d924 | Sat 04:55 | BB-6744393F | 4.06 | – | v8 + upgrade_damage 4 (sim 3.17 vs 3.04) | **worse (−0.23)**: rejected; keep plating/armor order |
-| v9r | 45ce606 | Sat 05:01 | BB-885F8DDA | pending | – | v8 + retreat 75%/95% (sim 3.16 vs 3.04) | – |
+| v9r | 45ce606 | Sat 05:01 | BB-885F8DDA | 4.23 | 79/214 | v8 + retreat 75%/95% (sim 3.16 vs 3.04) | −0.06 vs v8: retreat 65/90 stays |
+| v10 | 8a6381b | (queued 05:39) | – | – | – | v8 + drop_gun: laser + lightning loadout | – |
 
 ## Local gates every submitted commit must clear
 
@@ -74,3 +76,6 @@ Unexplained deaths also happen in squad play (NPC drones, zone). Not used; v6's 
 
 Watch page (`watch.joinbuilders.org/show`) airs exhibitions/lobby/final, not practice runs: no per-match diagnostics for us.
 | drop_gun (laser + lightning loadout) on v9 base, corrected sim | 96 | **3.32** (kills 2.84, survive 91 s) | 2.92 (kills 2.50, 80 s) | promising; confirming on fresh seeds |
+| drop_gun confirm (v9 base, seeds 200-295) | 96 | **3.91** | 3.20 | strong on v9 base |
+| drop_gun on v8 base (seeds 400-495) | 96 | 3.46 | 3.38 | weak (+0.08): interaction with upgrade choice? real A/B decides |
+| v10 survival distribution (seeds 600-695) | 96 | 44% die < 60 s (≈1.3 kills); reach 120 s: 31% (mean 5.8 pts); 200 s: 7% (10.1); 300 s: 0 | – | opening survival is the lever |
