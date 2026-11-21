@@ -23,6 +23,7 @@ TAU = 2 * math.pi
 TUNE = {
     "retreat_hp": 0.32,     # retreat below this HP fraction (0 disables); v1b tested 0 -> 3.33 vs 3.42
     "cube_grab_r": 25.0,
+    "weapon_rush_r": 80.0,  # with slot 2 empty, go for a seen lightning/laser within this radius even mid-fight
     "smart_targets": True,  # target bonuses: charging lasers in lightning range, mortar carriers vs laser, low HP
     "cover": True,          # retreat to a spot that breaks line of fire (regen needs 5 s without damage)
     "regen_hold": 0.75,     # below this HP fraction with no enemies: stop shooting loot and hold still (0 = off)    # grab cubes within this radius in any non-zone mode (0 disables; v1 had none)
@@ -297,6 +298,21 @@ class Bot:
             dirx, diry = self.steer_to(goal, px, py, t0)
         if mode == "fight" and tgt is not None:
             dirx, diry = self.fight_move(tgt, kinds, weapons, px, py, hp_frac, ec, er, t, t0)
+        # weapon rush: an empty second slot is the biggest power gap; grab a good weapon even mid-fight
+        rush_r = TUNE["weapon_rush_r"]
+        if rush_r > 0 and mode in ("fight", "loot") and len(kinds) > 1 and kinds[1] is None:
+            best_p, bd = None, rush_r
+            for pid, (kind, ppos, pt) in self.pickup_mem.items():
+                if kind in ("lightning", "laser") and kind not in kinds:
+                    d = math.hypot(ppos[0] - px, ppos[1] - py)
+                    if d < bd and abs(ppos[2] - pz) < 4.0:
+                        best_p, bd = ppos, d
+            if best_p is not None:
+                wx, wy = self.steer_to((best_p[0], best_p[1]), px, py, t0)
+                if mode == "fight":
+                    dirx, diry = dirx * 0.35 + wx * 1.3, diry * 0.35 + wy * 1.3
+                else:
+                    dirx, diry = wx, wy
         # grab nearby power cubes (kills drop victim cubes + 2): +HP, +damage, upgrade offers
         grab_r = TUNE["cube_grab_r"]
         if grab_r > 0 and mode != "zone":
