@@ -30,6 +30,8 @@ TUNE = {
     "lightning_want": 0.62, # preferred distance as a fraction of lightning range
     "strafe": 0.9,          # sideways weight while fighting
     "npc_hp_min": 0.6,      # hunt NPC drones only above this HP fraction
+    "engage_r": 100.0,      # start a fight with a visible enemy only inside this range (attackers always); v6 260
+    "upgrade_damage": 0.0,  # bonus to weapon damage/rate upgrades (0 = v6 ranking)
     "jink": False,           # F1: reverse strafe every 0.25-0.55 s when an enemy >55 m aims at us
     "gun_max_moving": 0.0,   # F2: don't shoot the gun at movers beyond this range (0 = off; Ethan: 120)
     "no_mortar": False,      # F3: never take a mortar (laser cook-off +60%, lowest DPS)
@@ -287,7 +289,8 @@ class Bot:
             mode = "zone"
         elif retreat:
             mode = "retreat"
-        elif tgt is not None and (tgt[2] or tgt[1] < 90):
+        elif tgt is not None and ((tgt[2] and (tgt[1] < TUNE["engage_r"] or tgt[0]["id"] in self.attackers))
+                                  or tgt[1] < 90):
             mode = "fight"
         else:
             mode = "loot"
@@ -1070,6 +1073,9 @@ class Bot:
         for i, c in enumerate(choices):
             cid = c.get("id")
             v = UPGRADE_VALUE.get(cid, 1.0)
+            if TUNE["upgrade_damage"] and cid in ("gun_damage", "gun_rate", "lightning_efficiency", "laser_damage",
+                                                   "laser_charge", "lightning_chain", "gun_mag"):
+                v += TUNE["upgrade_damage"]  # practice: kills are points
             req = (self.upgrade_defs.get(cid) or {}).get("requires")
             if req and req not in kinds:
                 v -= 5.0
