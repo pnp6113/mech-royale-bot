@@ -151,6 +151,7 @@ class Match:
             self.mechs.append(mech)
         self._spawn_loot()
         self.sounds = []  # (t, kind, pos, src_id)
+        self.our_times = []
 
     # ------------------------------------------------------------------ setup
     def free_point(self, cx, cy, r, tries=200):
@@ -405,7 +406,13 @@ class Match:
                 continue
             obs = self.build_obs(me)
             try:
-                a = me.controller.act(obs) or {}
+                if getattr(me, "is_us", False):
+                    import time as _t
+                    _t0 = _t.perf_counter()
+                    a = me.controller.act(obs) or {}
+                    self.our_times.append((_t.perf_counter() - _t0) * 1000)
+                else:
+                    a = me.controller.act(obs) or {}
             except Exception as e:  # a crash = idle
                 import traceback
                 if getattr(me, "is_us", False):
@@ -904,7 +911,9 @@ class Match:
         for (tt, amt, wpn, att) in us.dmg_log:
             by_w[wpn] = by_w.get(wpn, 0) + round(amt)
         last = [a for (tt, amt, wpn, a) in us.dmg_log if tt > self.t - 15 and a is not None]
-        return {"dmg_by": by_w, "attackers15": len(set(last)), "gun_acc": round(us.hits.get("gun", 0) / max(1, us.shots.get("gun", 0)), 2),
+        ts = sorted(self.our_times) or [0.0]
+        return {"act_p99": round(ts[int(0.99 * (len(ts) - 1))], 2), "act_max": round(ts[-1], 2),
+                "dmg_by": by_w, "attackers15": len(set(last)), "gun_acc": round(us.hits.get("gun", 0) / max(1, us.shots.get("gun", 0)), 2),
                 "dealt": {k: v for k, v in us.hits.items()},
                 "place": us.place, "score": 16 - us.place, "kills": us.kills, "t": round(self.t, 1),
                 "cubes": us.cubes, "zone_dmg": round(us.dmg_taken["zone"]), "weapons": [w.kind if w else None for w in us.weapons],

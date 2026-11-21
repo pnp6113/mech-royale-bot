@@ -58,6 +58,8 @@ def main():
           f"kills {statistics.mean(r['kills'] for r in res):.2f}  survive_t {statistics.mean(r['t'] for r in res):.0f}s  "
           f"cubes {statistics.mean(r['cubes'] for r in res):.1f}  zone_dmg {statistics.mean(r['zone_dmg'] for r in res):.0f}  "
           f"errors {sum(r['errors'] for r in res)}")
+    print(f"our act() ms: worst p99 {max(r['act_p99'] for r in res):.1f}  worst max {max(r['act_max'] for r in res):.1f}  "
+          f"mean p99 {statistics.mean(r['act_p99'] for r in res):.1f}")
     if a.v:
         for r in res:
             print(json.dumps({k: v for k, v in r.items() if k != "first_error"}))

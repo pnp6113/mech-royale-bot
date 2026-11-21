@@ -25,6 +25,7 @@ TUNE = {
     "cube_grab_r": 25.0,
     "smart_targets": True,  # target bonuses: charging lasers in lightning range, mortar carriers vs laser, low HP
     "cover": True,          # retreat to a spot that breaks line of fire (regen needs 5 s without damage)
+    "codex_combat": True,   # Codex CombatController owns dodge/aim/fire/reload (feat/combat-codex ed12f8a)
     "regen_hold": 0.75,     # below this HP fraction with no enemies: stop shooting loot and hold still (0 = off)    # grab cubes within this radius in any non-zone mode (0 disables; v1 had none)
 }
 
@@ -110,6 +111,14 @@ class Bot:
         self.loot_black = {}  # id -> t until which we ignore it
         self.loot_track = None  # (id, since_t, hp_at_since)
         self.cover_cache = None
+        self.combat = None
+        self.combat_errors = 0
+        if TUNE["codex_combat"]:
+            try:
+                from combat import CombatController
+                self.combat = CombatController(cfg, arena=self.map)
+            except Exception as e:
+                mf.log("combat controller unavailable:", repr(e))
         # the static map is large and permanent: keep the cyclic GC from rescanning it every tick
         import gc
         gc.collect()
@@ -317,7 +326,11 @@ class Bot:
             dirx, diry = dirx * 0.4 + ix, diry * 0.4 + iy
 
         # ---- dodging
-        dodge_x, dodge_y, laser_threat = self.dodge(obs, me, mycenter, px, py, pz, vx, vy, scale)
+        if self.combat is not None:
+            dodge_x = dodge_y = 0.0
+            laser_threat = False  # the combat controller owns evasion (single dodge layer)
+        else:
+            dodge_x, dodge_y, laser_threat = self.dodge(obs, me, mycenter, px, py, pz, vx, vy, scale)
         if dodge_x or dodge_y:
             dirx, diry = dirx * 0.5 + dodge_x * 1.6, diry * 0.5 + dodge_y * 1.6
 
@@ -381,6 +394,29 @@ class Bot:
             if w and w.get("kind") == "gun":
                 if w.get("reload", 0) == 0 and w.get("ammo", 99) <= 3 and not (tgt and tgt[2] and tgt[1] < 150):
                     act["reload"] = True
+
+        # ---- Codex combat controller: owns dodge, aim, fire, reload (navigation stays ours)
+        if self.combat is not None:
+            try:
+                loot_ids = (loot_target[1]["id"],) if (mode == "loot" and loot_target) else None
+                engage = mode in ("fight", "retreat", "zone") or loot_ids is not None
+                dec = self.combat.decide(
+                    obs, move=tuple(move), boost=bool(boost), jump=bool(jump), engage=engage,
+                    target_ids=loot_ids, default_aim=(aim[0], aim[1]),
+                    allow_dodge=(not jump) and (not hopping) and t >= self.stuck_until
+                    and (time.perf_counter() - t0) < 0.020)  # time guard: dodge search is the costly part
+                fields = dec.action_fields()
+                act.update(fields)
+                act["move"] = [round(float(v), 4) for v in act["move"]]
+                act["aim"] = [round(float(v), 5) for v in act["aim"]]
+                act["fire"] = [bool(v) for v in act["fire"]]
+                act["boost"] = bool(act["boost"])
+                act["reload"] = bool(act.get("reload", False))
+                act["jump"] = bool(jump)
+            except Exception as e:  # keep our own aim/fire this tick
+                self.combat_errors += 1
+                if self.combat_errors <= 3:
+                    mf.log("combat controller failed:", repr(e))
 
         # ---- pickups / swaps
         take = self.pick_up(obs, me, weapons, kinds, px, py, pz)
