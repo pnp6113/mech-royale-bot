@@ -797,6 +797,11 @@ class Match:
                     if t is not None and (best is None or t < best[0]):
                         best = (t, cr)
             wall = not self.m.los(x0, p["pos"], step=1.5)
+            if best is not None and wall:
+                # a wall in front of the mech stops the shot first (Codex cover review found the old order wrong)
+                hit_pt = [x0[0] + d[0] * best[0], x0[1] + d[1] * best[0], x0[2] + d[2] * best[0]]
+                if not self.m.los(x0, hit_pt, step=1.0):
+                    best = None
             owner = self.mechs[p["owner"]] if isinstance(p["owner"], int) and p["owner"] < 16 else None
             if best is not None:
                 obj = best[1]
