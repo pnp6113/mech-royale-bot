@@ -30,6 +30,11 @@ TUNE = {
     "lightning_want": 0.62, # preferred distance as a fraction of lightning range
     "strafe": 0.9,          # sideways weight while fighting
     "npc_hp_min": 0.6,      # hunt NPC drones only above this HP fraction
+    "jink": False,           # F1: reverse strafe every 0.25-0.55 s when an enemy >55 m aims at us
+    "gun_max_moving": 0.0,   # F2: don't shoot the gun at movers beyond this range (0 = off; Ethan: 120)
+    "no_mortar": False,      # F3: never take a mortar (laser cook-off +60%, lowest DPS)
+    "face_threats": False,   # F4: idle torso faces remembered enemies (20 s); turn to rear attackers
+    "laser_cover": False,    # F5: charging laser aimed at us -> step to cover within ~14 m
     "smart_targets": True,  # target bonuses: charging lasers in lightning range, mortar carriers vs laser, low HP
     "cover": True,          # retreat to a spot that breaks line of fire (regen needs 5 s without damage)
     "regen_hold": 0.75,     # below this HP fraction with no enemies: stop shooting loot and hold still (0 = off)
@@ -118,6 +123,7 @@ class Bot:
         self.loot_track = None  # (id, since_t, hp_at_since)
         self.cover_cache = None
         self.retreating = False
+        self.rear_hits = {}
         # the static map is large and permanent: keep the cyclic GC from rescanning it every tick
         import gc
         gc.collect()
@@ -164,6 +170,8 @@ class Bot:
             typ = ev.get("type")
             if typ == "damaged":
                 self.last_hurt_t = t
+                if ev.get("rear") and ev.get("by") is not None:
+                    self.rear_hits[ev.get("by")] = t
                 self.hurt_log.append((t, float(ev.get("amount", 0)), ev.get("bearing"), ev.get("by")))
                 by = ev.get("by")
                 if by is not None:
@@ -250,6 +258,8 @@ class Bot:
             vis = d < 260 and self.los(muzzle, e_center)
             recent = e["id"] in self.attackers
             score = d + ehp / 12.0 - (60.0 if recent else 0.0) - (80.0 if vis else 0.0)
+            if TUNE["face_threats"] and e["id"] in self.rear_hits and t - self.rear_hits[e["id"]] < 1.5:
+                score -= 150.0  # it's hitting our back (x1.5): turn to it
             ew = e.get("weapons") or []
             if TUNE["smart_targets"]:
                 if e.get("charging") and "lightning" in kinds and d < 45:
@@ -362,6 +372,13 @@ class Bot:
         if dodge_x or dodge_y:
             dirx, diry = dirx * 0.5 + dodge_x * 1.6, diry * 0.5 + dodge_y * 1.6
 
+        if laser_threat and TUNE["laser_cover"] and mode != "zone":
+            chargers = [(e, math.hypot(e["pos"][0] - px, e["pos"][1] - py), True, 1.0)
+                        for e in enemies if e.get("charging")]
+            cov = self.find_cover(chargers, px, py, pz, -1.0, 0.0, nc, nr, margin, t, radii=(6.0, 10.0, 14.0), cache=False)
+            if cov is not None:
+                cx_, cy_, _ = norm2(cov[0] - px, cov[1] - py)
+                dirx, diry = cx_ * 2.0 + dirx * 0.2, cy_ * 2.0 + diry * 0.2
         mx, my, ml = norm2(dirx, diry)
         hopping = self.hop_req is not None and t - self.hop_req[1] < 0.35
         if ml > 0 and not hopping:
@@ -507,13 +524,13 @@ class Bot:
                 return d * s / n
         return None
 
-    def find_cover(self, threats, px, py, pz, ax, ay, nc, nr, margin, t):
+    def find_cover(self, threats, px, py, pz, ax, ay, nc, nr, margin, t, radii=(10.0, 18.0, 28.0, 40.0), cache=True):
         """Nearest free spot (within ~45 m) where buildings block every nearby threat's line of fire to us."""
         m = self.map
         if m is None:
             return None
         c = self.cover_cache
-        if c is not None and t - c[0] < 1.0:
+        if cache and c is not None and t - c[0] < 1.0:
             return c[1]
         shooters = [(e["pos"][0], e["pos"][1], e["pos"][2] + 7.0) for e, d, vis, _ in threats if d < 200][:4]
         if not shooters:
@@ -521,7 +538,7 @@ class Bot:
         lim = max(10.0, nr - margin)
         best, bs = None, 1e18
         base = math.atan2(ay, ax)
-        for r in (10.0, 18.0, 28.0, 40.0):
+        for r in radii:
             for k in range(12):
                 a = base + (k - 5.5) * (TAU / 12)
                 x, y = px + math.cos(a) * r, py + math.sin(a) * r
@@ -538,7 +555,8 @@ class Bot:
                     bs, best = score, (x, y)
             if best is not None:
                 break
-        self.cover_cache = (t, best)
+        if cache:
+            self.cover_cache = (t, best)
         return best
 
     def avoid_walls(self, mx, my, px, py):
@@ -588,9 +606,18 @@ class Bot:
             return self.steer_to((ex, ey), px, py, t0)
         ux, uy, _ = norm2(ex - px, ey - py)
         radial = max(-1.0, min(1.0, (d - want) / 25.0))
+        aimed_at_us = False
+        if TUNE["jink"] and d > 55.0:
+            eay = (e.get("aim") or [0.0, 0.0])[0]
+            aimed_at_us = abs(wrap(eay - math.atan2(py - ey, px - ex))) < 0.07
         if t > self.strafe_switch_t:
-            self.strafe_sign = self.rng.choice((-1.0, 1.0))
-            self.strafe_switch_t = t + self.rng.uniform(0.8, 2.2)
+            if aimed_at_us:
+                # reverse often and irregularly: house bots lead linearly (~1.3-1.6x naive lead)
+                self.strafe_sign = -self.strafe_sign
+                self.strafe_switch_t = t + self.rng.uniform(0.25, 0.55)
+            else:
+                self.strafe_sign = self.rng.choice((-1.0, 1.0))
+                self.strafe_switch_t = t + self.rng.uniform(0.8, 2.2)
         tx, ty = -uy * self.strafe_sign, ux * self.strafe_sign
         st = TUNE["strafe"]
         return ux * radial + tx * st, uy * radial + ty * st
@@ -695,7 +722,7 @@ class Bot:
         slot_vals = [WEAPON_VALUE.get(k, 0.0) if k else 0.0 for k in kinds]
         # weapon pickups
         for pid, (kind, ppos, pt) in self.pickup_mem.items():
-            if kind in kinds:
+            if kind in kinds or (TUNE["no_mortar"] and kind == "mortar"):
                 continue
             v = WEAPON_VALUE.get(kind, 0.0)
             gain = v - min(slot_vals[1] if len(slot_vals) > 1 else 0.0, 99)
@@ -874,7 +901,10 @@ class Bot:
             # gun
             if gun_i >= 0 and tvis:
                 gw = weapons[gun_i]
-                if gw.get("reload", 0) == 0 and gw.get("ammo", 1) > 0 and dist3 < float(gs.get("range", 230)) * 0.97:
+                tspeed = math.hypot(target_vel[0], target_vel[1])
+                gmax = TUNE["gun_max_moving"]
+                far_mover = gmax > 0 and tspeed > 3.0 and dist3 > gmax
+                if gw.get("reload", 0) == 0 and gw.get("ammo", 1) > 0 and dist3 < float(gs.get("range", 230)) * 0.97                         and not far_mover:
                     err = self.miss(aim_now, aim_lead, dist3)
                     if err < target_r * 0.9 + 0.4:
                         fire[gun_i] = True
@@ -928,10 +958,18 @@ class Bot:
                         yaw = float(s["bearing"])
                         break
             if yaw is None:
+                horizon = 20.0 if TUNE["face_threats"] else 8.0
+                bestd = 1e18
                 for k, em in self.enemy_mem.items():
-                    if t - em["t"] < 8.0:
-                        yaw = math.atan2(em["pos"][1] - py, em["pos"][0] - px)
+                    if t - em["t"] < horizon:
+                        dd = math.hypot(em["pos"][0] - px, em["pos"][1] - py)
+                        if dd < bestd:
+                            bestd = dd
+                            yaw = math.atan2(em["pos"][1] - py, em["pos"][0] - px)
+                    if not TUNE["face_threats"] and yaw is not None:
                         break
+                if yaw is not None and TUNE["face_threats"]:
+                    yaw += 0.6 * math.sin(t * 2.0)  # sweep +-35 deg around the likely threat
             if yaw is None:
                 base = math.atan2(my, mx) if (mx or my) else float(aim_now[0])
                 yaw = base + 1.1 * math.sin(t * 1.3)
@@ -1000,7 +1038,7 @@ class Bot:
         reach = float(self.loot_cfg.get("pickup_radius", 4.0)) - 0.3
         for p in obs.get("pickups") or []:
             kind = p.get("kind")
-            if kind in kinds:
+            if kind in kinds or (TUNE["no_mortar"] and kind == "mortar"):
                 continue
             pp = p["pos"]
             if math.hypot(pp[0] - px, pp[1] - py) > reach or abs(pp[2] - pz) > 3.8:

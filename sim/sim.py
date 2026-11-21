@@ -89,6 +89,8 @@ class Mech:
         self.seen_t = {}  # id -> last t seen (for memory)
         self.dmg_taken = {"zone": 0.0, "weapon": 0.0}
         self.dmg_log = []  # (t, amount, weapon, attacker_id)
+        self.first_hit_cubes = None
+        self.t_weapon = None
         self.shots = {}
         self.hits = {}
 
@@ -350,6 +352,8 @@ class Match:
             victim.dmg_taken["weapon"] += amount
         else:
             victim.dmg_taken["zone"] += amount
+        if getattr(victim, "is_us", False) and weapon != "zone" and victim.first_hit_cubes is None:
+            victim.first_hit_cubes = victim.cubes
         victim.hp -= amount
         victim.dmg_log.append((self.t, amount, weapon, attacker.id if attacker else None))
         if attacker is not None:
@@ -469,6 +473,8 @@ class Match:
         w = Weapon(p["kind"])
         w.equip = max(CFG["loot"]["equip_s"], me.wstats[w.kind]["cooldown"])
         me.weapons[slot] = w
+        if me.t_weapon is None:
+            me.t_weapon = self.t
         self.pickups.remove(p)
         me.events.append({"type": "took", "id": pid, "kind": p["kind"], "slot": slot})
 
@@ -904,7 +910,14 @@ class Match:
         for (tt, amt, wpn, att) in us.dmg_log:
             by_w[wpn] = by_w.get(wpn, 0) + round(amt)
         last = [a for (tt, amt, wpn, a) in us.dmg_log if tt > self.t - 15 and a is not None]
-        return {"dmg_by": by_w, "attackers15": len(set(last)), "gun_acc": round(us.hits.get("gun", 0) / max(1, us.shots.get("gun", 0)), 2),
+        lastw = {}
+        for (tt, amt, wpn, att) in us.dmg_log:
+            if tt > self.t - 10:
+                lastw[wpn] = lastw.get(wpn, 0) + amt
+        cause = max(lastw, key=lastw.get) if (lastw and not us.alive) else ("alive" if us.alive else "?")
+        return {"cause": cause, "t_weapon": us.t_weapon, "cubes_first_hit": us.first_hit_cubes,
+                "laser_dmg": round(by_w.get("laser", 0)),
+                "dmg_by": by_w, "attackers15": len(set(last)), "gun_acc": round(us.hits.get("gun", 0) / max(1, us.shots.get("gun", 0)), 2),
                 "dealt": {k: v for k, v in us.hits.items()},
                 "place": us.place, "score": 16 - us.place, "kills": us.kills, "t": round(self.t, 1),
                 "cubes": us.cubes, "zone_dmg": round(us.dmg_taken["zone"]), "weapons": [w.kind if w else None for w in us.weapons],
