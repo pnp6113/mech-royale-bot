@@ -245,6 +245,33 @@ def late_game_final_circle():
     assert a["move"][0] > 0.5, a
 
 
+@case
+def hurt_and_alone_holds_fire_to_regen():
+    from brain import TUNE
+    if not TUNE["regen_hold"]:
+        return
+    b = fresh_bot()
+    crate = {"id": 1001, "pos": [OX + 25, OY, OZ], "hp": 300}
+    a = run(b, obs(crates=[crate], self={"hp": 700, "aim": [0.0, 0.0]}))
+    assert not any(a["fire"]), a
+    assert math.hypot(*a["move"]) < 0.2, a
+
+
+@case
+def retreat_goal_breaks_line_of_fire():
+    from brain import TUNE
+    if not TUNE["cover"] or TUNE["retreat_hp"] <= 0:
+        return
+    b = fresh_bot()
+    e = enemy(5, 60, 0)
+    threats = [(e, 60.0, True, 1.0)]
+    cov = b.find_cover(threats, OX, OY, OZ, -1.0, 0.0, [OX, OY], 380, 25, 10.0)
+    if cov is None:
+        return  # open field: nothing to hide behind, acceptable
+    z = MAP.ground(*cov) + 4.5
+    assert not MAP.los((e["pos"][0], e["pos"][1], e["pos"][2] + 7), (cov[0], cov[1], z)), cov
+
+
 if __name__ == "__main__":
     bad = 0
     for name, status, msg in RESULTS:

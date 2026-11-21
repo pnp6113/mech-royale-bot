@@ -22,7 +22,10 @@ TAU = 2 * math.pi
 # Strategy knobs: one place to change per experiment (see docs/EXPERIMENTS.md)
 TUNE = {
     "retreat_hp": 0.32,     # retreat below this HP fraction (0 disables); v1b tested 0 -> 3.33 vs 3.42
-    "cube_grab_r": 25.0,    # grab cubes within this radius in any non-zone mode (0 disables; v1 had none)
+    "cube_grab_r": 25.0,
+    "smart_targets": True,  # target bonuses: charging lasers in lightning range, mortar carriers vs laser, low HP
+    "cover": True,          # retreat to a spot that breaks line of fire (regen needs 5 s without damage)
+    "regen_hold": 0.75,     # below this HP fraction with no enemies: stop shooting loot and hold still (0 = off)    # grab cubes within this radius in any non-zone mode (0 disables; v1 had none)
 }
 
 # preference for loot weapons (higher is better); the gun is the spawn weapon
@@ -106,6 +109,7 @@ class Bot:
         self.hop_req = None  # (height, t) set by steer_to when the next waypoint is a hop landing
         self.loot_black = {}  # id -> t until which we ignore it
         self.loot_track = None  # (id, since_t, hp_at_since)
+        self.cover_cache = None
         # the static map is large and permanent: keep the cyclic GC from rescanning it every tick
         import gc
         gc.collect()
@@ -228,6 +232,14 @@ class Bot:
             vis = d < 260 and self.los(muzzle, e_center)
             recent = e["id"] in self.attackers
             score = d + ehp / 12.0 - (60.0 if recent else 0.0) - (80.0 if vis else 0.0)
+            ew = e.get("weapons") or []
+            if TUNE["smart_targets"]:
+                if e.get("charging") and "lightning" in kinds and d < 45:
+                    score -= 90.0  # lightning shorts a charging laser
+                if "mortar" in ew and "laser" in kinds:
+                    score -= 25.0  # cook-off: +60% laser damage
+                if ehp_frac < 0.3:
+                    score -= 40.0  # finish it: kill = cubes
             threats.append((e, d, vis, ehp_frac))
             if score < best:
                 best, tgt = score, (e, d, vis, e_center)
@@ -256,6 +268,10 @@ class Bot:
             cy = sum(e["pos"][1] for e, d, v, _ in threats) / len(threats)
             ax, ay, _ = norm2(px - cx, py - cy)
             gx, gy = px + ax * 60, py + ay * 60
+            if TUNE["cover"]:
+                cov = self.find_cover(threats, px, py, pz, ax, ay, nc, nr, margin, t)
+                if cov is not None:
+                    gx, gy = cov
             # keep inside the zone we'll need
             dx, dy = gx - nc[0], gy - nc[1]
             dd = math.hypot(dx, dy)
@@ -267,6 +283,13 @@ class Bot:
             pass
         else:
             goal, loot_target = self.choose_loot(obs, me, kinds, px, py, pz, nc, nr, margin, safe_pt, need, ss, t, walk)
+            if TUNE["regen_hold"] and hp_frac < TUNE["regen_hold"] and not threats and in_zone and need <= 0:
+                # regen needs regen_delay s without dealing or taking damage: don't shoot loot, stand still (silent)
+                self.mode = mode = "regen"
+                loot_target = None
+                if goal is not None and not any(abs(goal[0] - c["pos"][0]) < 1 and abs(goal[1] - c["pos"][1]) < 1
+                                                for c in obs.get("cubes") or []):
+                    goal = None
 
         # path following
         dirx = diry = 0.0
@@ -405,6 +428,38 @@ class Bot:
         if len(wp) > 2 and wp[2] is not None and d < 26.0:
             self.hop_req = (float(wp[2]), self.t)  # jump + jet until our feet clear this height
         return x, y
+
+    def find_cover(self, threats, px, py, pz, ax, ay, nc, nr, margin, t):
+        """Nearest free spot (within ~45 m) where buildings block every nearby threat's line of fire to us."""
+        m = self.map
+        if m is None:
+            return None
+        c = self.cover_cache
+        if c is not None and t - c[0] < 1.0:
+            return c[1]
+        shooters = [(e["pos"][0], e["pos"][1], e["pos"][2] + 7.0) for e, d, vis, _ in threats if d < 200][:4]
+        if not shooters:
+            return None
+        lim = max(10.0, nr - margin)
+        best, bs = None, 1e18
+        base = math.atan2(ay, ax)
+        for r in (10.0, 18.0, 28.0, 40.0):
+            for k in range(12):
+                a = base + (k - 5.5) * (TAU / 12)
+                x, y = px + math.cos(a) * r, py + math.sin(a) * r
+                if m.is_blocked(x, y) or math.hypot(x - nc[0], y - nc[1]) > lim:
+                    continue
+                z = m.ground(x, y) + 4.5
+                if any(m.los(sh, (x, y, z)) for sh in shooters):
+                    continue
+                # prefer close spots that are away from threats
+                score = r - 6.0 * math.cos(a - base)
+                if score < bs:
+                    bs, best = score, (x, y)
+            if best is not None:
+                break
+        self.cover_cache = (t, best)
+        return best
 
     def avoid_walls(self, mx, my, px, py):
         m = self.map
