@@ -2,11 +2,13 @@
 
 Branch `qa/cursor` in `D:\Hackathon\mech-royale-cursor-qa`. This branch is not pushed. It contains public `main` at `f9a3669` plus the reliability fixes below. Do not merge it to `main` from this worktree. Claude integrates.
 
-Functional commits:
+Commits:
 
 - `94f99ad` — fixes and the new tests, based on `e0be091`
-- merge of `origin/main` `f9a3669` (v3 smart targets, cover retreat, regen hold, weapon rush, experiment log)
-- the commit that adds this file is the branch tip (`git rev-parse HEAD`)
+- `a1a6f9e` — merge of `origin/main` `f9a3669` (v3 smart targets, cover retreat, regen hold, weapon rush) and this report
+- branch tip: `git rev-parse HEAD` (one docs commit may sit on `a1a6f9e` only to record that hash)
+
+Integrate `qa/cursor` at its tip. The code and this report are in `a1a6f9e`.
 
 No practice score is claimed. There is no official local match simulator. `sim/` is the team's approximate house-bot model. Only a Buildathon submission can score the bot.
 
