@@ -28,8 +28,8 @@ Only rows with a receipt are real Buildathon results. Everything else is labelle
 | v6 | 417f6eb | Sat 04:00 | BB-B869F61E | **4.21** | – | v5 + retreat hysteresis: retreat <65% HP, stay back until 90% (sim 3.03 vs 2.74) | neutral (+0.02) |
 | v7 | 5cdab49 | Sat 04:39 | BB-0B89A341 | **4.25** | – | v6 + engage_r 100: start fights only inside 100 m, always answer attackers (sim 3.20/3.22 vs 2.77) | +0.04: new best (sim overestimated) |
 | v8 | 7a5737c | Sat 04:42 | BB-7EEB6537 | **4.29** | – | v7 + face_threats + no_mortar (sim 3.04 vs 2.76 on v7 base) | +0.04: new best |
-| v9 | 544d924 | Sat 04:55 | BB-6744393F | pending | – | v8 + upgrade_damage 4 (sim 3.17 vs 3.04) | – |
-| v9r | 45ce606 | (queued 05:00) | – | – | – | v8 + retreat 75%/95% (sim 3.16 vs 3.04) | – |
+| v9 | 544d924 | Sat 04:55 | BB-6744393F | 4.06 | – | v8 + upgrade_damage 4 (sim 3.17 vs 3.04) | **worse (−0.23)**: rejected; keep plating/armor order |
+| v9r | 45ce606 | Sat 05:01 | BB-885F8DDA | pending | – | v8 + retreat 75%/95% (sim 3.16 vs 3.04) | – |
 
 ## Local gates every submitted commit must clear
 
@@ -73,3 +73,4 @@ Unexplained deaths also happen in squad play (NPC drones, zone). Not used; v6's 
 | feat/cover-combat (d9b1731) | opt-in cover peeking for gun fights, based on v6 | its own sim: 2.73 vs 2.77, active on 215/32,677 decisions | deferred: low activity, unproven; noted sim bug (bullet can hit a mech before the wall check on the same step) |
 
 Watch page (`watch.joinbuilders.org/show`) airs exhibitions/lobby/final, not practice runs: no per-match diagnostics for us.
+| drop_gun (laser + lightning loadout) on v9 base, corrected sim | 96 | **3.32** (kills 2.84, survive 91 s) | 2.92 (kills 2.50, 80 s) | promising; confirming on fresh seeds |
