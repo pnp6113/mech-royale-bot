@@ -23,7 +23,12 @@ TAU = 2 * math.pi
 TUNE = {
     "retreat_hp": 0.32,     # retreat below this HP fraction (0 disables); v1b tested 0 -> 3.33 vs 3.42
     "cube_grab_r": 25.0,
-    "weapon_rush_r": 80.0,  # with slot 2 empty, go for a seen lightning/laser within this radius even mid-fight
+    "weapon_rush_r": 80.0,
+    "gun_want": 55.0,       # preferred fight distance with gun only (m)
+    "laser_want": 110.0,    # preferred fight distance with a laser (m)
+    "lightning_want": 0.62, # preferred distance as a fraction of lightning range
+    "strafe": 0.9,          # sideways weight while fighting
+    "npc_hp_min": 0.6,      # hunt NPC drones only above this HP fraction  # with slot 2 empty, go for a seen lightning/laser within this radius even mid-fight
     "smart_targets": True,  # target bonuses: charging lasers in lightning range, mortar carriers vs laser, low HP
     "cover": True,          # retreat to a spot that breaks line of fire (regen needs 5 s without damage)
     "regen_hold": 0.75,     # below this HP fraction with no enemies: stop shooting loot and hold still (0 = off)    # grab cubes within this radius in any non-zone mode (0 disables; v1 had none)
@@ -507,11 +512,11 @@ class Bot:
         has_laser = "laser" in kinds
         lr = float(self.wstats(None, "lightning").get("range", 45))
         if has_l and hp_frac > 0.45:
-            want = lr * 0.62
+            want = lr * TUNE["lightning_want"]
         elif has_laser:
-            want = 110.0
+            want = TUNE["laser_want"]
         else:
-            want = 55.0 if hp_frac > 0.5 else 85.0
+            want = TUNE["gun_want"] if hp_frac > 0.5 else TUNE["gun_want"] + 30.0
         enemy_w = e.get("weapons") or []
         if "lightning" in enemy_w and not has_l:
             want = max(want, lr + 20.0)  # stay out of their arc
@@ -524,7 +529,8 @@ class Bot:
             self.strafe_sign = self.rng.choice((-1.0, 1.0))
             self.strafe_switch_t = t + self.rng.uniform(0.8, 2.2)
         tx, ty = -uy * self.strafe_sign, ux * self.strafe_sign
-        return ux * radial + tx * 0.9, uy * radial + ty * 0.9
+        st = TUNE["strafe"]
+        return ux * radial + tx * st, uy * radial + ty * st
 
     def dodge(self, obs, me, mycenter, px, py, pz, vx, vy, scale):
         rad = 2.5 * scale
@@ -659,7 +665,7 @@ class Bot:
                 if score > best:
                     stand = self.stand_off(cp, px, py, d, 30.0, [cp[0], cp[1], cp[2] + 1.2], muzzle)
                     best, best_goal, best_tgt = score, stand, ("crate", c)
-        if hp_frac > 0.6:
+        if hp_frac > TUNE["npc_hp_min"]:
             for n in obs.get("mechs") or []:
                 if n.get("kind") != "npc" or bl.get(n["id"], -1) > t:
                     continue

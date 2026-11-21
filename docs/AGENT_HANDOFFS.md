@@ -145,3 +145,22 @@ Deliver: PR with tests/test_fuzz.py + tools/nav_audit.py and a QA report in docs
 2. After each merge: full gates, push, then submit only if the change is expected to move the score.
 3. Every submitted SHA is tagged (`v1`, `v2`, …) and logged in `docs/EXPERIMENTS.md`. Tags are never deleted.
 4. The best-scoring tag is the fallback. A new version replaces it only after a real practice score beats it.
+
+---
+
+## Integration status (lead, Sat 03:10 ET)
+
+**Codex combat (`feat/combat-codex` @ ed12f8a): integrated on `integ/combat`, behind `TUNE["codex_combat"]`, not yet submitted.**
+- Wiring follows COMBAT_INTEGRATION.md: one dodge layer (our `dodge()` is skipped), the controller gets the final nav move
+  after walls/stuck/hops, its dodge is off during jumps/hops/stuck recovery and when the tick already used 20 ms;
+  exceptions fall back to our aim/fire.
+- Gates: 17 scenario tests run (3 encode our old controller's choices, so they "fail" by design under Codex: head-on
+  bullet at 0.16 s, mortar dodge side, laser not charging at 100 m), the replay is schema-clean, and check.py passes.
+- APPROXIMATE sim, 48 seeds: on v3 base 2.62 vs 2.46 (noise); on v4 base **2.62 vs 2.73 (no gain)**, zone damage
+  28 vs 0. Uncontended latency p99 7 ms, max 11 ms (ours alone: about 3x lower).
+- **Next:** one real practice A/B (v4 + Codex vs v4). Ship only if the real score beats v4.
+
+**Requests back to Codex (combat):**
+1. `choose_dodge` costs most of the time (`_simulate`, LOS). Add an explicit time budget argument and early-out.
+2. In the sim, zone damage appeared only with the controller on (28 vs 0, cause not confirmed; dodge moves are the likely suspect). Consider accepting a `zone=(center, radius)` constraint in candidate scoring.
+3. `tests/test_combat_*.py` need `sys.path` set up for `python -m unittest discover -s tests` from the repo root.
