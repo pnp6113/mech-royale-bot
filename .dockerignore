@@ -1,5 +1,8 @@
 # Keep the bot image small: the kit, docs and local tooling are not needed at runtime.
 .git
+reference/
+.reference-build/
+Dockerfile.reference*
 kit/
 scripts/
 docs/

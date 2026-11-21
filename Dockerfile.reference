@@ -1,0 +1,35 @@
+FROM --platform=$BUILDPLATFORM golang:1.26.1-bookworm@sha256:ab3d6955bbc813a0f3fdf220c1d817dd89c0b3f283777db8ece4a32fe7858edd AS source
+ARG CONTROLLER=kanyaraasi
+WORKDIR /src
+ENV CGO_ENABLED=0 GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off GOTELEMETRY=off
+COPY reference/${CONTROLLER}/ ./
+RUN mkdir /notices && cp LICENSE /notices/CONTROLLER_LICENSE && \
+    cp /usr/local/go/LICENSE /notices/GO_LICENSE && \
+    if [ -f THIRD_PARTY_LICENSES ]; then cp THIRD_PARTY_LICENSES /notices/; fi
+
+FROM source AS linux-build
+ARG TARGETOS
+ARG TARGETARCH
+RUN --network=none GOOS=$TARGETOS GOARCH=$TARGETARCH go build -mod=readonly -trimpath \
+    -buildvcs=false -ldflags="-s -w -buildid=" -o /out/reference-bot ./cmd/bot
+
+FROM source AS windows-build
+RUN --network=none GOOS=windows GOARCH=amd64 go build -mod=readonly -trimpath \
+    -buildvcs=false -ldflags="-s -w -buildid=" -o /out/bot.exe ./cmd/bot
+
+FROM scratch AS windows
+COPY --from=windows-build /out/bot.exe /bot.exe
+COPY --from=source /notices/ /licenses/
+
+FROM python:3.13.18-slim AS verify
+WORKDIR /bot
+ENV GOMAXPROCS=1 PYTHONDONTWRITEBYTECODE=1
+COPY --from=linux-build /out/reference-bot /usr/local/bin/reference-bot
+COPY --from=source /notices/ /licenses/
+
+FROM scratch AS runtime
+ENV HOME=/tmp TMPDIR=/tmp GOMAXPROCS=1
+COPY --from=linux-build /out/reference-bot /bot
+COPY --from=source /notices/ /licenses/
+USER 65534:65534
+ENTRYPOINT ["/bot"]

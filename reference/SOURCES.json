@@ -1,0 +1,37 @@
+{
+  "giddy": {
+    "commit": "345c0de2f43f5f27a4ecf74c1c25c789d00fbc49",
+    "git_blobs": {
+      ".dockerignore": "6b8710a711f3b689885aa5c26c6c06bde348e82b",
+      "Dockerfile": "d6a11c51a4d160dfda6b1db532b56c47be5fa9aa",
+      "LICENSE": "15aa54627eb54849453edff6aafbe973cebee266",
+      "README.md": "ae8c59fc40967f5cac5bf87553b9b4acb409d2c0",
+      "cmd/bot/main.go": "8485e743ade972f4e092b800eb27c3a58a40bd77",
+      "go.mod": "d7506e5e0a951956c57153eada37ee368e51a5a8",
+      "mech/brain.go": "b8ed53e26bda9b10738f51afc95d9db95d1b3568",
+      "mech/export.go": "9c8cea54b978c62d2df35201e5534c615f29735c",
+      "mech/types.go": "d0262a06df01239c13e7d26fdcc27453b21fce8a",
+      "mech/world.go": "7ba95b08affb180715f429091d41854f1e52774d"
+    },
+    "git_tree": "e4ae73c06bab383c7a8741df4854d81830a2c34f",
+    "repository": "https://github.com/justnau/giddygiddyboy-mech-royale"
+  },
+  "kanyaraasi": {
+    "commit": "24d68e50ecd1ecb272b614b8a38c509bc8eeee5f",
+    "git_blobs": {
+      ".dockerignore": "5b632bc69c088d86d24f500f67b78b6453d48a62",
+      "Dockerfile": "a442a928de29b72ee6b0a5b536d06aa99bc5f40c",
+      "LICENSE": "18dd7b4f6108170291851c8440bcb35de0602334",
+      "README.md": "299b3d3da417dbf9edb483ed0a934b4eb509dd96",
+      "THIRD_PARTY_LICENSES": "15aa54627eb54849453edff6aafbe973cebee266",
+      "cmd/bot/main.go": "8c77d1cfe247922399c78f7826d6bf82903bde33",
+      "go.mod": "d7506e5e0a951956c57153eada37ee368e51a5a8",
+      "mech/brain.go": "5672aa7ce074e2d39ad1d7cbab44a6b89e7479de",
+      "mech/export.go": "9c8cea54b978c62d2df35201e5534c615f29735c",
+      "mech/types.go": "d0262a06df01239c13e7d26fdcc27453b21fce8a",
+      "mech/world.go": "7ba95b08affb180715f429091d41854f1e52774d"
+    },
+    "git_tree": "91fc9a91d3a44b46844320714b94e82f19d0ebaa",
+    "repository": "https://github.com/devakchow/team-kanyaraasi-mech-royale"
+  }
+}

@@ -1,0 +1,4705 @@
+{
+  "simulator": "repository approximate simulator",
+  "seed_start": 1,
+  "rows": {
+    "practice": [
+      {
+        "seed": 1,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 28.05,
+        "weapon_damage": 1440.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1912.5
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 281
+      },
+      {
+        "seed": 1,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 21.400000000000002,
+        "weapon_damage": 1469.85,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1170.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 215
+      },
+      {
+        "seed": 1,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 18.5,
+        "weapon_damage": 1595.25,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 945.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 186
+      },
+      {
+        "seed": 2,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 14,
+        "score": 2,
+        "kills": 1,
+        "survival_s": 154.70000000000002,
+        "weapon_damage": 2290.85,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 2.3000000000000003,
+          "lightning": 5.9
+        },
+        "dealt_hp": {
+          "gun": 5311.799999999995,
+          "lightning": 403.2000000000002
+        },
+        "laser_shots": 1,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": 4.1000000000000005,
+        "decision_count": 1548
+      },
+      {
+        "seed": 2,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 4,
+        "score": 12,
+        "kills": 11,
+        "survival_s": 143.4,
+        "weapon_damage": 1890.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 2.7
+        },
+        "dealt_hp": {
+          "laser": 10931.027940000002,
+          "gun": 5164.5599999999995
+        },
+        "laser_shots": 21,
+        "laser_hits": 18,
+        "laser_full_shots": 14,
+        "first_laser_shot_s": 40.0,
+        "decision_count": 1435
+      },
+      {
+        "seed": 2,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 9,
+        "score": 7,
+        "kills": 7,
+        "survival_s": 130.85,
+        "weapon_damage": 1886.0000000000011,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 2.7
+        },
+        "dealt_hp": {
+          "laser": 8307.767580000002,
+          "gun": 3382.200000000003
+        },
+        "laser_shots": 16,
+        "laser_hits": 16,
+        "laser_full_shots": 8,
+        "first_laser_shot_s": 40.0,
+        "decision_count": 1309
+      },
+      {
+        "seed": 3,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 7,
+        "place": 9,
+        "score": 7,
+        "kills": 6,
+        "survival_s": 67.10000000000001,
+        "weapon_damage": 2626.2,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 3.8000000000000003
+        },
+        "dealt_hp": {
+          "gun": 6710.399999999994,
+          "lightning": 2042.3999999999996
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 672
+      },
+      {
+        "seed": 3,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 7,
+        "place": 9,
+        "score": 7,
+        "kills": 4,
+        "survival_s": 106.80000000000001,
+        "weapon_damage": 2292.7320000000013,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 3.8000000000000003
+        },
+        "dealt_hp": {
+          "gun": 3283.739999999998,
+          "lightning": 1593.5999999999997
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1069
+      },
+      {
+        "seed": 3,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 7,
+        "place": 11,
+        "score": 5,
+        "kills": 4,
+        "survival_s": 65.25,
+        "weapon_damage": 2414.0615999999995,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 3.8000000000000003
+        },
+        "dealt_hp": {
+          "gun": 3815.9999999999977,
+          "lightning": 2256.96
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 653
+      },
+      {
+        "seed": 4,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 30.3,
+        "weapon_damage": 1490.4,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.4000000000000001
+        },
+        "dealt_hp": {
+          "gun": 1988.999999999999
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 304
+      },
+      {
+        "seed": 4,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 57.35,
+        "weapon_damage": 1597.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 2.2
+        },
+        "dealt_hp": {
+          "gun": 1285.2000000000007
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 574
+      },
+      {
+        "seed": 4,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 9,
+        "score": 7,
+        "kills": 2,
+        "survival_s": 233.60000000000002,
+        "weapon_damage": 2811.8249999999994,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 2.2
+        },
+        "dealt_hp": {
+          "gun": 4159.800000000001,
+          "lightning": 1650.2640000000004
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2337
+      },
+      {
+        "seed": 5,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 13,
+        "score": 3,
+        "kills": 3,
+        "survival_s": 129.70000000000002,
+        "weapon_damage": 3402.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 10.8
+        },
+        "dealt_hp": {
+          "gun": 3952.7999999999984,
+          "lightning": 1290.504
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1298
+      },
+      {
+        "seed": 5,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 20.650000000000002,
+        "weapon_damage": 1752.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 648.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 207
+      },
+      {
+        "seed": 5,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 20.900000000000002,
+        "weapon_damage": 1767.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 599.3999999999999
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 210
+      },
+      {
+        "seed": 6,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 12,
+        "place": 11,
+        "score": 5,
+        "kills": 3,
+        "survival_s": 212.85000000000002,
+        "weapon_damage": 3667.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 12.5
+        },
+        "dealt_hp": {
+          "gun": 4370.400000000001,
+          "lightning": 2025.5400000000002
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2129
+      },
+      {
+        "seed": 6,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 12,
+        "place": 5,
+        "score": 11,
+        "kills": 9,
+        "survival_s": 175.4,
+        "weapon_damage": 2407.6191999999996,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 9.9
+        },
+        "dealt_hp": {
+          "laser": 11443.698,
+          "gun": 6991.200000000001
+        },
+        "laser_shots": 33,
+        "laser_hits": 24,
+        "laser_full_shots": 17,
+        "first_laser_shot_s": 76.9,
+        "decision_count": 1755
+      },
+      {
+        "seed": 6,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 12,
+        "place": 9,
+        "score": 7,
+        "kills": 6,
+        "survival_s": 188.0,
+        "weapon_damage": 2763.85,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 9.9
+        },
+        "dealt_hp": {
+          "laser": 6034.7238,
+          "gun": 4408.199999999999
+        },
+        "laser_shots": 16,
+        "laser_hits": 14,
+        "laser_full_shots": 5,
+        "first_laser_shot_s": 77.0,
+        "decision_count": 1881
+      },
+      {
+        "seed": 7,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 0,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 22.85,
+        "weapon_damage": 1440.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 5.1000000000000005
+        },
+        "dealt_hp": {
+          "gun": 1305.0,
+          "lightning": 120.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 229
+      },
+      {
+        "seed": 7,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 0,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 24.650000000000002,
+        "weapon_damage": 1428.85,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 5.2
+        },
+        "dealt_hp": {
+          "gun": 810.0,
+          "lightning": 540.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 247
+      },
+      {
+        "seed": 7,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 0,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 27.3,
+        "weapon_damage": 1528.0919999999999,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 5.2
+        },
+        "dealt_hp": {
+          "gun": 905.3999999999997,
+          "lightning": 324.00000000000006
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 274
+      },
+      {
+        "seed": 8,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 3,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 206.0,
+        "weapon_damage": 0.0,
+        "zone_damage": 1400.25,
+        "zone_death": true,
+        "acquired_s": {
+          "lightning": 3.7
+        },
+        "dealt_hp": {
+          "gun": 1417.5
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2061
+      },
+      {
+        "seed": 8,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 3,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 147.35,
+        "weapon_damage": 0.0,
+        "zone_damage": 1400.25,
+        "zone_death": true,
+        "acquired_s": {},
+        "dealt_hp": {},
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1474
+      },
+      {
+        "seed": 8,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 3,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 147.35,
+        "weapon_damage": 0.0,
+        "zone_damage": 1400.25,
+        "zone_death": true,
+        "acquired_s": {},
+        "dealt_hp": {},
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1474
+      },
+      {
+        "seed": 9,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 3,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 20.950000000000003,
+        "weapon_damage": 1641.4000000000008,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 5.9
+        },
+        "dealt_hp": {
+          "gun": 2208.1499999999996,
+          "lightning": 180.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 210
+      },
+      {
+        "seed": 9,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 3,
+        "place": 13,
+        "score": 3,
+        "kills": 1,
+        "survival_s": 84.95,
+        "weapon_damage": 2632.800000000001,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 51.2
+        },
+        "dealt_hp": {
+          "gun": 2782.800000000002,
+          "laser": 1296.2040000000002
+        },
+        "laser_shots": 6,
+        "laser_hits": 4,
+        "laser_full_shots": 5,
+        "first_laser_shot_s": 67.5,
+        "decision_count": 850
+      },
+      {
+        "seed": 9,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 3,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 35.65,
+        "weapon_damage": 1485.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 2002.5
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 357
+      },
+      {
+        "seed": 10,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 10,
+        "score": 6,
+        "kills": 4,
+        "survival_s": 161.5,
+        "weapon_damage": 1803.9999999999998,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 2.3000000000000003
+        },
+        "dealt_hp": {
+          "gun": 5207.939999999989,
+          "lightning": 811.1999999999997
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1616
+      },
+      {
+        "seed": 10,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 11,
+        "score": 5,
+        "kills": 4,
+        "survival_s": 75.7,
+        "weapon_damage": 1955.78568,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 20.200000000000003,
+          "lightning": 68.60000000000001
+        },
+        "dealt_hp": {
+          "laser": 2939.45904,
+          "gun": 2935.7999999999975
+        },
+        "laser_shots": 10,
+        "laser_hits": 7,
+        "laser_full_shots": 4,
+        "first_laser_shot_s": 43.300000000000004,
+        "decision_count": 758
+      },
+      {
+        "seed": 10,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 11,
+        "score": 5,
+        "kills": 4,
+        "survival_s": 77.85000000000001,
+        "weapon_damage": 1851.2240000000002,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 20.200000000000003
+        },
+        "dealt_hp": {
+          "laser": 3661.0526400000003,
+          "gun": 2856.5999999999976
+        },
+        "laser_shots": 13,
+        "laser_hits": 9,
+        "laser_full_shots": 5,
+        "first_laser_shot_s": 43.400000000000006,
+        "decision_count": 779
+      },
+      {
+        "seed": 11,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 14,
+        "score": 2,
+        "kills": 2,
+        "survival_s": 43.550000000000004,
+        "weapon_damage": 1798.200000000001,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 0.9
+        },
+        "dealt_hp": {
+          "gun": 2327.400000000003,
+          "lightning": 1990.5600000000009
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 436
+      },
+      {
+        "seed": 11,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 10,
+        "score": 6,
+        "kills": 4,
+        "survival_s": 143.65,
+        "weapon_damage": 3473.85,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 0.9,
+          "laser": 17.400000000000002
+        },
+        "dealt_hp": {
+          "gun": 3065.399999999996,
+          "lightning": 1312.7999999999997,
+          "laser": 2133.768
+        },
+        "laser_shots": 9,
+        "laser_hits": 6,
+        "laser_full_shots": 5,
+        "first_laser_shot_s": 19.700000000000003,
+        "decision_count": 1437
+      },
+      {
+        "seed": 11,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 25.0,
+        "weapon_damage": 1530.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 0.9
+        },
+        "dealt_hp": {
+          "gun": 1125.0,
+          "lightning": 780.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 251
+      },
+      {
+        "seed": 12,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 11,
+        "score": 5,
+        "kills": 4,
+        "survival_s": 79.15,
+        "weapon_damage": 2407.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.9000000000000001
+        },
+        "dealt_hp": {
+          "gun": 6333.300000000007
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 792
+      },
+      {
+        "seed": 12,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 11,
+        "score": 5,
+        "kills": 5,
+        "survival_s": 65.05,
+        "weapon_damage": 1856.7360000000015,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.9000000000000001,
+          "laser": 26.5
+        },
+        "dealt_hp": {
+          "gun": 3089.699999999996,
+          "lightning": 840.0,
+          "laser": 3742.2
+        },
+        "laser_shots": 12,
+        "laser_hits": 11,
+        "laser_full_shots": 11,
+        "first_laser_shot_s": 37.2,
+        "decision_count": 651
+      },
+      {
+        "seed": 12,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 8,
+        "score": 8,
+        "kills": 7,
+        "survival_s": 57.400000000000006,
+        "weapon_damage": 2253.6,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.9000000000000001,
+          "laser": 21.200000000000003
+        },
+        "dealt_hp": {
+          "gun": 3847.787999999993,
+          "lightning": 840.0,
+          "laser": 5516.254800000001
+        },
+        "laser_shots": 14,
+        "laser_hits": 14,
+        "laser_full_shots": 10,
+        "first_laser_shot_s": 25.400000000000002,
+        "decision_count": 575
+      },
+      {
+        "seed": 13,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 14,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 24.650000000000002,
+        "weapon_damage": 1570.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 3.7
+        },
+        "dealt_hp": {
+          "gun": 1950.2999999999993,
+          "lightning": 453.60000000000014
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 247
+      },
+      {
+        "seed": 13,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 14,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 20.85,
+        "weapon_damage": 1895.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 3.8000000000000003
+        },
+        "dealt_hp": {
+          "lightning": 537.6000000000004,
+          "gun": 856.8
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 209
+      },
+      {
+        "seed": 13,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 14,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 20.85,
+        "weapon_damage": 1895.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 3.8000000000000003
+        },
+        "dealt_hp": {
+          "lightning": 537.6000000000004,
+          "gun": 856.8
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 209
+      },
+      {
+        "seed": 14,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 3,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 33.9,
+        "weapon_damage": 1440.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1215.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 340
+      },
+      {
+        "seed": 14,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 3,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 24.900000000000002,
+        "weapon_damage": 1417.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1125.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 250
+      },
+      {
+        "seed": 14,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 3,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 25.400000000000002,
+        "weapon_damage": 1417.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 900.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 255
+      },
+      {
+        "seed": 15,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 8,
+        "place": 12,
+        "score": 4,
+        "kills": 4,
+        "survival_s": 148.4,
+        "weapon_damage": 2643.252000000001,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 9.9
+        },
+        "dealt_hp": {
+          "gun": 9481.499999999998,
+          "lightning": 844.8000000000002
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1485
+      },
+      {
+        "seed": 15,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 8,
+        "place": 12,
+        "score": 4,
+        "kills": 4,
+        "survival_s": 58.400000000000006,
+        "weapon_damage": 1717.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 9.9
+        },
+        "dealt_hp": {
+          "gun": 5368.234499999997,
+          "lightning": 384.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 585
+      },
+      {
+        "seed": 15,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 8,
+        "place": 12,
+        "score": 4,
+        "kills": 4,
+        "survival_s": 64.5,
+        "weapon_damage": 2663.400000000002,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 9.9,
+          "laser": 42.400000000000006
+        },
+        "dealt_hp": {
+          "gun": 4233.6,
+          "lightning": 374.4000000000001,
+          "laser": 2058.084
+        },
+        "laser_shots": 5,
+        "laser_hits": 5,
+        "laser_full_shots": 3,
+        "first_laser_shot_s": 50.1,
+        "decision_count": 646
+      },
+      {
+        "seed": 16,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 13,
+        "place": 13,
+        "score": 3,
+        "kills": 3,
+        "survival_s": 231.75,
+        "weapon_damage": 2314.2999999999997,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 82.9
+        },
+        "dealt_hp": {
+          "gun": 4927.5,
+          "lightning": 504.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2318
+      },
+      {
+        "seed": 16,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 13,
+        "place": 12,
+        "score": 4,
+        "kills": 3,
+        "survival_s": 193.9,
+        "weapon_damage": 2123.7999999999997,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 8.9
+        },
+        "dealt_hp": {
+          "gun": 6527.744999999998,
+          "lightning": 696.96
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1940
+      },
+      {
+        "seed": 16,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 13,
+        "place": 9,
+        "score": 7,
+        "kills": 7,
+        "survival_s": 198.9,
+        "weapon_damage": 2060.9999999999995,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 8.9,
+          "laser": 152.6
+        },
+        "dealt_hp": {
+          "gun": 4712.199750000001,
+          "laser": 6674.463600000002
+        },
+        "laser_shots": 15,
+        "laser_hits": 14,
+        "laser_full_shots": 6,
+        "first_laser_shot_s": 159.10000000000002,
+        "decision_count": 1990
+      },
+      {
+        "seed": 17,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 0,
+        "place": 11,
+        "score": 5,
+        "kills": 4,
+        "survival_s": 219.5,
+        "weapon_damage": 2950.342000000002,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 8.8
+        },
+        "dealt_hp": {
+          "gun": 6158.699999999993,
+          "lightning": 712.8000000000002
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2196
+      },
+      {
+        "seed": 17,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 0,
+        "place": 9,
+        "score": 7,
+        "kills": 6,
+        "survival_s": 205.20000000000002,
+        "weapon_damage": 3886.0836000000004,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 24.3,
+          "laser": 32.4
+        },
+        "dealt_hp": {
+          "gun": 5559.299999999992,
+          "laser": 682.73856,
+          "lightning": 2662.8
+        },
+        "laser_shots": 2,
+        "laser_hits": 1,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": 59.0,
+        "decision_count": 2053
+      },
+      {
+        "seed": 17,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 0,
+        "place": 10,
+        "score": 6,
+        "kills": 2,
+        "survival_s": 244.35000000000002,
+        "weapon_damage": 2072.0000000000014,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 24.3,
+          "laser": 32.4
+        },
+        "dealt_hp": {
+          "gun": 2184.750000000001,
+          "laser": 1087.14816,
+          "lightning": 168.0
+        },
+        "laser_shots": 2,
+        "laser_hits": 2,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": 59.0,
+        "decision_count": 2444
+      },
+      {
+        "seed": 18,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 11,
+        "score": 5,
+        "kills": 5,
+        "survival_s": 108.0,
+        "weapon_damage": 2715.2680000000028,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 4.1000000000000005,
+          "lightning": 22.5
+        },
+        "dealt_hp": {
+          "gun": 6291.899999999992,
+          "laser": 945.0,
+          "lightning": 1291.1999999999998
+        },
+        "laser_shots": 2,
+        "laser_hits": 2,
+        "laser_full_shots": 2,
+        "first_laser_shot_s": 6.5,
+        "decision_count": 1081
+      },
+      {
+        "seed": 18,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 11,
+        "score": 5,
+        "kills": 4,
+        "survival_s": 155.5,
+        "weapon_damage": 3706.628000000003,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 4.1000000000000005,
+          "lightning": 133.5
+        },
+        "dealt_hp": {
+          "laser": 4146.8,
+          "gun": 3801.689999999995
+        },
+        "laser_shots": 14,
+        "laser_hits": 10,
+        "laser_full_shots": 5,
+        "first_laser_shot_s": 27.5,
+        "decision_count": 1556
+      },
+      {
+        "seed": 18,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 10,
+        "score": 6,
+        "kills": 5,
+        "survival_s": 130.65,
+        "weapon_damage": 3501.6100000000038,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 4.1000000000000005,
+          "lightning": 107.10000000000001
+        },
+        "dealt_hp": {
+          "laser": 4152.806,
+          "gun": 4217.4
+        },
+        "laser_shots": 11,
+        "laser_hits": 10,
+        "laser_full_shots": 5,
+        "first_laser_shot_s": 27.5,
+        "decision_count": 1307
+      },
+      {
+        "seed": 19,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 14,
+        "place": 14,
+        "score": 2,
+        "kills": 1,
+        "survival_s": 49.2,
+        "weapon_damage": 2002.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 3.9000000000000004,
+          "lightning": 9.0
+        },
+        "dealt_hp": {
+          "gun": 2114.1000000000013,
+          "lightning": 487.2
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 493
+      },
+      {
+        "seed": 19,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 14,
+        "place": 9,
+        "score": 7,
+        "kills": 6,
+        "survival_s": 110.2,
+        "weapon_damage": 3207.9,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 5.1000000000000005,
+          "lightning": 75.4
+        },
+        "dealt_hp": {
+          "laser": 5703.873285599999,
+          "gun": 5609.700000000003,
+          "lightning": 331.2
+        },
+        "laser_shots": 13,
+        "laser_hits": 11,
+        "laser_full_shots": 8,
+        "first_laser_shot_s": 34.5,
+        "decision_count": 1103
+      },
+      {
+        "seed": 19,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 14,
+        "place": 1,
+        "score": 15,
+        "kills": 12,
+        "survival_s": 211.15,
+        "weapon_damage": 2933.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 5.1000000000000005,
+          "lightning": 209.0
+        },
+        "dealt_hp": {
+          "laser": 10921.438080000002,
+          "gun": 6148.799999999992
+        },
+        "laser_shots": 29,
+        "laser_hits": 23,
+        "laser_full_shots": 6,
+        "first_laser_shot_s": 34.5,
+        "decision_count": 2112
+      },
+      {
+        "seed": 20,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 10,
+        "place": 7,
+        "score": 9,
+        "kills": 9,
+        "survival_s": 106.0,
+        "weapon_damage": 2438.62,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 13.700000000000001
+        },
+        "dealt_hp": {
+          "gun": 5904.000000000011,
+          "laser": 8463.293999999998
+        },
+        "laser_shots": 25,
+        "laser_hits": 22,
+        "laser_full_shots": 22,
+        "first_laser_shot_s": 16.1,
+        "decision_count": 1061
+      },
+      {
+        "seed": 20,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 10,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 56.7,
+        "weapon_damage": 1980.3000000000006,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 2119.5
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 568
+      },
+      {
+        "seed": 20,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 10,
+        "place": 14,
+        "score": 2,
+        "kills": 2,
+        "survival_s": 80.45,
+        "weapon_damage": 2351.4188000000013,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 3516.2999999999993
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 805
+      },
+      {
+        "seed": 21,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 12,
+        "place": 9,
+        "score": 7,
+        "kills": 3,
+        "survival_s": 228.10000000000002,
+        "weapon_damage": 2154.4000000000024,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 3.1,
+          "lightning": 26.5
+        },
+        "dealt_hp": {
+          "gun": 4191.839999999996,
+          "laser": 945.0,
+          "lightning": 450.7199999999998
+        },
+        "laser_shots": 2,
+        "laser_hits": 2,
+        "laser_full_shots": 2,
+        "first_laser_shot_s": 5.5,
+        "decision_count": 2282
+      },
+      {
+        "seed": 21,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 12,
+        "place": 7,
+        "score": 9,
+        "kills": 7,
+        "survival_s": 215.8,
+        "weapon_damage": 2447.2999999999993,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 3.1
+        },
+        "dealt_hp": {
+          "gun": 3533.399999999996,
+          "laser": 7305.804799999999
+        },
+        "laser_shots": 17,
+        "laser_hits": 15,
+        "laser_full_shots": 6,
+        "first_laser_shot_s": 136.1,
+        "decision_count": 2159
+      },
+      {
+        "seed": 21,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 12,
+        "place": 8,
+        "score": 8,
+        "kills": 5,
+        "survival_s": 225.45000000000002,
+        "weapon_damage": 2684.9500000000003,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 3.1,
+          "lightning": 131.1
+        },
+        "dealt_hp": {
+          "gun": 3099.0599999999986,
+          "lightning": 1419.1200000000006
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2255
+      },
+      {
+        "seed": 22,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 13,
+        "place": 13,
+        "score": 3,
+        "kills": 3,
+        "survival_s": 23.8,
+        "weapon_damage": 1530.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 3.9000000000000004
+        },
+        "dealt_hp": {
+          "gun": 1987.1999999999998,
+          "laser": 2540.286
+        },
+        "laser_shots": 8,
+        "laser_hits": 8,
+        "laser_full_shots": 7,
+        "first_laser_shot_s": 6.300000000000001,
+        "decision_count": 239
+      },
+      {
+        "seed": 22,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 13,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 20.85,
+        "weapon_damage": 1403.85,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 5.4
+        },
+        "dealt_hp": {
+          "gun": 1080.0,
+          "laser": 1232.7
+        },
+        "laser_shots": 5,
+        "laser_hits": 4,
+        "laser_full_shots": 3,
+        "first_laser_shot_s": 7.7,
+        "decision_count": 209
+      },
+      {
+        "seed": 22,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 13,
+        "place": 14,
+        "score": 2,
+        "kills": 2,
+        "survival_s": 20.85,
+        "weapon_damage": 1417.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 5.4
+        },
+        "dealt_hp": {
+          "gun": 1485.0,
+          "laser": 1603.3500000000001
+        },
+        "laser_shots": 6,
+        "laser_hits": 6,
+        "laser_full_shots": 3,
+        "first_laser_shot_s": 7.7,
+        "decision_count": 209
+      },
+      {
+        "seed": 23,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 14,
+        "place": 13,
+        "score": 3,
+        "kills": 2,
+        "survival_s": 72.75,
+        "weapon_damage": 1462.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.2000000000000002
+        },
+        "dealt_hp": {
+          "gun": 2971.800000000002,
+          "lightning": 1166.88
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 728
+      },
+      {
+        "seed": 23,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 14,
+        "place": 12,
+        "score": 4,
+        "kills": 2,
+        "survival_s": 80.75,
+        "weapon_damage": 1935.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.8,
+          "laser": 23.6
+        },
+        "dealt_hp": {
+          "gun": 3453.2999999999984,
+          "lightning": 1003.2000000000003
+        },
+        "laser_shots": 1,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": 25.3,
+        "decision_count": 808
+      },
+      {
+        "seed": 23,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 14,
+        "place": 5,
+        "score": 11,
+        "kills": 7,
+        "survival_s": 160.75,
+        "weapon_damage": 3787.308000000004,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.8,
+          "laser": 23.5
+        },
+        "dealt_hp": {
+          "gun": 5056.649999999999,
+          "lightning": 600.0,
+          "laser": 2716.5600000000004
+        },
+        "laser_shots": 13,
+        "laser_hits": 9,
+        "laser_full_shots": 5,
+        "first_laser_shot_s": 25.200000000000003,
+        "decision_count": 1608
+      },
+      {
+        "seed": 24,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 7,
+        "place": 15,
+        "score": 1,
+        "kills": 0,
+        "survival_s": 32.85,
+        "weapon_damage": 1460.7,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 23.0
+        },
+        "dealt_hp": {
+          "gun": 2474.100000000002
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 329
+      },
+      {
+        "seed": 24,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 7,
+        "place": 11,
+        "score": 5,
+        "kills": 4,
+        "survival_s": 125.45,
+        "weapon_damage": 2250.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 34.6
+        },
+        "dealt_hp": {
+          "gun": 5850.269999999996,
+          "lightning": 696.0000000000001
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1255
+      },
+      {
+        "seed": 24,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 7,
+        "place": 8,
+        "score": 8,
+        "kills": 3,
+        "survival_s": 173.20000000000002,
+        "weapon_damage": 3359.525,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 33.1
+        },
+        "dealt_hp": {
+          "gun": 4950.899999999992,
+          "lightning": 1545.6
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1733
+      },
+      {
+        "seed": 25,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 6,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 24.6,
+        "weapon_damage": 1417.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.7000000000000002
+        },
+        "dealt_hp": {
+          "gun": 1980.0,
+          "lightning": 402.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 247
+      },
+      {
+        "seed": 25,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 6,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 34.35,
+        "weapon_damage": 1533.6,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.7000000000000002
+        },
+        "dealt_hp": {
+          "gun": 1260.0,
+          "lightning": 426.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 344
+      },
+      {
+        "seed": 25,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 6,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 22.6,
+        "weapon_damage": 1440.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.7000000000000002
+        },
+        "dealt_hp": {
+          "gun": 1080.0,
+          "lightning": 306.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 227
+      },
+      {
+        "seed": 26,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 5,
+        "place": 14,
+        "score": 2,
+        "kills": 2,
+        "survival_s": 32.15,
+        "weapon_damage": 1543.5000000000007,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 0.6000000000000001
+        },
+        "dealt_hp": {
+          "gun": 3187.799999999998,
+          "lightning": 240.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 322
+      },
+      {
+        "seed": 26,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 5,
+        "place": 13,
+        "score": 3,
+        "kills": 3,
+        "survival_s": 51.0,
+        "weapon_damage": 2002.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 0.6000000000000001
+        },
+        "dealt_hp": {
+          "gun": 4581.899999999998,
+          "lightning": 1127.9999999999998
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 511
+      },
+      {
+        "seed": 26,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 5,
+        "place": 9,
+        "score": 7,
+        "kills": 7,
+        "survival_s": 68.05,
+        "weapon_damage": 1987.236000000001,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 0.6000000000000001,
+          "laser": 31.8
+        },
+        "dealt_hp": {
+          "gun": 4491.0,
+          "lightning": 1192.7999999999995,
+          "laser": 5354.096496000001
+        },
+        "laser_shots": 14,
+        "laser_hits": 14,
+        "laser_full_shots": 7,
+        "first_laser_shot_s": 34.1,
+        "decision_count": 681
+      },
+      {
+        "seed": 27,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 12,
+        "place": 13,
+        "score": 3,
+        "kills": 2,
+        "survival_s": 50.0,
+        "weapon_damage": 1926.55,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 13.200000000000001
+        },
+        "dealt_hp": {
+          "gun": 4499.999999999999,
+          "lightning": 860.1600000000001
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 501
+      },
+      {
+        "seed": 27,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 12,
+        "place": 12,
+        "score": 4,
+        "kills": 3,
+        "survival_s": 121.80000000000001,
+        "weapon_damage": 2087.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 86.4
+        },
+        "dealt_hp": {
+          "laser": 3908.6879999999996,
+          "gun": 2463.3
+        },
+        "laser_shots": 9,
+        "laser_hits": 9,
+        "laser_full_shots": 6,
+        "first_laser_shot_s": 100.4,
+        "decision_count": 1219
+      },
+      {
+        "seed": 27,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 12,
+        "place": 14,
+        "score": 2,
+        "kills": 1,
+        "survival_s": 116.5,
+        "weapon_damage": 2110.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 110.60000000000001
+        },
+        "dealt_hp": {
+          "gun": 1775.7000000000007,
+          "lightning": 297.5999999999999
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1166
+      },
+      {
+        "seed": 28,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 28.1,
+        "weapon_damage": 1687.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 1.6,
+          "lightning": 4.4
+        },
+        "dealt_hp": {
+          "gun": 1396.7999999999988,
+          "lightning": 499.2000000000004
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 282
+      },
+      {
+        "seed": 28,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 12,
+        "score": 4,
+        "kills": 4,
+        "survival_s": 31.5,
+        "weapon_damage": 1892.025,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 2.5
+        },
+        "dealt_hp": {
+          "gun": 2617.199999999997,
+          "laser": 3206.742
+        },
+        "laser_shots": 9,
+        "laser_hits": 8,
+        "laser_full_shots": 6,
+        "first_laser_shot_s": 11.8,
+        "decision_count": 316
+      },
+      {
+        "seed": 28,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 13,
+        "score": 3,
+        "kills": 3,
+        "survival_s": 29.1,
+        "weapon_damage": 1822.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 2.5
+        },
+        "dealt_hp": {
+          "gun": 2156.3999999999974,
+          "laser": 2395.3020000000006
+        },
+        "laser_shots": 7,
+        "laser_hits": 6,
+        "laser_full_shots": 4,
+        "first_laser_shot_s": 11.8,
+        "decision_count": 292
+      },
+      {
+        "seed": 29,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 6,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 25.25,
+        "weapon_damage": 1440.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1597.5
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 253
+      },
+      {
+        "seed": 29,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 6,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 36.800000000000004,
+        "weapon_damage": 1601.7999999999995,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 18.6
+        },
+        "dealt_hp": {
+          "gun": 1764.0000000000018,
+          "lightning": 336.0000000000002
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 369
+      },
+      {
+        "seed": 29,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 6,
+        "place": 11,
+        "score": 5,
+        "kills": 5,
+        "survival_s": 95.4,
+        "weapon_damage": 2046.681440000001,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 19.400000000000002,
+          "laser": 63.0
+        },
+        "dealt_hp": {
+          "gun": 5117.399999999992,
+          "lightning": 909.5999999999997,
+          "laser": 3373.2216000000008
+        },
+        "laser_shots": 12,
+        "laser_hits": 8,
+        "laser_full_shots": 6,
+        "first_laser_shot_s": 65.3,
+        "decision_count": 955
+      },
+      {
+        "seed": 30,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 10,
+        "score": 6,
+        "kills": 5,
+        "survival_s": 182.70000000000002,
+        "weapon_damage": 2394.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 2.3000000000000003
+        },
+        "dealt_hp": {
+          "gun": 2896.2,
+          "lightning": 4470.787199999998
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1828
+      },
+      {
+        "seed": 30,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 15,
+        "score": 1,
+        "kills": 0,
+        "survival_s": 198.5,
+        "weapon_damage": 87.5,
+        "zone_damage": 1400.0,
+        "zone_death": true,
+        "acquired_s": {},
+        "dealt_hp": {},
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1986
+      },
+      {
+        "seed": 30,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 15,
+        "score": 1,
+        "kills": 0,
+        "survival_s": 198.8,
+        "weapon_damage": 87.5,
+        "zone_damage": 1400.5,
+        "zone_death": true,
+        "acquired_s": {},
+        "dealt_hp": {},
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1989
+      },
+      {
+        "seed": 31,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 1,
+        "place": 13,
+        "score": 3,
+        "kills": 3,
+        "survival_s": 25.950000000000003,
+        "weapon_damage": 1417.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 1.7000000000000002
+        },
+        "dealt_hp": {
+          "laser": 2835.0,
+          "gun": 1710.0
+        },
+        "laser_shots": 9,
+        "laser_hits": 9,
+        "laser_full_shots": 9,
+        "first_laser_shot_s": 5.1000000000000005,
+        "decision_count": 260
+      },
+      {
+        "seed": 31,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 1,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 14.9,
+        "weapon_damage": 1440.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 2.7
+        },
+        "dealt_hp": {
+          "gun": 630.0,
+          "laser": 616.35
+        },
+        "laser_shots": 4,
+        "laser_hits": 2,
+        "laser_full_shots": 3,
+        "first_laser_shot_s": 7.4,
+        "decision_count": 150
+      },
+      {
+        "seed": 31,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 1,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 15.100000000000001,
+        "weapon_damage": 1462.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 2.7
+        },
+        "dealt_hp": {
+          "gun": 675.0,
+          "laser": 616.35
+        },
+        "laser_shots": 4,
+        "laser_hits": 2,
+        "laser_full_shots": 2,
+        "first_laser_shot_s": 7.4,
+        "decision_count": 152
+      },
+      {
+        "seed": 32,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 7,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 27.0,
+        "weapon_damage": 1469.7000000000005,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 467.99999999999955
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 271
+      },
+      {
+        "seed": 32,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 7,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 34.800000000000004,
+        "weapon_damage": 1665.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 10.5
+        },
+        "dealt_hp": {
+          "gun": 1622.880000000001,
+          "lightning": 114.24000000000001
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 349
+      },
+      {
+        "seed": 32,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 7,
+        "place": 11,
+        "score": 5,
+        "kills": 4,
+        "survival_s": 74.15,
+        "weapon_damage": 2106.9,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 10.5,
+          "laser": 17.3
+        },
+        "dealt_hp": {
+          "laser": 4295.8832,
+          "gun": 3138.119999999997
+        },
+        "laser_shots": 18,
+        "laser_hits": 10,
+        "laser_full_shots": 8,
+        "first_laser_shot_s": 22.900000000000002,
+        "decision_count": 742
+      },
+      {
+        "seed": 33,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 0,
+        "place": 12,
+        "score": 4,
+        "kills": 4,
+        "survival_s": 62.5,
+        "weapon_damage": 2187.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 9.5
+        },
+        "dealt_hp": {
+          "gun": 5239.5300000000025,
+          "lightning": 540.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 626
+      },
+      {
+        "seed": 33,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 0,
+        "place": 14,
+        "score": 2,
+        "kills": 2,
+        "survival_s": 36.5,
+        "weapon_damage": 1710.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 21.200000000000003
+        },
+        "dealt_hp": {
+          "gun": 2176.1999999999985,
+          "lightning": 259.20000000000005
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 366
+      },
+      {
+        "seed": 33,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 0,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 33.0,
+        "weapon_damage": 1732.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 21.900000000000002
+        },
+        "dealt_hp": {
+          "gun": 1850.3999999999987
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 331
+      },
+      {
+        "seed": 34,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 7,
+        "place": 10,
+        "score": 6,
+        "kills": 5,
+        "survival_s": 136.9,
+        "weapon_damage": 3357.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 30.400000000000002
+        },
+        "dealt_hp": {
+          "gun": 7984.831499999997,
+          "lightning": 1231.2000000000003
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1370
+      },
+      {
+        "seed": 34,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 7,
+        "place": 14,
+        "score": 2,
+        "kills": 2,
+        "survival_s": 69.85000000000001,
+        "weapon_damage": 2205.000000000002,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 4009.4999999999927
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 699
+      },
+      {
+        "seed": 34,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 7,
+        "place": 14,
+        "score": 2,
+        "kills": 2,
+        "survival_s": 59.2,
+        "weapon_damage": 2287.800000000001,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 2887.199999999996
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 593
+      },
+      {
+        "seed": 35,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 6,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 23.200000000000003,
+        "weapon_damage": 1782.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 0.0
+        },
+        "dealt_hp": {
+          "gun": 483.30000000000007
+        },
+        "laser_shots": 3,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": 2.0,
+        "decision_count": 233
+      },
+      {
+        "seed": 35,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 6,
+        "place": 10,
+        "score": 6,
+        "kills": 5,
+        "survival_s": 70.8,
+        "weapon_damage": 2432.4999999999986,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 0.0
+        },
+        "dealt_hp": {
+          "gun": 2536.2,
+          "laser": 5968.263000000001
+        },
+        "laser_shots": 17,
+        "laser_hits": 13,
+        "laser_full_shots": 10,
+        "first_laser_shot_s": 13.700000000000001,
+        "decision_count": 709
+      },
+      {
+        "seed": 35,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 6,
+        "place": 11,
+        "score": 5,
+        "kills": 5,
+        "survival_s": 165.35000000000002,
+        "weapon_damage": 3303.4499999999994,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 0.0
+        },
+        "dealt_hp": {
+          "gun": 3438.0,
+          "laser": 4079.7932419999997
+        },
+        "laser_shots": 19,
+        "laser_hits": 8,
+        "laser_full_shots": 4,
+        "first_laser_shot_s": 13.5,
+        "decision_count": 1654
+      },
+      {
+        "seed": 36,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 3,
+        "place": 13,
+        "score": 3,
+        "kills": 2,
+        "survival_s": 146.45000000000002,
+        "weapon_damage": 1697.7999999999995,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 9.3,
+          "lightning": 31.400000000000002
+        },
+        "dealt_hp": {
+          "gun": 3104.9999999999995,
+          "lightning": 216.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1465
+      },
+      {
+        "seed": 36,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 3,
+        "place": 9,
+        "score": 7,
+        "kills": 6,
+        "survival_s": 168.20000000000002,
+        "weapon_damage": 3315.9500000000025,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 13.200000000000001
+        },
+        "dealt_hp": {
+          "gun": 3805.1999999999953,
+          "laser": 5247.312
+        },
+        "laser_shots": 15,
+        "laser_hits": 13,
+        "laser_full_shots": 10,
+        "first_laser_shot_s": 78.2,
+        "decision_count": 1683
+      },
+      {
+        "seed": 36,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 3,
+        "place": 14,
+        "score": 2,
+        "kills": 1,
+        "survival_s": 94.25,
+        "weapon_damage": 1757.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 13.200000000000001
+        },
+        "dealt_hp": {
+          "gun": 1080.0,
+          "laser": 1117.62
+        },
+        "laser_shots": 5,
+        "laser_hits": 3,
+        "laser_full_shots": 4,
+        "first_laser_shot_s": 80.2,
+        "decision_count": 943
+      },
+      {
+        "seed": 37,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 8,
+        "place": 9,
+        "score": 7,
+        "kills": 6,
+        "survival_s": 87.25,
+        "weapon_damage": 2012.3231999999994,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 3.7,
+          "lightning": 12.5
+        },
+        "dealt_hp": {
+          "gun": 6487.91999999999,
+          "laser": 1386.0,
+          "lightning": 316.79999999999995
+        },
+        "laser_shots": 3,
+        "laser_hits": 3,
+        "laser_full_shots": 3,
+        "first_laser_shot_s": 6.1000000000000005,
+        "decision_count": 873
+      },
+      {
+        "seed": 37,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 8,
+        "place": 9,
+        "score": 7,
+        "kills": 6,
+        "survival_s": 100.2,
+        "weapon_damage": 2408.3999999999996,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 3.7
+        },
+        "dealt_hp": {
+          "gun": 3330.0000000000027,
+          "laser": 8290.293164159997
+        },
+        "laser_shots": 16,
+        "laser_hits": 13,
+        "laser_full_shots": 12,
+        "first_laser_shot_s": 12.8,
+        "decision_count": 1003
+      },
+      {
+        "seed": 37,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 8,
+        "place": 7,
+        "score": 9,
+        "kills": 8,
+        "survival_s": 106.35000000000001,
+        "weapon_damage": 2240.1,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 3.7
+        },
+        "dealt_hp": {
+          "gun": 4701.3435000000045,
+          "laser": 8427.846000000001
+        },
+        "laser_shots": 19,
+        "laser_hits": 19,
+        "laser_full_shots": 12,
+        "first_laser_shot_s": 12.8,
+        "decision_count": 1064
+      },
+      {
+        "seed": 38,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 8,
+        "place": 10,
+        "score": 6,
+        "kills": 6,
+        "survival_s": 50.85,
+        "weapon_damage": 1645.0000000000007,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 11.3
+        },
+        "dealt_hp": {
+          "gun": 3849.2999999999947,
+          "laser": 6686.819999999998
+        },
+        "laser_shots": 15,
+        "laser_hits": 15,
+        "laser_full_shots": 15,
+        "first_laser_shot_s": 13.700000000000001,
+        "decision_count": 509
+      },
+      {
+        "seed": 38,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 8,
+        "place": 12,
+        "score": 4,
+        "kills": 2,
+        "survival_s": 69.3,
+        "weapon_damage": 2455.0420000000017,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 5497.199999999998
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 694
+      },
+      {
+        "seed": 38,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 8,
+        "place": 14,
+        "score": 2,
+        "kills": 2,
+        "survival_s": 57.1,
+        "weapon_damage": 1855.599999999999,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 3922.1999999999953
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 572
+      },
+      {
+        "seed": 39,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 12,
+        "score": 4,
+        "kills": 4,
+        "survival_s": 209.15,
+        "weapon_damage": 1732.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 173.5
+        },
+        "dealt_hp": {
+          "gun": 5724.899999999997,
+          "lightning": 1371.9360000000001
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2092
+      },
+      {
+        "seed": 39,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 13,
+        "score": 3,
+        "kills": 2,
+        "survival_s": 210.25,
+        "weapon_damage": 2520.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 196.5
+        },
+        "dealt_hp": {
+          "gun": 3917.699999999997,
+          "lightning": 194.39999999999986
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2103
+      },
+      {
+        "seed": 39,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 14,
+        "score": 2,
+        "kills": 2,
+        "survival_s": 168.8,
+        "weapon_damage": 2252.4,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 142.1
+        },
+        "dealt_hp": {
+          "gun": 4707.900000000003,
+          "lightning": 842.3999999999999
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1689
+      },
+      {
+        "seed": 40,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 6,
+        "place": 7,
+        "score": 9,
+        "kills": 9,
+        "survival_s": 142.6,
+        "weapon_damage": 3976.35,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 9.200000000000001,
+          "lightning": 96.9
+        },
+        "dealt_hp": {
+          "gun": 6811.200000000001,
+          "laser": 6124.86,
+          "lightning": 1260.0
+        },
+        "laser_shots": 17,
+        "laser_hits": 14,
+        "laser_full_shots": 15,
+        "first_laser_shot_s": 11.600000000000001,
+        "decision_count": 1427
+      },
+      {
+        "seed": 40,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 6,
+        "place": 14,
+        "score": 2,
+        "kills": 2,
+        "survival_s": 57.150000000000006,
+        "weapon_damage": 1755.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 3620.6999999999953
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 572
+      },
+      {
+        "seed": 40,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 6,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 48.95,
+        "weapon_damage": 1755.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 2915.9999999999964
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 490
+      },
+      {
+        "seed": 41,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 13,
+        "score": 3,
+        "kills": 2,
+        "survival_s": 77.30000000000001,
+        "weapon_damage": 2741.300000000002,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 7.5
+        },
+        "dealt_hp": {
+          "gun": 5634.431999999999,
+          "lightning": 318.144
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 774
+      },
+      {
+        "seed": 41,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 11,
+        "score": 5,
+        "kills": 5,
+        "survival_s": 105.60000000000001,
+        "weapon_damage": 2554.525,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 9.1,
+          "laser": 52.7
+        },
+        "dealt_hp": {
+          "laser": 6040.02,
+          "gun": 2865.9149999999972
+        },
+        "laser_shots": 17,
+        "laser_hits": 13,
+        "laser_full_shots": 9,
+        "first_laser_shot_s": 59.6,
+        "decision_count": 1057
+      },
+      {
+        "seed": 41,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 11,
+        "score": 5,
+        "kills": 5,
+        "survival_s": 108.55000000000001,
+        "weapon_damage": 2257.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 9.1,
+          "laser": 52.7
+        },
+        "dealt_hp": {
+          "gun": 4259.024999999997,
+          "laser": 5075.742
+        },
+        "laser_shots": 20,
+        "laser_hits": 12,
+        "laser_full_shots": 6,
+        "first_laser_shot_s": 59.5,
+        "decision_count": 1086
+      },
+      {
+        "seed": 42,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 11,
+        "score": 5,
+        "kills": 5,
+        "survival_s": 74.3,
+        "weapon_damage": 1744.0280000000012,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 7078.643999999994
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 744
+      },
+      {
+        "seed": 42,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 13,
+        "score": 3,
+        "kills": 2,
+        "survival_s": 60.650000000000006,
+        "weapon_damage": 2053.8360000000016,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 4736.7000000000035
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 607
+      },
+      {
+        "seed": 42,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 13,
+        "score": 3,
+        "kills": 2,
+        "survival_s": 59.75,
+        "weapon_damage": 2483.7999999999997,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 4264.200000000003
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 598
+      },
+      {
+        "seed": 43,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 4,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 24.85,
+        "weapon_damage": 1417.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 3.5
+        },
+        "dealt_hp": {
+          "gun": 1890.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 249
+      },
+      {
+        "seed": 43,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 4,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 30.5,
+        "weapon_damage": 1552.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 5.1000000000000005
+        },
+        "dealt_hp": {
+          "gun": 534.5999999999995,
+          "lightning": 129.5999999999999
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 306
+      },
+      {
+        "seed": 43,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 4,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 30.5,
+        "weapon_damage": 1552.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 5.1000000000000005
+        },
+        "dealt_hp": {
+          "gun": 534.5999999999995,
+          "lightning": 129.5999999999999
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 306
+      },
+      {
+        "seed": 44,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 22.900000000000002,
+        "weapon_damage": 1462.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1821.059999999998
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 230
+      },
+      {
+        "seed": 44,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 20.85,
+        "weapon_damage": 1490.3999999999996,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1076.399999999999
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 209
+      },
+      {
+        "seed": 44,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 21.35,
+        "weapon_damage": 1511.0999999999997,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1123.199999999999
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 214
+      },
+      {
+        "seed": 45,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 13.350000000000001,
+        "weapon_damage": 1440.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1350.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 134
+      },
+      {
+        "seed": 45,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 15.350000000000001,
+        "weapon_damage": 1440.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1035.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 154
+      },
+      {
+        "seed": 45,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 9,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 14.25,
+        "weapon_damage": 1442.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1035.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 143
+      },
+      {
+        "seed": 46,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 12.9,
+        "weapon_damage": 1425.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1395.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 130
+      },
+      {
+        "seed": 46,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 16.150000000000002,
+        "weapon_damage": 1462.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 945.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 162
+      },
+      {
+        "seed": 46,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 16,
+        "score": 0,
+        "kills": 0,
+        "survival_s": 16.8,
+        "weapon_damage": 1417.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1035.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 169
+      },
+      {
+        "seed": 47,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 9,
+        "score": 7,
+        "kills": 5,
+        "survival_s": 151.20000000000002,
+        "weapon_damage": 2295.3000000000015,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 6.2
+        },
+        "dealt_hp": {
+          "gun": 7417.799999999998,
+          "lightning": 831.5999999999999
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1513
+      },
+      {
+        "seed": 47,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 12,
+        "score": 4,
+        "kills": 2,
+        "survival_s": 143.20000000000002,
+        "weapon_damage": 2377.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 9.0
+        },
+        "dealt_hp": {
+          "gun": 1836.0000000000007,
+          "lightning": 1607.999999999999
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1433
+      },
+      {
+        "seed": 47,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 2,
+        "place": 12,
+        "score": 4,
+        "kills": 2,
+        "survival_s": 141.1,
+        "weapon_damage": 2027.0999999999997,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 9.0
+        },
+        "dealt_hp": {
+          "gun": 2406.5999999999995,
+          "lightning": 1195.1999999999996
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1412
+      },
+      {
+        "seed": 48,
+        "arm": "v8",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 14,
+        "score": 2,
+        "kills": 2,
+        "survival_s": 57.300000000000004,
+        "weapon_damage": 2263.85,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 9.5
+        },
+        "dealt_hp": {
+          "gun": 3249.899999999997
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 574
+      },
+      {
+        "seed": 48,
+        "arm": "giddy",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 15,
+        "score": 1,
+        "kills": 1,
+        "survival_s": 87.2,
+        "weapon_damage": 2301.500000000002,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 25.6,
+          "laser": 80.5
+        },
+        "dealt_hp": {
+          "gun": 2016.0,
+          "lightning": 184.79999999999995,
+          "laser": 421.89
+        },
+        "laser_shots": 1,
+        "laser_hits": 1,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": 85.7,
+        "decision_count": 873
+      },
+      {
+        "seed": 48,
+        "arm": "kanyaraasi",
+        "scenario": "practice",
+        "slot": 11,
+        "place": 11,
+        "score": 5,
+        "kills": 5,
+        "survival_s": 97.60000000000001,
+        "weapon_damage": 2457.9000000000015,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 25.6,
+          "laser": 76.4
+        },
+        "dealt_hp": {
+          "gun": 4074.3000000000015,
+          "lightning": 633.6000000000001,
+          "laser": 3081.1199999999994
+        },
+        "laser_shots": 7,
+        "laser_hits": 7,
+        "laser_full_shots": 3,
+        "first_laser_shot_s": 78.7,
+        "decision_count": 977
+      }
+    ],
+    "ffa": [
+      {
+        "seed": 1,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 9,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 144.8,
+        "weapon_damage": 1700.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 55.5
+        },
+        "dealt_hp": {
+          "gun": 4551.300000000002,
+          "lightning": 530.4000000000001
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1448
+      },
+      {
+        "seed": 1,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 9,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 144.8,
+        "weapon_damage": 1935.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 66.5
+        },
+        "dealt_hp": {
+          "gun": 3127.319999999997,
+          "lightning": 230.40000000000003
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1448
+      },
+      {
+        "seed": 1,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 9,
+        "place": 6,
+        "score": 10,
+        "kills": 3,
+        "survival_s": 48.0,
+        "weapon_damage": 2047.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 2244.599999999998
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 481
+      },
+      {
+        "seed": 2,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 11,
+        "place": 1,
+        "score": 15,
+        "kills": 1,
+        "survival_s": 214.4,
+        "weapon_damage": 0.0,
+        "zone_damage": 49.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 2.3000000000000003,
+          "lightning": 5.9
+        },
+        "dealt_hp": {
+          "gun": 883.8
+        },
+        "laser_shots": 1,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": 4.1000000000000005,
+        "decision_count": 2144
+      },
+      {
+        "seed": 2,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 11,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 221.55,
+        "weapon_damage": 1074.0448000000001,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 2.7,
+          "lightning": 13.4
+        },
+        "dealt_hp": {
+          "gun": 1917.9688499999997,
+          "lightning": 386.4
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2216
+      },
+      {
+        "seed": 2,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 11,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 217.15,
+        "weapon_damage": 1397.822239999999,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 2.7,
+          "lightning": 15.200000000000001
+        },
+        "dealt_hp": {
+          "gun": 2457.0,
+          "lightning": 840.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2172
+      },
+      {
+        "seed": 3,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 7,
+        "place": 13,
+        "score": 3,
+        "kills": 1,
+        "survival_s": 16.150000000000002,
+        "weapon_damage": 1417.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 4.4
+        },
+        "dealt_hp": {
+          "gun": 1395.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 162
+      },
+      {
+        "seed": 3,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 7,
+        "place": 13,
+        "score": 3,
+        "kills": 1,
+        "survival_s": 13.600000000000001,
+        "weapon_damage": 1462.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 11.8
+        },
+        "dealt_hp": {
+          "gun": 1170.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 137
+      },
+      {
+        "seed": 3,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 7,
+        "place": 15,
+        "score": 1,
+        "kills": 0,
+        "survival_s": 12.950000000000001,
+        "weapon_damage": 1417.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1035.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 130
+      },
+      {
+        "seed": 4,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 11,
+        "place": 1,
+        "score": 15,
+        "kills": 4,
+        "survival_s": 203.55,
+        "weapon_damage": 2047.6000000000013,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.4000000000000001
+        },
+        "dealt_hp": {
+          "gun": 6374.699999999998,
+          "lightning": 374.4000000000001
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2036
+      },
+      {
+        "seed": 4,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 11,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 265.5,
+        "weapon_damage": 827.9999999999998,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 2.2,
+          "laser": 6.7
+        },
+        "dealt_hp": {
+          "gun": 1152.0,
+          "lightning": 67.2
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2655
+      },
+      {
+        "seed": 4,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 11,
+        "place": 1,
+        "score": 15,
+        "kills": 4,
+        "survival_s": 226.75,
+        "weapon_damage": 1790.7000000000003,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 2.2,
+          "laser": 6.7
+        },
+        "dealt_hp": {
+          "gun": 2356.0739999999987,
+          "lightning": 1152.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2268
+      },
+      {
+        "seed": 5,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 9,
+        "place": 5,
+        "score": 11,
+        "kills": 4,
+        "survival_s": 43.1,
+        "weapon_damage": 1641.6000000000004,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 8.3
+        },
+        "dealt_hp": {
+          "gun": 4436.999999999995
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 432
+      },
+      {
+        "seed": 5,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 9,
+        "place": 11,
+        "score": 5,
+        "kills": 0,
+        "survival_s": 27.5,
+        "weapon_damage": 1615.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1166.3999999999999
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 276
+      },
+      {
+        "seed": 5,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 9,
+        "place": 9,
+        "score": 7,
+        "kills": 1,
+        "survival_s": 27.1,
+        "weapon_damage": 1647.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1433.6999999999994
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 272
+      },
+      {
+        "seed": 6,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 12,
+        "place": 1,
+        "score": 15,
+        "kills": 3,
+        "survival_s": 196.25,
+        "weapon_damage": 1138.3999999999999,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 25.0,
+          "lightning": 83.10000000000001
+        },
+        "dealt_hp": {
+          "gun": 2489.579999999999,
+          "laser": 1753.92,
+          "lightning": 576.0
+        },
+        "laser_shots": 2,
+        "laser_hits": 2,
+        "laser_full_shots": 2,
+        "first_laser_shot_s": 66.3,
+        "decision_count": 1963
+      },
+      {
+        "seed": 6,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 12,
+        "place": 1,
+        "score": 15,
+        "kills": 1,
+        "survival_s": 331.55,
+        "weapon_damage": 1699.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 7.6000000000000005,
+          "lightning": 10.700000000000001
+        },
+        "dealt_hp": {
+          "gun": 1652.400000000001,
+          "lightning": 871.2000000000005
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 3316
+      },
+      {
+        "seed": 6,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 12,
+        "place": 1,
+        "score": 15,
+        "kills": 1,
+        "survival_s": 236.95000000000002,
+        "weapon_damage": 1077.2999999999997,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 7.6000000000000005,
+          "lightning": 10.700000000000001
+        },
+        "dealt_hp": {
+          "gun": 2251.8000000000006,
+          "lightning": 612.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2370
+      },
+      {
+        "seed": 7,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 0,
+        "place": 1,
+        "score": 15,
+        "kills": 4,
+        "survival_s": 220.15,
+        "weapon_damage": 1047.6,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 5.1000000000000005
+        },
+        "dealt_hp": {
+          "gun": 4433.400000000007,
+          "lightning": 1240.8000000000002
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2202
+      },
+      {
+        "seed": 7,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 0,
+        "place": 11,
+        "score": 5,
+        "kills": 1,
+        "survival_s": 26.3,
+        "weapon_damage": 1436.25,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 5.2
+        },
+        "dealt_hp": {
+          "gun": 630.0,
+          "lightning": 600.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 264
+      },
+      {
+        "seed": 7,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 0,
+        "place": 11,
+        "score": 5,
+        "kills": 0,
+        "survival_s": 23.8,
+        "weapon_damage": 1432.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 5.2
+        },
+        "dealt_hp": {
+          "gun": 855.0,
+          "lightning": 240.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 239
+      },
+      {
+        "seed": 8,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 3,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 296.55,
+        "weapon_damage": 1152.576,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 3.7
+        },
+        "dealt_hp": {
+          "gun": 3311.100000000005,
+          "lightning": 62.40000000000009
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2966
+      },
+      {
+        "seed": 8,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 3,
+        "place": 4,
+        "score": 12,
+        "kills": 0,
+        "survival_s": 147.35,
+        "weapon_damage": 0.0,
+        "zone_damage": 1400.25,
+        "zone_death": true,
+        "acquired_s": {},
+        "dealt_hp": {},
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1474
+      },
+      {
+        "seed": 8,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 3,
+        "place": 4,
+        "score": 12,
+        "kills": 0,
+        "survival_s": 147.35,
+        "weapon_damage": 0.0,
+        "zone_damage": 1400.25,
+        "zone_death": true,
+        "acquired_s": {},
+        "dealt_hp": {},
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1474
+      },
+      {
+        "seed": 9,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 3,
+        "place": 1,
+        "score": 15,
+        "kills": 3,
+        "survival_s": 283.15000000000003,
+        "weapon_damage": 1479.600000000001,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 6.0
+        },
+        "dealt_hp": {
+          "gun": 3490.199999999999,
+          "lightning": 1702.8000000000006
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2832
+      },
+      {
+        "seed": 9,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 3,
+        "place": 13,
+        "score": 3,
+        "kills": 0,
+        "survival_s": 14.15,
+        "weapon_damage": 1462.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 540.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 142
+      },
+      {
+        "seed": 9,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 3,
+        "place": 10,
+        "score": 6,
+        "kills": 1,
+        "survival_s": 26.55,
+        "weapon_damage": 1447.1999999999998,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 1530.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 266
+      },
+      {
+        "seed": 10,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 11,
+        "place": 1,
+        "score": 15,
+        "kills": 4,
+        "survival_s": 226.10000000000002,
+        "weapon_damage": 1294.6999999999998,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 2.3000000000000003
+        },
+        "dealt_hp": {
+          "gun": 4916.700000000004,
+          "lightning": 187.20000000000002
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2261
+      },
+      {
+        "seed": 10,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 11,
+        "place": 1,
+        "score": 15,
+        "kills": 4,
+        "survival_s": 261.95,
+        "weapon_damage": 5043.515000000002,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 6.4
+        },
+        "dealt_hp": {
+          "gun": 3974.4,
+          "lightning": 1633.2000000000003
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2620
+      },
+      {
+        "seed": 10,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 11,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 201.9,
+        "weapon_damage": 921.74,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 6.4
+        },
+        "dealt_hp": {
+          "gun": 1231.6500000000003,
+          "lightning": 1075.2
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2019
+      },
+      {
+        "seed": 11,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 2,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 257.25,
+        "weapon_damage": 136.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 0.9
+        },
+        "dealt_hp": {
+          "gun": 2215.7999999999997,
+          "lightning": 660.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2573
+      },
+      {
+        "seed": 11,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 2,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 219.75,
+        "weapon_damage": 352.8,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 0.9
+        },
+        "dealt_hp": {
+          "gun": 1773.0,
+          "lightning": 1080.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2198
+      },
+      {
+        "seed": 11,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 2,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 211.95000000000002,
+        "weapon_damage": 225.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 0.9
+        },
+        "dealt_hp": {
+          "gun": 1525.7250000000001,
+          "lightning": 1332.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2120
+      },
+      {
+        "seed": 12,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 9,
+        "place": 1,
+        "score": 15,
+        "kills": 3,
+        "survival_s": 334.65000000000003,
+        "weapon_damage": 1129.3000000000002,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.9000000000000001
+        },
+        "dealt_hp": {
+          "gun": 4383.0,
+          "lightning": 480.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 3347
+      },
+      {
+        "seed": 12,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 9,
+        "place": 14,
+        "score": 2,
+        "kills": 0,
+        "survival_s": 18.0,
+        "weapon_damage": 1440.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.9000000000000001
+        },
+        "dealt_hp": {
+          "gun": 1350.0,
+          "lightning": 720.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 181
+      },
+      {
+        "seed": 12,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 9,
+        "place": 12,
+        "score": 4,
+        "kills": 1,
+        "survival_s": 20.8,
+        "weapon_damage": 1440.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 1.9000000000000001
+        },
+        "dealt_hp": {
+          "gun": 1620.0,
+          "lightning": 600.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 209
+      },
+      {
+        "seed": 13,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 14,
+        "place": 1,
+        "score": 15,
+        "kills": 3,
+        "survival_s": 328.05,
+        "weapon_damage": 1737.064,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 5.300000000000001
+        },
+        "dealt_hp": {
+          "gun": 3849.2999999999984,
+          "lightning": 332.4
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 3281
+      },
+      {
+        "seed": 13,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 14,
+        "place": 1,
+        "score": 15,
+        "kills": 3,
+        "survival_s": 226.15,
+        "weapon_damage": 2689.1399999999994,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 17.2
+        },
+        "dealt_hp": {
+          "gun": 4192.200000000001,
+          "lightning": 1608.0
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2262
+      },
+      {
+        "seed": 13,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 14,
+        "place": 1,
+        "score": 15,
+        "kills": 3,
+        "survival_s": 264.15000000000003,
+        "weapon_damage": 1846.5000000000007,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 18.400000000000002
+        },
+        "dealt_hp": {
+          "gun": 3998.024999999998,
+          "lightning": 1449.6
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2642
+      },
+      {
+        "seed": 14,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 3,
+        "place": 1,
+        "score": 15,
+        "kills": 4,
+        "survival_s": 149.6,
+        "weapon_damage": 1109.74,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 46.800000000000004
+        },
+        "dealt_hp": {
+          "gun": 4374.990000000002,
+          "lightning": 201.59999999999997
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1496
+      },
+      {
+        "seed": 14,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 3,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 277.65000000000003,
+        "weapon_damage": 1319.3999999999996,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {},
+        "dealt_hp": {
+          "gun": 3504.599999999998
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2777
+      },
+      {
+        "seed": 14,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 3,
+        "place": 1,
+        "score": 15,
+        "kills": 3,
+        "survival_s": 149.6,
+        "weapon_damage": 1237.5,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 44.7
+        },
+        "dealt_hp": {
+          "gun": 2926.800000000001
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1496
+      },
+      {
+        "seed": 15,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 8,
+        "place": 1,
+        "score": 15,
+        "kills": 4,
+        "survival_s": 199.70000000000002,
+        "weapon_damage": 1956.0,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 9.9
+        },
+        "dealt_hp": {
+          "gun": 5312.250000000003,
+          "lightning": 1363.1999999999998
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1997
+      },
+      {
+        "seed": 15,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 8,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 199.35000000000002,
+        "weapon_damage": 1395.2000000000003,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 9.9
+        },
+        "dealt_hp": {
+          "gun": 1370.3400000000001,
+          "lightning": 1087.1999999999998
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 1994
+      },
+      {
+        "seed": 15,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 8,
+        "place": 1,
+        "score": 15,
+        "kills": 3,
+        "survival_s": 267.15000000000003,
+        "weapon_damage": 1662.5800000000008,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 9.9
+        },
+        "dealt_hp": {
+          "gun": 2197.8,
+          "lightning": 505.43999999999994
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2672
+      },
+      {
+        "seed": 16,
+        "arm": "v8",
+        "scenario": "ffa",
+        "slot": 13,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 276.25,
+        "weapon_damage": 429.792,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "laser": 73.10000000000001,
+          "lightning": 229.20000000000002
+        },
+        "dealt_hp": {
+          "gun": 2150.694,
+          "lightning": 927.3599999999997
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2763
+      },
+      {
+        "seed": 16,
+        "arm": "giddy",
+        "scenario": "ffa",
+        "slot": 13,
+        "place": 2,
+        "score": 14,
+        "kills": 0,
+        "survival_s": 325.5,
+        "weapon_damage": 42.0,
+        "zone_damage": 2815.0,
+        "zone_death": true,
+        "acquired_s": {
+          "lightning": 8.9
+        },
+        "dealt_hp": {},
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 3256
+      },
+      {
+        "seed": 16,
+        "arm": "kanyaraasi",
+        "scenario": "ffa",
+        "slot": 13,
+        "place": 1,
+        "score": 15,
+        "kills": 2,
+        "survival_s": 223.05,
+        "weapon_damage": 1140.8000000000002,
+        "zone_damage": 0.0,
+        "zone_death": false,
+        "acquired_s": {
+          "lightning": 8.9
+        },
+        "dealt_hp": {
+          "lightning": 1467.6816000000006,
+          "gun": 1451.898
+        },
+        "laser_shots": 0,
+        "laser_hits": 0,
+        "laser_full_shots": 0,
+        "first_laser_shot_s": null,
+        "decision_count": 2231
+      }
+    ]
+  }
+}

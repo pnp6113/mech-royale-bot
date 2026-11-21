@@ -3,6 +3,18 @@
 Team **Last Mech Standing**: our entry for the **Builders Buildathon 2026, Mech Royale track** (Builders): the AI for one mech in a
 16-mech 3D battle royale on the Ohio State campus. Last mech standing wins.
 
+## Reference benchmark
+
+This experiment branch compares our v8 bot with two public, third-party controllers. The root `Dockerfile` builds our v8 bot. `Dockerfile.reference` builds either attributed controller for benchmarking. Build commands, measured results, and organizer eligibility questions are in [the benchmark handoff](docs/GIDDY_REFERENCE.md).
+
+| Arm | Source | Revision |
+| --- | --- | --- |
+| A | Last Mech Standing v8 | [`7a5737c`](https://github.com/pnp6113/mech-royale-bot/tree/7a5737c64af3ca91756f3429a804cba9c0bc1986) |
+| B | giddygiddyboy, MIT | [`345c0de`](https://github.com/justnau/giddygiddyboy-mech-royale/tree/345c0de2f43f5f27a4ecf74c1c25c789d00fbc49) |
+| C | Team Kanyaraasi, MIT with Giddy attribution | [`24d68e5`](https://github.com/devakchow/team-kanyaraasi-mech-royale/tree/24d68e50ecd1ecb272b614b8a38c509bc8eeee5f) |
+
+The complete pinned source trees are in `reference/`. Their original notices are in [Giddy LICENSE](reference/giddy/LICENSE), [Kanyaraasi LICENSE](reference/kanyaraasi/LICENSE), and [Kanyaraasi third-party notices](reference/kanyaraasi/THIRD_PARTY_LICENSES). Reference images and binary exports retain the applicable notices and Go runtime license under `/licenses`. The branch adds benchmark tooling and packaging. The reference controllers are the upstream teams' work.
+
 > Status: development environment only. The bot is still the official kit's example bot
 > (`example_bot.py`). The competitive bot has not been written yet.
 

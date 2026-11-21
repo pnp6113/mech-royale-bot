@@ -1,0 +1,13 @@
+*
+!Dockerfile
+!go.mod
+!cmd/
+!cmd/bot/
+!cmd/bot/main.go
+!mech/
+!mech/brain.go
+!mech/export.go
+!mech/types.go
+!mech/world.go
+!LICENSE
+!THIRD_PARTY_LICENSES
