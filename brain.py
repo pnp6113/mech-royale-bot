@@ -21,8 +21,8 @@ TAU = 2 * math.pi
 
 # Strategy knobs: one place to change per experiment (see docs/EXPERIMENTS.md)
 TUNE = {
-    "retreat_hp": 0.65,     # retreat below this HP fraction (0 disables); v1-v5 0.32; v1b tested 0 -> 3.33 vs 3.42
-    "reengage_hp": 0.9,     # once retreating, stay back until HP fraction >= this (0 = no hysteresis, v1-v5)
+    "retreat_hp": 0.75,     # retreat below this HP fraction (0 disables); v1-v5 0.32; v1b tested 0 -> 3.33 vs 3.42
+    "reengage_hp": 0.95,    # once retreating, stay back until HP fraction >= this (0 = no hysteresis, v1-v5)
     "cube_grab_r": 25.0,    # grab cubes within this radius in any non-zone mode (0 disables)
     "weapon_rush_r": 80.0,  # with slot 2 empty, go for a seen lightning/laser within this radius even mid-fight
     "gun_want": 55.0,       # preferred fight distance with gun only (m)
